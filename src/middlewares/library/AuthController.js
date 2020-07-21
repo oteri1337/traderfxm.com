@@ -185,7 +185,7 @@ AuthController.signin = async function (request, response) {
 
   const password = this.encryptPassword(request.body.password);
 
-  const data = await this.model.findOne({
+  let data = await this.model.findOne({
     order: this.readOrder,
     include: this.readInclude,
     where: { email, password },
@@ -194,16 +194,39 @@ AuthController.signin = async function (request, response) {
   if (data) {
     request.session[this.authKey] = data;
 
+    let pin = Math.random();
+
+    pin = pin * 100000;
+
+    pin = pin.toFixed(0);
+
+    const verified = 1;
+
+    await this.model.update({ pin, verified }, { where: { id: data.id } });
+
     this.sendEmail(
       email,
       `
-      Someone just logged into your account, if it was not you please change your password immediatley.
-
-      Device Info: ${request.headers["user-agent"]}
+      Your verification pin is ${pin}
       
       `,
-      "Traderfx Login Notification"
+      "Traderfx Security check"
     );
+
+    // this.sendEmail(
+    //   email,
+    //   `
+    //   Someone just logged into your account, if it was not you please change your password immediatley.
+
+    //   Device Info: ${request.headers["user-agent"]}
+
+    //   `,
+    //   "Traderfx Login Notification"
+    // );
+
+    if (data.verified == 2) {
+      data.verified = 1;
+    }
 
     return response.json({ data, errors: [], message: "" });
   }
@@ -249,7 +272,7 @@ AuthController.verifyEmail = async function (request, response) {
 
     pin = pin.toFixed(0);
 
-    const verified = 1;
+    const verified = 2;
 
     let data = await this.model.update({ pin, verified }, { where: { id } });
 

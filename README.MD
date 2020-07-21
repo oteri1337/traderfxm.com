@@ -1,12 +1,16 @@
 # TASKS
 
-0 traderfx background image
+0 responsive table for buy, sell and order page
 
-1 two factor auth 
- 
-2 test and perfect shop buying
+1 test and perfect crypto sell
 
-3 test and perfect crypto buy and sell
+2 test and perfect sending of crypto
+
+3 test and perfect crypto buy
+
+4 test and perfect shop buy
+
+5 configure pwa status bar ios
 
 
 # WALLET GENERATION

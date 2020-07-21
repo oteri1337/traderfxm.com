@@ -11,6 +11,8 @@ router.post("/transactions/sell", V.create, V.sell, Controller.createSell);
 
 router.patch("/transactions/confirm/buy", Controller.confirmBuy);
 
+router.patch("/transactions/confirm/sell", Controller.confirmSell);
+
 router.patch("/transactions/complete", P.admin, Controller.complete);
 
 router.get("/transactions", Controller.list);

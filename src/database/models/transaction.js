@@ -5,13 +5,41 @@ module.exports = (sequelize, DataTypes) => {
   const transaction = sequelize.define(
     "transaction",
     {
-      reference: {
-        type: DataTypes.STRING,
-        unique: true,
-      },
       status: {
         type: DataTypes.INTEGER,
         defaultValue: 1,
+      },
+      amount_in_crypto: {
+        type: DataTypes.FLOAT(11, 8),
+        defaultValue: 0,
+      },
+      amount_in_ngn: {
+        type: DataTypes.FLOAT(11, 2),
+        defaultValue: 0,
+      },
+      address: {
+        type: DataTypes.STRING,
+        allowNull: false,
+      },
+      bank_name: {
+        type: DataTypes.STRING,
+        allowNull: true,
+      },
+      account_number: {
+        type: DataTypes.STRING,
+        allowNull: true,
+      },
+      account_name: {
+        type: DataTypes.STRING,
+        allowNull: true,
+      },
+      phone_number: {
+        type: DataTypes.STRING,
+        allowNull: false,
+      },
+      email: {
+        type: DataTypes.STRING,
+        allowNull: true,
       },
       type: {
         type: DataTypes.INTEGER,
@@ -25,41 +53,13 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.FLOAT,
         defaultValue: 0,
       },
-      amount_in_crypto: {
-        type: DataTypes.FLOAT(11, 8),
-        defaultValue: 0,
-      },
       amount_in_usd: {
         type: DataTypes.FLOAT(11, 2),
         defaultValue: 0,
       },
-      amount_in_ngn: {
-        type: DataTypes.FLOAT(11, 2),
-        defaultValue: 0,
-      },
-      address: {
+      reference: {
         type: DataTypes.STRING,
-        allowNull: false,
-      },
-      email: {
-        type: DataTypes.STRING,
-        allowNull: true,
-      },
-      phone_number: {
-        type: DataTypes.STRING,
-        allowNull: false,
-      },
-      bank_name: {
-        type: DataTypes.STRING,
-        allowNull: true,
-      },
-      account_name: {
-        type: DataTypes.STRING,
-        allowNull: true,
-      },
-      account_number: {
-        type: DataTypes.STRING,
-        allowNull: true,
+        unique: true,
       },
       user_id: {
         type: DataTypes.INTEGER,

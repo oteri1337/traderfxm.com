@@ -123,6 +123,7 @@
   h1 {
     padding: 1rem;
     padding-left: 0;
+    padding-bottom: 0;
   }
 
   .app-flex-vh {

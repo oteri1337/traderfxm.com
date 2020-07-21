@@ -10,8 +10,18 @@ function UserRoute(props) {
     return <Redirect to="/signin.html" />;
   }
 
-  if (user.verified < 1) {
+  if (user.verified == 0) {
     let verPath = "/user/auth/verifyemail.html";
+
+    if (props.path == verPath) {
+      return <Route {...props} />;
+    }
+
+    return <Redirect to={verPath} />;
+  }
+
+  if (user.verified == 1) {
+    let verPath = "/user/auth/code.html";
 
     if (props.path == verPath) {
       return <Route {...props} />;

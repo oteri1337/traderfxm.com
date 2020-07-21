@@ -21,8 +21,6 @@ function UsdtBalanceComponent() {
       let response = await fetch(url);
       response = await response.json();
 
-      console.log("er", response);
-
       url = `https://api.etherscan.io/api?module=account&action=tokentx&address=${usdt_address}&startblock=0&endblock=999999999&sort=desc&apikey=QHC5B5ZS434HK6UFH26KS39DWG5E8RAT76`;
       let transResponse = await fetch(url);
       transResponse = await transResponse.json();
@@ -65,14 +63,6 @@ function UsdtBalanceComponent() {
     <div>
       <ul className="collection">
         <li className="collection-item center" style={style}>
-          {/* {fetching && (
-            <div style={{ marginLeft: "2rem", marginRight: "2rem" }}>
-              <div className="progress">
-                <div className="indeterminate"></div>
-              </div>
-            </div>
-          )} */}
-
           <p className="icon icon-usdt" style={iconStyle} />
           {fetching ? (
             <p>

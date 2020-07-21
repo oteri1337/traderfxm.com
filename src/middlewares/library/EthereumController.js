@@ -336,6 +336,12 @@ EthereumController.createPayment = async function (path) {
   return { address, path };
 };
 
+EthereumController.createPaymentAddress = function (path) {
+  let instance = hdkey.fromExtendedKey(process.env.ETHEREUM_XPUB);
+  instance = instance.deriveChild(0).deriveChild(path);
+  return "0x" + instance.getWallet().getAddress().toString("hex");
+};
+
 EthereumController.getUsdRate = async function () {
   try {
     let response = await fetch(

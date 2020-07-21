@@ -16,10 +16,7 @@ function TourSideNavComponent() {
       <li>
         <div className="user-view">
           <div className="background">
-            <img
-              src={Logo}
-              style={{ paddingTop: "3.5rem", paddingLeft: "1rem" }}
-            />
+            <img src={Logo} style={{ paddingLeft: "1rem" }} />
           </div>
         </div>
       </li>

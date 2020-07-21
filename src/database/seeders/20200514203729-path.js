@@ -17,6 +17,12 @@ module.exports = {
           createdAt: new Date(),
           updatedAt: new Date(),
         },
+        {
+          last_path: 1,
+          cryptoId: 3,
+          createdAt: new Date(),
+          updatedAt: new Date(),
+        },
       ],
       {}
     );

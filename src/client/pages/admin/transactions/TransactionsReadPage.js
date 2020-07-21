@@ -25,14 +25,6 @@ function TransactionsReadPage({ location, match }) {
 
   const data = formatTransaction(oldDta);
 
-  let title = "";
-
-  if (oldDta.status == 1) {
-    title = `Pending Transaction ${data.amount_in_ngn}`;
-  } else {
-    title = `Send ${data.amount_in_crypto} to ${data.reference}`;
-  }
-
   const nav = [
     {
       label: "Control Panel",
@@ -43,7 +35,7 @@ function TransactionsReadPage({ location, match }) {
       link: "/control/transactions/list.html",
     },
     {
-      label: title,
+      label: `${data.type} ${data.amount_in_crypto} For ${data.amount_in_ngn}`,
     },
   ];
 
@@ -61,9 +53,46 @@ function TransactionsReadPage({ location, match }) {
     });
   };
 
+  const renderMessage = () => {
+    if (oldDta.type == 2) {
+      return (
+        <div>
+          <p>
+            Please send {data.amount_in_ngn} to {oldDta.bank_name}{" "}
+            {oldDta.account_number} {oldDta.account_name}
+          </p>{" "}
+          Then click on COMPLETE TRANSACTION
+        </div>
+      );
+    }
+    if (oldDta.type == 1) {
+      return (
+        <div>
+          <p>
+            Please send {data.amount_in_crypto} to {oldDta.address}
+          </p>{" "}
+          Then click on COMPLETE TRANSACTION
+        </div>
+      );
+    }
+  };
+
   const renderCompleteButton = () => {
     if (oldDta.status == 2) {
-      return <CompleteTransactionComponent id={oldDta.id} />;
+      return (
+        <div>
+          {renderMessage()}
+          <CompleteTransactionComponent id={oldDta.id} />
+        </div>
+      );
+    }
+
+    if (oldDta.type == 2) {
+      return (
+        <p>
+          Please standy to recieve {data.amount_in_crypto} via {oldDta.address}
+        </p>
+      );
     }
   };
 
@@ -71,10 +100,8 @@ function TransactionsReadPage({ location, match }) {
     <AdminContainerComponent bread={nav}>
       <div className="card-panel">
         <div className="row">
-          <div className="col l3 s12">
-            <center>{renderCompleteButton()}</center>
-          </div>
-          <div className="col l9 s12">
+          <div className="col l5 s12">{renderCompleteButton()}</div>
+          <div className="col l7 s12">
             <table className="striped">
               <tbody>{renderRow()}</tbody>
             </table>

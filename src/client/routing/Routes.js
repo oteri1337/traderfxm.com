@@ -9,6 +9,10 @@ import GuestAdminRoute from "./GuestAdminRoute";
 import HomePage from "../pages/tour/HomePage";
 import ErrorPage from "../pages/tour/ErrorPage";
 
+import ExchangeBuyPage from "../pages/transactions/TransactionsBuyPage";
+import ExchangeSellPage from "../pages/transactions/TransactionsSellPage";
+import ExchangeReadPage from "../pages/transactions/TransactionsReadPage";
+
 import CartPage from "../pages/shop/CartPage";
 import ProductsListPage from "../pages/shop/ProductsListPage";
 import ProductsReadPage from "../pages/shop/ProductsReadPage";
@@ -20,6 +24,14 @@ import CategoryReadPage from "../pages/shop/CategoryReadPage";
 import SignInPage from "../pages/tour/auth/SignInPage";
 import SignUpPage from "../pages/tour/auth/SignUpPage";
 import PasswordPage from "../pages/tour/auth/PasswordPage";
+
+import UserHomePage from "../pages/user/UserHomePage";
+import AuthCodePage from "../pages/user/auth/CodePage";
+import AccountPage from "../pages/user/auth/AccountPage";
+import ProfilePage from "../pages/user/auth/ProfilePage";
+import VerifyEmailPage from "../pages/user/auth/VerifyEmailPage";
+import UpdatePasswordPage from "../pages/user/auth/PasswordPage";
+import UpdateProfilePage from "../pages/user/auth/UpdateProfilePage";
 
 import AdminOrdersListPage from "../pages/admin/orders/OrdersListPage";
 import AdminOrdersReadPage from "../pages/admin/orders/OrdersReadPage";
@@ -42,13 +54,6 @@ import ProductGroupsListPage from "../pages/admin/products/groups/ProductGroupsL
 import ProductGroupsCreatePage from "../pages/admin/products/groups/ProductGroupsCreatePage";
 import ProductGroupsUpdatePage from "../pages/admin/products/groups/ProductGroupsUpdatePage";
 
-import UserHomePage from "../pages/user/UserHomePage";
-import VerifyEmailPage from "../pages/user/auth/VerifyEmailPage";
-import AccountPage from "../pages/user/auth/AccountPage";
-import ProfilePage from "../pages/user/auth/ProfilePage";
-import UpdatePasswordPage from "../pages/user/auth/PasswordPage";
-import UpdateProfilePage from "../pages/user/auth/UpdateProfilePage";
-
 import WalletListPage from "../pages/user/wallet/WalletListPage";
 
 import BtcListPage from "../pages/user/wallet/btc/BtcListPage";
@@ -65,10 +70,6 @@ import UsdtCreatePage from "../pages/user/wallet/usdt/UsdtCreatePage";
 
 import ReferralsListPage from "../pages/user/referrals/ReferralsListPage";
 import TransactionsListPage from "../pages/user/wallet/TransactionsListPage";
-
-import ExchangeBuyPage from "../pages/transactions/TransactionsBuyPage";
-import ExchangeSellPage from "../pages/transactions/TransactionsSellPage";
-import ExchangeReadPage from "../pages/transactions/TransactionsReadPage";
 
 import AdminHomePage from "../pages/admin/AdminHomePage";
 import AdminSigninPage from "../pages/admin/AdminSignInPage";
@@ -107,9 +108,9 @@ function Routes() {
         <GuestRoute exact path="/password.html" component={PasswordPage} />
 
 
-
         <UserRoute exact path="/user/index.html" component={UserHomePage} />
         <UserRoute exact path="/user/auth/account.html" component={AccountPage} />
+        <UserRoute exact path="/user/auth/code.html" component={AuthCodePage} />
         <UserRoute exact path="/user/auth/profile.html" component={ProfilePage} />
         <UserRoute exact path="/user/auth/verifyemail.html" component={VerifyEmailPage} />
         <UserRoute exact path="/user/auth/password.html" component={UpdatePasswordPage} />

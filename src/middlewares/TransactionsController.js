@@ -26,8 +26,6 @@ async function getSellRate(amount) {
 
   ratesList = JSON.parse(JSON.stringify(ratesList));
 
-  console.log(ratesList);
-
   const { rate } = ratesList.find((rate) => {
     return (
       (amount <= rate.upper_limit || rate.upper_limit === null) &&
@@ -110,13 +108,25 @@ Controller.createSell = async (request, response) => {
 
   // get path and address from db
 
+  let address = "";
+
   let price = body.crypto_price;
 
   let pathFromDb = await pathModel.findOne({ where: { cryptoId } });
 
   let path = pathFromDb.dataValues.last_path + 1;
 
-  let address = BitcoinController.createPaymentAddress(path);
+  if (cryptoId == 1) {
+    address = BitcoinController.createPaymentAddress(path);
+  }
+
+  if (cryptoId == 2) {
+    address = EthereumController.createPaymentAddress(path);
+  }
+
+  if (cryptoId == 3) {
+    address = EthereumController.createPaymentAddress(path);
+  }
 
   // get free path and address from api
 
@@ -215,7 +225,94 @@ Controller.confirmBuy = async function (request, response) {
   });
 };
 
-Controller.confirmSell = async function (request, response) {};
+Controller.confirmSell = async function (request, response) {
+  const { reference } = request.body;
+
+  if (reference === undefined) {
+    return response.json({
+      errors: ["reference is required"],
+      mesage: "",
+      data: {},
+    });
+  }
+
+  let data = await this.model.findOne({ where: { reference } });
+
+  if (!data) {
+    return response.json({
+      errors: ["transaction not found"],
+      mesage: "",
+      data: {},
+    });
+  }
+
+  // check if paid
+  let status = 1;
+  const { cryptoId, address, amount_in_crypto } = data.dataValues;
+
+  if (cryptoId == 1) {
+    const url = `https://insight.bitpay.com/api/addr/${address}`;
+    let response = await fetch(url);
+    response = await response.json();
+    if (response.totalReceived >= amount_in_crypto) {
+      status = 2;
+    }
+  }
+
+  if (cryptoId == 2) {
+    const url = `https://api.etherscan.io/api?module=account&action=balance&address=${address}&tag=latest&apikey=QHC5B5ZS434HK6UFH26KS39DWG5E8RAT76`;
+    let response = await fetch(url);
+    response = await response.json();
+    response = response.result / 1e18;
+    if (response >= amount_in_crypto) {
+      status = 2;
+    }
+  }
+
+  if (cryptoId == 3) {
+    const url = `https://api.etherscan.io/api?module=account&action=tokenbalance&contractaddress=0xdac17f958d2ee523a2206206994597c13d831ec7&address=${address}&tag=latest&apikey=QHC5B5ZS434HK6UFH26KS39DWG5E8RAT76`;
+    let response = await fetch(url);
+    response = await response.json();
+    response = response.result / 1e6;
+    if (response >= amount_in_crypto) {
+      status = 2;
+    }
+  }
+
+  if (status == 2) {
+    await this.model.update({ status }, { where: { reference } });
+    data = await this.model.findOne({ where: { reference } });
+
+    this.sendEmail(
+      "info@traderfxm.com",
+      `
+      You just recieved a crypo payment to this address = ${address} 
+
+      Crypto Id : ${cryptoId}
+
+      Amount: ${amount_in_crypto}
+
+      Please confirm the payment, then complete the transaction
+
+      `,
+      "Traderfx Crypto Payment Recieved"
+    );
+  }
+
+  if (status == 1) {
+    return response.json({
+      errors: ["payment not recieved or incomplete"],
+      mesage: "",
+      data,
+    });
+  }
+
+  return response.json({
+    errors: [],
+    mesage: "",
+    data,
+  });
+};
 
 Controller.complete = async function (request, response) {
   const { id } = request.body;

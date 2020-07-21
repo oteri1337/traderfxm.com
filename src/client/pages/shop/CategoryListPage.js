@@ -13,10 +13,6 @@ function CategoryListPage() {
 
   const nav = [
     {
-      label: "Shop",
-      link: "/shop/products.html",
-    },
-    {
       label: "Categories",
     },
   ];

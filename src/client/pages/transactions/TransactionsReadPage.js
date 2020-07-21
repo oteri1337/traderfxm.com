@@ -1,16 +1,13 @@
 import React from "react";
-import { AppContext } from "providers/AppProvider";
 import { formatTransaction } from "functions/data";
 import { getRequest } from "functions/http";
 import TableComponent from "components/TableComponent";
 import BuyPayComponent from "./components/BuyPayComponent";
 import SellPayComponent from "./components/SellPayComponent";
 import TourContainerComponent from "components/container/TourContainerComponent";
-// import UserContainerComponent from "components/container/UserContainerComponent";
 
 function TransactionsReadPage({ match }) {
   const { reference } = match.params;
-  const { state } = React.useContext(AppContext);
   const [rawData, setRaw] = React.useState(false);
 
   React.useEffect(() => {
@@ -21,13 +18,6 @@ function TransactionsReadPage({ match }) {
       }
     })();
   }, []);
-
-  //console.log(rawData);
-
-  // const url = `/api/transactions/${reference}`;
-  // const { state } = getRequestThenDispatch(url, "UPDATE_TRANSACTION");
-
-  // const rawData = state.transactions.object[reference];
 
   if (!rawData) {
     return (
@@ -79,10 +69,10 @@ function TransactionsReadPage({ match }) {
             <b>done</b>
           </h1>
           <p>Your payment has been received</p>
-          <p>You will receive {data.expected_cash_ngn}</p>
+          <p>You will receive {data.amount_in_ngn}</p>
           <p>
-            via {data.bank_name}
-            {data.account_number} {data.account_name} shortly.
+            via {data.bank_name} {data.account_number} {data.account_name}{" "}
+            shortly.
           </p>
         </center>
       );
@@ -98,33 +88,6 @@ function TransactionsReadPage({ match }) {
       );
     }
   };
-
-  // if (state.user) {
-  //   nav = [
-  //     {
-  //       label: "Transactions",
-  //       link: "/transactions/list.html",
-  //     },
-  //     {
-  //       label: `${data.type} ${data.amount_in_crypto}`,
-  //     },
-  //   ];
-
-  //   return (
-  //     <UserContainerComponent bread={nav}>
-  //       <div className="container app-mt-1">
-  //         <div className="card-panel">
-  //           <div className="row">
-  //             <div className="col l5 s12">{renderStep()}</div>
-  //             <div className="col l7 s12">
-  //               <TableComponent {...{ data }} />
-  //             </div>
-  //           </div>
-  //         </div>
-  //       </div>
-  //     </UserContainerComponent>
-  //   );
-  // }
 
   return (
     <TourContainerComponent bread={nav}>

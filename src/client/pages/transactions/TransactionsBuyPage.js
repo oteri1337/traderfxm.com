@@ -140,6 +140,7 @@ function BuyFormPage({ history, location }) {
     },
     {
       id: "phone_number",
+      type: "number",
     },
     {
       id: "email",
@@ -160,68 +161,70 @@ function BuyFormPage({ history, location }) {
   return (
     <Container bread={nav}>
       <div className="container">
-        <div className="row">
-          <div className="col l6 s12 offset-l3 center app-px-1">
-            <div className="card-panel app-my-2">
-              <table className="striped">
-                <tbody>
-                  <tr>
-                    <td style={{ textAlign: "center" }}>
-                      <span
-                        className="icon icon-btc"
-                        style={{ fontSize: "20px" }}
-                      ></span>
-                    </td>
-                    <td style={{ textAlign: "center" }}>
-                      ${state.prices.bitcoin.usd}
-                    </td>
-                    <td style={{ textAlign: "center" }}>
-                      {format("NGN", state.prices.bitcoin.usd * 360)}
-                    </td>
-                  </tr>
-                  <tr>
-                    <td style={{ textAlign: "center" }}>
-                      <span
-                        className="icon icon-eth"
-                        style={{ fontSize: "20px" }}
-                      ></span>
-                    </td>
-                    <td style={{ textAlign: "center" }}>
-                      ${state.prices.ethereum.usd}
-                    </td>
-                    <td style={{ textAlign: "center" }}>
-                      {format("NGN", state.prices.ethereum.usd * 360)}
-                    </td>
-                  </tr>
-                  <tr>
-                    <td style={{ textAlign: "center" }}>
-                      <span
-                        className="icon icon-usdt"
-                        style={{ fontSize: "20px" }}
-                      ></span>
-                    </td>
-                    <td style={{ textAlign: "center" }}>
-                      ${state.prices.tether.usd.toString().slice(0, 4)}
-                    </td>
-                    <td style={{ textAlign: "center" }}>
-                      {format("NGN", state.prices.tether.usd * 360)}
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-              <br />
-              <FormComponent
-                {...{
-                  formArray,
-                  initialState,
-                  text,
-                  fetching,
-                  errors,
-                  message,
-                  onSubmit,
-                  onChangeCallBack,
-                }}
-              />
+        <div className="row app-my-3">
+          <div className="col s12 m12 l6 offset-l3">
+            <div className="card-panel">
+              <center>
+                <table className="striped">
+                  <tbody>
+                    <tr>
+                      <td style={{ textAlign: "center" }}>
+                        <span
+                          className="icon icon-btc"
+                          style={{ fontSize: "20px" }}
+                        ></span>
+                      </td>
+                      <td style={{ textAlign: "center" }}>
+                        ${state.prices.bitcoin.usd}
+                      </td>
+                      <td style={{ textAlign: "center" }}>
+                        {format("NGN", state.prices.bitcoin.usd * 360)}
+                      </td>
+                    </tr>
+                    <tr>
+                      <td style={{ textAlign: "center" }}>
+                        <span
+                          className="icon icon-eth"
+                          style={{ fontSize: "20px" }}
+                        ></span>
+                      </td>
+                      <td style={{ textAlign: "center" }}>
+                        ${state.prices.ethereum.usd}
+                      </td>
+                      <td style={{ textAlign: "center" }}>
+                        {format("NGN", state.prices.ethereum.usd * 360)}
+                      </td>
+                    </tr>
+                    <tr>
+                      <td style={{ textAlign: "center" }}>
+                        <span
+                          className="icon icon-usdt"
+                          style={{ fontSize: "20px" }}
+                        ></span>
+                      </td>
+                      <td style={{ textAlign: "center" }}>
+                        ${state.prices.tether.usd.toString().slice(0, 4)}
+                      </td>
+                      <td style={{ textAlign: "center" }}>
+                        {format("NGN", state.prices.tether.usd * 360)}
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+                <br />
+                <FormComponent
+                  {...{
+                    formArray,
+                    initialState,
+                    text,
+                    fetching,
+                    errors,
+                    message,
+                    onSubmit,
+                    onChangeCallBack,
+                  }}
+                />
+              </center>
             </div>
           </div>
         </div>

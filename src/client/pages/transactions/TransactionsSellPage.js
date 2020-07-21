@@ -61,7 +61,7 @@ function SellFormPage({ history, location }) {
   const [rate, setRate] = React.useState(dollar_rate.rate);
   const [cash, setCash] = React.useState(0);
   const [worth, setWorth] = React.useState(0);
-  const [currency, setCurrency] = React.useState("BTC");
+  const [currency, setCurrency] = React.useState(initialCurrency);
   const [amount, setAmount] = React.useState(0);
 
   let name = "bitcoin";
@@ -172,7 +172,7 @@ function SellFormPage({ history, location }) {
     },
     {
       id: "phone_number",
-      type: "tel",
+      type: "number",
     },
     {
       id: "email",
@@ -193,23 +193,25 @@ function SellFormPage({ history, location }) {
   return (
     <Container bread={nav}>
       <div className="container">
-        <div className="row">
-          <div className="col l6 s12 offset-l3 center app-py-3">
-            <div className="card-panel app-my-2">
-              <p>OUR RATES</p>
-              <SellRatesComponent />
-              <FormComponent
-                {...{
-                  formArray,
-                  initialState,
-                  text,
-                  fetching,
-                  errors,
-                  message,
-                  onSubmit,
-                  onChangeCallBack,
-                }}
-              />
+        <div className="row app-my-3">
+          <div className="col s12 m12 l6 offset-l3">
+            <div className="card-panel ">
+              <center>
+                <p>OUR RATES</p>
+                <SellRatesComponent />
+                <FormComponent
+                  {...{
+                    formArray,
+                    initialState,
+                    text,
+                    fetching,
+                    errors,
+                    message,
+                    onSubmit,
+                    onChangeCallBack,
+                  }}
+                />
+              </center>
             </div>
           </div>
         </div>

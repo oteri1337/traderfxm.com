@@ -27,16 +27,18 @@ function TransactionsListPage() {
     const formatted = formatTransaction(props);
     const pathname = `/control/transactions/${props.reference}`;
 
-    if (props.status == 1) {
-      return (
-        <li key={props.id} className="collection-item">
-          <Link to={{ pathname, props }}>
-            <b>Pending Transaction {formatted.amount_in_ngn}</b>
-          </Link>
-          <p>{formatted.status}</p>
-        </li>
-      );
-    }
+    return (
+      <li key={props.id} className="collection-item">
+        <Link to={{ pathname, props }}>
+          <b>
+            {formatted.type} {formatted.amount_in_crypto} For{" "}
+            {formatted.amount_in_ngn}
+          </b>
+        </Link>
+        <br />
+        {formatted.status}
+      </li>
+    );
 
     if (formatted.type == "SELL") {
       return (

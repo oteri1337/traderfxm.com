@@ -5,8 +5,11 @@ body {
   top: 0px !important;
   max-width: 1400px;
   margin: 0 auto;
-  /* font-family: "Montserrat"; */
   font-family: "Signika Negative";
+}
+
+.card-panel {
+  padding: 18px;
 }
 
 .input-field input[type="search"] ~ .mdi-navigation-close,

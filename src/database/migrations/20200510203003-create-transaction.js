@@ -8,13 +8,45 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER,
       },
-      reference: {
-        type: Sequelize.STRING,
-        unique: true,
-      },
       status: {
         type: Sequelize.INTEGER,
         defaultValue: 1,
+      },
+      amount_in_crypto: {
+        defaultValue: 0,
+        type: Sequelize.FLOAT(11, 8),
+      },
+      amount_in_ngn: {
+        defaultValue: 0,
+        type: Sequelize.FLOAT(11, 2),
+      },
+      address: {
+        type: Sequelize.STRING,
+        allowNull: false,
+      },
+      bank_name: {
+        type: Sequelize.STRING,
+        allowNull: true,
+      },
+      account_number: {
+        type: Sequelize.STRING,
+        allowNull: true,
+      },
+      account_name: {
+        type: Sequelize.STRING,
+        allowNull: true,
+      },
+      phone_number: {
+        type: Sequelize.STRING,
+        allowNull: false,
+      },
+      email: {
+        type: Sequelize.STRING,
+        allowNull: true,
+      },
+      reference: {
+        type: Sequelize.STRING,
+        unique: true,
       },
       type: {
         type: Sequelize.INTEGER,
@@ -28,41 +60,9 @@ module.exports = {
         type: Sequelize.FLOAT,
         defaultValue: 0,
       },
-      amount_in_crypto: {
-        defaultValue: 0,
-        type: Sequelize.FLOAT(11, 8),
-      },
       amount_in_usd: {
         defaultValue: 0,
         type: Sequelize.FLOAT(11, 2),
-      },
-      amount_in_ngn: {
-        defaultValue: 0,
-        type: Sequelize.FLOAT(11, 2),
-      },
-      address: {
-        type: Sequelize.STRING,
-        allowNull: false,
-      },
-      email: {
-        type: Sequelize.STRING,
-        allowNull: true,
-      },
-      phone_number: {
-        type: Sequelize.STRING,
-        allowNull: false,
-      },
-      bank_name: {
-        type: Sequelize.STRING,
-        allowNull: true,
-      },
-      account_name: {
-        type: Sequelize.STRING,
-        allowNull: true,
-      },
-      account_number: {
-        type: Sequelize.STRING,
-        allowNull: true,
       },
       cryptoId: {
         type: Sequelize.INTEGER,

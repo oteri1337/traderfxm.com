@@ -65,10 +65,6 @@ function HomePage() {
 
   const nav = [
     {
-      label: "Shop",
-      link: "/shop/products.html",
-    },
-    {
       label: "All Products",
     },
   ];

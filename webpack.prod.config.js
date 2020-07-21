@@ -28,8 +28,7 @@ const entryOne = {
       output: "/assets/pwa/",
       config: {
         appName: process.env.PWA_NAME,
-        version: process.env.PWA_VERSION,
-        start_url: process.env.PWA_START_URL,
+        start_url: "/signin.html",
         display: "standalone",
         orientation: "portrait",
         background: "#fff",
