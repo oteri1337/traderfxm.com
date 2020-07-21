@@ -1,0 +1,11 @@
+ETHEREUM
+1 - derive address from extended public key ==> done
+2 - read usd rate ==> done
+4 - read total recieved https://api.blockcypher.com/v1/eth/main/addrs/0x2CfE02245796295ebEFaB41f4D6a00C75cE3A6Fc/balance
+
+ETHEREUM PHASE 2
+4 - create extended keys
+5 - derive private key from extended private key ==> half
+6 - read balance
+7 - read transactions
+8 - send crypto

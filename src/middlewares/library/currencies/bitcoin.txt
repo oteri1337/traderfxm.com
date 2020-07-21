@@ -1,0 +1,12 @@
+BITCOIN
+1 - derive address from extended public key ==> done
+2 - read usd rate ==> done
+4 - read total recieved ==> done
+
+
+BITCOIN PHASE 2
+4 - create extended keys ==> done
+5 - derive private key from extended private key ==> done
+6 - read balance ==> done
+7 - read transactions ==> half
+8 - send crypto ==> half

@@ -1,0 +1,10 @@
+{
+  "test": {},
+  "production": {
+    "ssl": true,
+    "dialectOptions": {
+      "ssl": true
+    }
+  },
+  "development": {}
+}
