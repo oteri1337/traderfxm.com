@@ -1,5 +1,7 @@
 # TASKS
 
+0 traderfx background image
+
 1 two factor auth 
  
 2 test and perfect shop buying
