@@ -6,7 +6,6 @@
 
 3 test and perfect crypto buy and sell
 
-4 clean up git history
 
 # WALLET GENERATION
 
