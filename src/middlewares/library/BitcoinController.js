@@ -3,6 +3,7 @@ const bip39 = require("bip39");
 const bitcore = require("bitcore-lib");
 const fetch = require("isomorphic-fetch");
 var validate = require("bitcoin-address-validation");
+const { response } = require("express");
 
 const BitcoinController = {};
 
@@ -26,26 +27,6 @@ BitcoinController.validate = function (address) {
   return false;
 };
 
-BitcoinController.createPayment = async function (path) {
-  const { publicKey } = bitcore
-    .HDPublicKey(process.env.BITCOIN_XPUB)
-    .derive(0)
-    .derive(path);
-  const address = publicKey.toAddress().toString();
-
-  console.log("deriving with ", path, " ", address);
-
-  const url = `https://api.smartbit.com.au/v1/blockchain/address/${address}`;
-  let response = await fetch(url);
-  response = await response.json();
-
-  if (response.address.total.received_int > 0) {
-    return BitcoinController.createPayment(path + 1);
-  }
-
-  return { address, path };
-};
-
 BitcoinController.createPaymentAddress = function (path) {
   const { publicKey } = bitcore
     .HDPublicKey(process.env.BITCOIN_XPUB)
@@ -55,68 +36,50 @@ BitcoinController.createPaymentAddress = function (path) {
   return address;
 };
 
-BitcoinController.getUsdRate = async function () {
-  try {
-    let response = await fetch(
-      "https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=usd"
-    );
-    response = await response.json();
-    return response.bitcoin.usd;
-  } catch (error) {
-    console.log(error);
-    return -1;
+BitcoinController.createPayment = async function (path) {
+  const address = BitcoinController.createPaymentAddress(path);
+
+  console.log("deriving with ", path, " ", address);
+
+  const url = `https://insight.bitpay.com/api/addr/${address}/totalReceived`;
+  let response = await fetch(url);
+  response = await response.json();
+
+  console.log(response);
+  console.log(" ");
+
+  if (response > 0) {
+    return BitcoinController.createPayment(path + 1);
   }
+
+  return { address, path };
 };
 
 BitcoinController.getUnspent = async function (address, sats) {
-  // let url = `https://api.cryptoapis.io/v1/bc/btc/${network}/address/${address}/unspent-transactions`;
-
-  // let response = await fetch(url, {
-  //   headers: {
-  //     "Content-Type": "application/json",
-  //     "X-API-Key": "2a8b24f26842601aa183172d38d919ca20657547",
-  //   },
-  // });
-
-  // response = await response.json();
-
-  // return response.payload;
+  console.log("fetching unspent");
 
   try {
-    let url = `https://api.smartbit.com.au/v1/blockchain/address/${address}/unspent`;
-    if (network === "testnet") {
-      url = `https://testnet-api.smartbit.com.au/v1/blockchain/address/${address}/unspent`;
-    }
-    console.log("fetching unspent");
+    let url = `https://insight.bitpay.com/api/addr/${address}/utxo`;
     let response = await fetch(url);
-
     response = await response.json();
 
     let unspent_sats = 0;
     let unspent = [];
-    let item;
+    // let item;
 
-    for (let i = 0; i < response.unspent.length; i++) {
-      item = response.unspent[i];
+    for (let i = 0; i < response.length; i++) {
+      // item = response[i];
 
       if (unspent_sats <= sats) {
-        unspent.push({
-          address,
-          txid: item.txid,
-          vout: item.n,
-          scriptPubKey: item.script_pub_key.hex,
-          amount: item.value,
-          satoshis: item.value_int,
-          confirmations: item.confirmations,
-        });
+        unspent.push(response[i]);
 
-        unspent_sats += item.value_int;
+        unspent_sats += response[i].satoshis;
       } else {
         break;
       }
     }
 
-    console.log("returned outputs", response.unspent.length);
+    console.log("returned outputs", response.length);
     console.log("used outputs", unspent.length);
 
     return unspent;
@@ -134,30 +97,31 @@ BitcoinController.getUnspent = async function (address, sats) {
 };
 
 BitcoinController.broadcast = async function (hex) {
-  console.log(" ");
-  console.log("broadcating transaction");
+  if (hex === undefined) {
+    return { errors: ["transaction hex is required"], data: {}, message: "" };
+  }
+
+  console.log("broadcating transaction ");
+  const body = JSON.stringify({ rawtx: hex });
+  console.log("body", body);
+
   try {
-    let url = "https://api.smartbit.com.au/v1/blockchain/pushtx";
-    if (network == "testnet") {
-      url = "https://testnet-api.smartbit.com.au/v1/blockchain/pushtx";
-    }
+    let url = "https://insight.bitpay.com/api/tx/send";
     let response = await fetch(url, {
+      headers: {
+        "Content-type": "application/json",
+      },
       method: "POST",
-      body: JSON.stringify({ hex }),
+      body,
     });
+
     response = await response.json();
+
     console.log("brodcast succssful", response);
     return response;
   } catch (error) {
-    console.log(" ");
-    console.log(error.code);
-
-    if (error.code == "ETIMEDOUT" || error.code == "ECONNRESET") {
-      console.log("broadcast error", error.code);
-      console.log("trying to re broadcast");
-      const data = await this.broadcast(hex);
-      return data;
-    }
+    console.log("error broadcasting transaction", error);
+    return { errors: ["broadcast error"], data: {}, message: "" };
   }
 };
 
@@ -168,7 +132,7 @@ BitcoinController.getPrivateKey = function (phrase, path) {
   return node.derive(root).derive(path).privateKey.toString();
 };
 // prettier-ignore
-BitcoinController.createTransaction = function (unspent,from,to,sats,privateKey, fee) {
+BitcoinController.createTransaction = function (unspent,from,to,sats,privateKey) {
     const tx = bitcore.Transaction();
     tx.from(unspent);
     tx.to(to, sats);

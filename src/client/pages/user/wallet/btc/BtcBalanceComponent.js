@@ -12,15 +12,18 @@ function BtcBalanceComponent() {
   let addr;
   let url;
 
-  if (user.btc_wallets.length > 1) {
-    addr = user.btc_wallets.reduce((pwallet, wallet) => {
-      return `${pwallet}${wallet.address},`;
-    }, "");
-  } else {
-    addr = user.btc_wallets[0].address;
-  }
+  // if (user.btc_wallets.length > 1) {
+  addr = user.btc_wallets.reduce((pwallet, wallet) => {
+    return `${pwallet}${wallet.address}|`;
+  }, "");
 
-  url = `https://api.smartbit.com.au/v1/blockchain/address/${addr}`;
+  // } else {
+  //  addr = user.btc_wallets[1].address;
+  // }
+
+  // url = `https://insight.bitpay.com/api/addr/${addr}`;
+
+  url = `https://cors-anywhere.herokuapp.com/https://blockchain.info/multiaddr?active=${addr}`;
 
   React.useEffect(() => {
     let mounted = true;
@@ -28,38 +31,43 @@ function BtcBalanceComponent() {
       let response = await fetch(url);
       response = await response.json();
 
-      let transactions = wallet.bitcoin.transactions;
-
-      if (user.btc_wallets.length > 1) {
-        url = `https://api.smartbit.com.au/v1/blockchain/address/${user.btc_wallets[0].address}`;
-
-        let t = await fetch(url);
-        t = await t.json();
-        if (t.success) {
-          transactions = t.address.transactions;
-        }
-      }
-
       if (mounted) {
         setFetching(false);
       }
 
-      if (response.success) {
+      // url = `https://insight.bitpay.com/api/addrs/${addr}/txs?from=0&to=12`;
+      // let transResponse = await fetch(url);
+      // transResponse = await transResponse.json();
+
+      // console.log(transResponse);
+
+      // if (user.btc_wallets.length > 1) {
+      //   url = `https://api.smartbit.com.au/v1/blockchain/address/${user.btc_wallets[0].address}`;
+
+      //   let t = await fetch(url);
+      //   t = await t.json();
+      //   if (t.success) {
+      //     transactions = t.address.transactions;
+      //   }
+      // }
+
+      if (response.wallet) {
         let balance = 0;
         let balance_map = {};
+        let transactions = response.txs;
 
-        if (user.btc_wallets.length > 1) {
-          response.addresses.forEach((wallet) => {
-            balance += parseFloat(wallet.total.balance);
-            balance_map[wallet.address] = wallet.total.balance;
-          });
-          balance = balance.toFixed(8);
-        } else {
-          const { address } = response;
-          balance = address.total.balance;
-          transactions = address.transactions;
-          balance_map[addr] = address.total.balance;
-        }
+        // if (user.btc_wallets.length > 1) {
+        response.addresses.forEach((wallet) => {
+          //balance += parseFloat(wallet.total.balance);
+          balance_map[wallet.address] = wallet.final_balance / 1e8;
+        });
+        //   balance = balance.toFixed(8);
+        // } else {
+        //   const { address } = response;
+        balance = response.wallet.final_balance / 1e8;
+        //transactions = transResponse.items;
+        //balance_map[addr] = response.balance + response.unconfirmedBalance;
+        // }
 
         callReducer({
           dispatch: "UPDATE_BTC_WALLET",
@@ -88,14 +96,6 @@ function BtcBalanceComponent() {
     <div>
       <ul className="collection">
         <li className="collection-item center" style={style}>
-          {/* {fetching && (
-            <div style={{ marginLeft: "2rem", marginRight: "2rem" }}>
-              <div className="progress">
-                <div className="indeterminate"></div>
-              </div>
-            </div>
-          )} */}
-
           <p className="icon icon-btc" style={iconStyle} />
 
           {fetching ? (
@@ -103,7 +103,7 @@ function BtcBalanceComponent() {
               <Skeleton count={1} width={100} />
             </p>
           ) : (
-            <p> {wallet.bitcoin.balance} BTC</p>
+            <p> {wallet.bitcoin.balance.toFixed(8)} BTC</p>
           )}
 
           {fetching ? (

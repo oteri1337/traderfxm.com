@@ -43,6 +43,18 @@
 
 /* Mobile Sure */
 @media (max-width: 415px) {
+  .table-title {
+    text-decoration: underline;
+    text-transform: uppercase;
+    padding-top: 1rem !important;
+    text-align: center;
+  }
+
+  .table-content {
+    padding-bottom: 2rem !important;
+    text-align: center;
+  }
+
   .container-50 {
     max-width: 80%;
     margin: auto;
@@ -104,6 +116,18 @@
 
 /* Tablets and PCs */
 @media (min-width: 416px) {
+  .table-title {
+    vertical-align: middle;
+    text-transform: uppercase;
+    padding: 1rem !important;
+    font-weight: bold;
+  }
+
+  .table-content {
+    padding: 1rem !important;
+    font-weight: bold;
+  }
+
   .app-desktop-right {
     text-align: right;
   }

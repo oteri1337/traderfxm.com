@@ -9,9 +9,14 @@ const TableComponent = ({ data = {} }) => {
     }
 
     return (
-      <tr key={key}>
-        <td style={{ textTransform: "uppercase" }}>{key.replace(/_/g, " ")}</td>
-        <td>{data[key]}</td>
+      <tr key={key} className="row">
+        <td
+          className="col l5 s12 table-title"
+          style={{ textTransform: "uppercase" }}
+        >
+          {key.replace(/_/g, " ")}
+        </td>
+        <td className="col l7 s12 table-content">{data[key]}</td>
       </tr>
     );
   });

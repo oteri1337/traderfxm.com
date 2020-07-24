@@ -61,10 +61,10 @@ function UsdtListPage() {
             <ul className="collection">{renderWalltets()}</ul>
           </div>
         </div>
-        <FloatingButtonComponent
+        {/* <FloatingButtonComponent
           to="/user/wallet/usdt/create.html"
           title="Generate New Address"
-        />
+        /> */}
       </div>
     </UserContainerComponent>
   );

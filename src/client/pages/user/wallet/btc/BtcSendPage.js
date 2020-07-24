@@ -29,7 +29,7 @@ function BtcSendPage() {
 
     return {
       value: wallet.path,
-      label: `${balance} BTC ( ${format(
+      label: `${balance.toFixed(8)} BTC ( ${format(
         "USD",
         balance * prices.bitcoin.usd
       )} ) ${wallet.address}`,
@@ -122,13 +122,18 @@ function BtcSendPage() {
                 <React.Fragment>
                   <b style={{ fontSize: "1.5rem" }}>Bitcoins Sent !!!</b>
                   <br />
+                  <p>
+                    Your new balance will be updated as soon as the transaction
+                    is mined, this may take a few minutes.
+                  </p>
                   <br />
                   <a
-                    href={`https://www.blockchain.com/btc-testnet/tx/${txid}`}
+                    href={`https://www.blockchain.com/btc/tx/${txid}`}
                     target="_blank"
                   >
                     View On Blockchain
                   </a>
+
                   <br />
                   <br />
                   <Link to="/user/index.html">Back To Dashboard</Link>

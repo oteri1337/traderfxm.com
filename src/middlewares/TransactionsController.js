@@ -36,6 +36,71 @@ async function getSellRate(amount) {
   return rate;
 }
 
+async function getCryptoPrice(cryptoId) {
+  const url =
+    "https://api.coingecko.com/api/v3/simple/price?ids=bitcoin,ethereum,tether&vs_currencies=usd";
+
+  try {
+    let response = await fetch(url);
+    response = await response.json();
+
+    if (cryptoId == 1) {
+      return response.bitcoin.usd;
+    }
+
+    if (cryptoId == 2) {
+      return response.ethereum.usd;
+    }
+
+    if (cryptoId == 3) {
+      return response.tether.usd;
+    }
+  } catch (error) {
+    console.log(error);
+    return 0;
+  }
+}
+
+async function getPaymentAddressAsync(cryptoId, path) {
+  let data;
+
+  try {
+    if (cryptoId == 1) {
+      data = await BitcoinController.createPayment(path);
+    }
+
+    if (cryptoId == 2) {
+      data = await EthereumController.createPayment(path);
+    }
+
+    if (cryptoId == 3) {
+      data = await EthereumController.createUsdtPayment(path);
+    }
+    return data;
+  } catch (error) {
+    console.log("failed to get payment address", error);
+    // getPaymentAddressAsync(cryptoId, path)
+  }
+}
+
+// function getPaymentAddressSync(cryptoId, path) {
+//   let address;
+
+//   if (cryptoId == 1) {
+//     address = BitcoinController.createPaymentAddress(path);
+//   }
+
+//   if (cryptoId == 2) {
+//     address = EthereumController.createPaymentAddress(path);
+//   }
+
+//   if (cryptoId == 3) {
+//     address = EthereumController.createPaymentAddress(path);
+//   }
+
+//   return address;
+// }
+
 Controller.createBuy = async (request, response) => {
   const { body } = request;
 
@@ -47,31 +112,21 @@ Controller.createBuy = async (request, response) => {
 
   body.amount_in_usd = body.amount_in_ngn / body.rate;
 
-  // let cryptoPriceInUsd = -1;
+  const crypto_price = await getCrptoPrice();
 
-  // if (body.cryptoId == 1) {
-  //   cryptoPriceInUsd = await BitcoinController.getUsdRate();
-  // }
+  if (!crypto_price) {
+    return response.json({
+      data: {},
+      errors: ["failed to verify crypto price, please try again"],
+      message: "",
+    });
+  }
 
-  // if (body.cryptoId == 2) {
-  //   cryptoPriceInUsd = await EthereumController.getUsdRate();
-  // }
-
-  // if (cryptoPriceInUsd === -1) {
-  //   return response.json({
-  //     errors: ["failed to get usd rate, please try again"],
-  //     mesage: "",
-  //     data: {},
-  //   });
-  // }
-
-  body.amount_in_crypto = body.amount_in_usd / body.crypto_price;
+  body.amount_in_crypto = body.amount_in_usd / crypto_price;
 
   const { id } = await model.create(body);
 
   const data = await model.findOne({ where: { id } });
-
-  // console.log(this);
 
   Controller.sendEmail(
     body.email,
@@ -106,33 +161,35 @@ Controller.createSell = async (request, response) => {
 
   body.reference = Date.now();
 
-  // get path and address from db
-
   let address = "";
 
-  let price = body.crypto_price;
+  let price = await getCryptoPrice(cryptoId);
+
+  if (!price) {
+    return response.json({
+      data: {},
+      message: "",
+      errors: ["failed to verify crypto price, please try again"],
+    });
+  }
 
   let pathFromDb = await pathModel.findOne({ where: { cryptoId } });
 
   let path = pathFromDb.dataValues.last_path + 1;
 
-  if (cryptoId == 1) {
-    address = BitcoinController.createPaymentAddress(path);
+  const payment = await getPaymentAddressAsync(cryptoId, path);
+
+  if (!payment) {
+    return response.json({
+      data: {},
+      message: "",
+      errors: ["failed to get payment address, please try again"],
+    });
   }
 
-  if (cryptoId == 2) {
-    address = EthereumController.createPaymentAddress(path);
-  }
+  path = payment.path;
 
-  if (cryptoId == 3) {
-    address = EthereumController.createPaymentAddress(path);
-  }
-
-  // get free path and address from api
-
-  //
-
-  //
+  address = payment.address;
 
   // update last path
   await pathModel.update({ last_path: path }, { where: { cryptoId } });
@@ -140,8 +197,6 @@ Controller.createSell = async (request, response) => {
   body.path = path;
 
   body.address = address;
-
-  // get crypto price rate from api
 
   body.amount_in_usd = body.amount_in_crypto * price;
 

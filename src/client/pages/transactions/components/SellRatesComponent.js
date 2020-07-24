@@ -2,14 +2,6 @@ import React from "react";
 import { getRequestThenDispatch } from "hooks";
 import ListComponent from "components/ListComponent";
 
-const format = (currency, amount) => {
-  const formatter = new Intl.NumberFormat("en-US", {
-    style: "currency",
-    currency,
-  });
-  return formatter.format(amount);
-};
-
 function RatesListComponent() {
   const { state } = getRequestThenDispatch("/api/rates/sell", "UPDATE_RATES");
 
@@ -47,30 +39,6 @@ function RatesListComponent() {
         </tbody>
       </table>
       <br />
-      {/* <table className="striped">
-        <tbody>
-          <tr>
-            <td style={{ textAlign: "center" }}>
-              <span
-                className="icon icon-btc"
-                style={{ fontSize: "20px" }}
-              ></span>
-            </td>
-            <td style={{ textAlign: "center" }}>${state.prices.bitcoin.usd}</td>
-          </tr>
-          <tr>
-            <td style={{ textAlign: "center" }}>
-              <span
-                className="icon icon-eth"
-                style={{ fontSize: "20px" }}
-              ></span>
-            </td>
-            <td style={{ textAlign: "center" }}>
-              ${state.prices.ethereum.usd}
-            </td>
-          </tr>
-        </tbody>
-      </table> */}
       <br />
     </div>
   );

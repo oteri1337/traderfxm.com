@@ -26,13 +26,16 @@ function CheckoutFormComponent() {
     },
   ];
 
-  const initialState = {
-    user_id: state.user?.id ?? "",
+  let initialState = {
     email: state.user?.email ?? "",
     full_name: state.user?.account_name ?? "",
     phone_number: state.user?.phone_number ?? "",
     delivery_address: state.user?.address ?? "",
   };
+
+  if (state.user) {
+    initialState.user_id = state.user.id;
+  }
 
   const onSuccess = ({ data }) => {
     callReducer({ dispatch: "EMPTY_CART" });

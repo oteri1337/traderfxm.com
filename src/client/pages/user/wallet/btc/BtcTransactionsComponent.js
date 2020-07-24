@@ -11,37 +11,26 @@ function BitcoinTransactionsComponent() {
   const list = { array: wallet.bitcoin.transactions };
 
   const callback = (props) => {
-    const renderChange = () => {
-      if (props.balance_change < 0) {
-        return (
-          <span className="red-text">
-            {props.balance_change / 100000000} BTC
-          </span>
-        );
-      }
-      return (
-        <span className="green-text">
-          {props.balance_change / 100000000} BTC
-        </span>
-      );
-    };
-
     const renderAmount = () => {
-      if (props.inputs[0].addresses[0] == btc_address) {
+      if (wallet.bitcoin.balance_map[props.inputs[0].prev_out.addr]) {
         return (
           <React.Fragment>
-            {props.outputs[0].addresses[0]}
+            {props.out[0].addr}
             <br />
-            <span style={{ color: "red" }}>- {props.outputs[0].value} BTC</span>
+            <span style={{ color: "#e53935" }}>
+              - {props.out[0].value / 1e8} BTC (Fee: {props.fee / 1e8} BTC)
+            </span>
           </React.Fragment>
         );
       }
 
       return (
         <React.Fragment>
-          {props.inputs[0].addresses[0]}
+          {props.inputs[0].prev_out.addr}
           <br />
-          <span style={{ color: "green" }}>+ {props.outputs[0].value} BTC</span>
+          <span style={{ color: "green" }}>
+            + {props.out[0].value / 1e8} BTC
+          </span>
         </React.Fragment>
       );
     };
@@ -97,19 +86,21 @@ function BitcoinTransactionsComponent() {
 
     return (
       <li
-        key={props.txid}
+        key={props.hash}
         className="collection-item"
         style={{ paddingRight: 0, paddingLeft: 0 }}
       >
         <div className="app-flex app-flex-center">
           {renderDate()}
-          <div style={{ flex: 3 }}>{renderAmount()}</div>
+          <div style={{ flex: 4.5 }}>{renderAmount()}</div>
         </div>
       </li>
     );
   };
 
-  return <ListComponent {...{ list, callback }} />;
+  const empty = `No Bitcoin Transactions Yet`;
+
+  return <ListComponent {...{ list, callback, empty }} />;
 }
 
 export default BitcoinTransactionsComponent;

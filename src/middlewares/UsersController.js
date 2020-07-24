@@ -223,37 +223,41 @@ Controller.sendBtc = async function (request, response) {
 
   const unspent = await BitcoinController.getUnspent(froma, sats);
 
+  let tx;
+
   // prettier-ignore
-  const tx = BitcoinController.createTransaction(unspent, froma, to, sats, pk, fee);
+  try{
+     tx = BitcoinController.createTransaction(unspent, froma, to, sats, pk);
+
+  } catch(error) {
+    console.log("error creating transaction ", tx);
+  }
 
   const res = await BitcoinController.broadcast(tx);
 
-  if (res) {
-    if (res.success) {
-      this.sendEmail(
-        user.email,
-        `You have successfuly sent ${amount} BTC to ${to} `,
-        "Bitcoins Sent"
-      );
-
-      return response.json({
-        errors: [],
-        message: "",
-        data: { txid: res.txid },
-      });
-    }
+  if (res.txid) {
+    return response.json({
+      errors: [],
+      message: "",
+      data: { txid: res.txid },
+    });
   }
-  return response.json({
-    data: {},
-    message: "",
-    errors: [res.error.message],
-  });
+
+  return response.json(res);
 };
 
 Controller.sendEth = async function (request, response) {
   const { user } = request.session;
 
   let { amount, address, from } = request.body;
+
+  if (!EthereumController.validate(address)) {
+    return response.json({
+      errors: ["Invalid Ethereum Address"],
+      data: {},
+      message: "",
+    });
+  }
 
   const from_address = EthereumController.create(user.eth_xpub, from);
 
@@ -269,6 +273,8 @@ Controller.sendEth = async function (request, response) {
 
   // try {
   const res = await EthereumController.broadcast(transaction);
+
+  console.log("broacast response", res);
 
   if (res.errors.length === 0) {
     this.sendEmail(
@@ -286,6 +292,14 @@ Controller.sendUsdt = async function (request, response) {
 
   let { amount, address, from } = request.body;
 
+  if (!EthereumController.validate(address)) {
+    return response.json({
+      errors: ["Invalid USDT Address"],
+      data: {},
+      message: "",
+    });
+  }
+
   const from_address = EthereumController.create(user.usdt_xpub, from);
 
   const RawUser = await rawuser.findOne({ where: { id: user.id } });
@@ -301,6 +315,8 @@ Controller.sendUsdt = async function (request, response) {
   // try {
   const res = await EthereumController.broadcast(transaction);
 
+  console.log("broacast response", res);
+
   if (res.errors.length === 0) {
     this.sendEmail(
       user.email,
@@ -311,49 +327,6 @@ Controller.sendUsdt = async function (request, response) {
 
   return response.json(res);
 };
-
-// Controller.sendUsdt = async function (request, response) {
-//   const errors = [];
-//   const { user } = request.session;
-//   let { amount, address, from } = request.body;
-
-//   if (amount === undefined) {
-//     errors.push("amount is required");
-//   }
-
-//   if (address === undefined) {
-//     errors.push("address is required");
-//   }
-
-//   if (from === undefined) {
-//     errors.push("from is required");
-//   }
-
-//   if (errors.length) {
-//     return response.json({ errors, data: {}, message: "" });
-//   }
-
-//   const from_address = EthereumController.create(user.usdt_xpub, from);
-
-//   const privateKey = EthereumController.getPrivateKey(user.usdt_phrase, from);
-
-//   // prettier-ignore
-//   const transaction = await EthereumController.createUsdtTx(from_address,address,amount,privateKey);
-
-//   console.log(transaction);
-
-//   try {
-//     const res = await EthereumController.broadcast(transaction);
-//     return response.json(res);
-//   } catch (error) {
-//     console.log("brd error", error);
-//     return response.json({
-//       errors: ["broadcast error"],
-//       data: {},
-//       message: "",
-//     });
-//   }
-// };
 
 for (let key in Controller) {
   if (typeof Controller[key] == "function" && key != "model") {

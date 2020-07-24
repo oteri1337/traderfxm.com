@@ -48,7 +48,9 @@ function TransactionsComponent() {
     );
   };
 
-  return <ListComponent {...{ list, callback }} />;
+  const empty = `No Traderfxm Transactions Yet`;
+
+  return <ListComponent {...{ list, callback, empty }} />;
 }
 
 export default TransactionsComponent;

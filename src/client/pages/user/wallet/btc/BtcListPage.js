@@ -58,8 +58,8 @@ function BtcListPage() {
               View On blockchain
             </a>
           </p>
-          {balance} BTC ( {format("USD", balance * prices.bitcoin.usd)} )
-          <p>{wallet.label}</p>
+          {balance.toFixed(8)} BTC ({" "}
+          {format("USD", balance * prices.bitcoin.usd)} )<p>{wallet.label}</p>
         </li>
       );
     });

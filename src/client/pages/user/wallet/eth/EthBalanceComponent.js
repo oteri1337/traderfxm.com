@@ -9,16 +9,16 @@ function EthBalanceComponent() {
   const { state, callReducer } = React.useContext(AppContext);
   const { wallet, user, prices } = state;
 
-  let addr = user.eth_wallets[0]?.address;
-  let url = `https://api.etherscan.io/api?module=account&action=balance&address=${addr}&tag=latest&apikey=QHC5B5ZS434HK6UFH26KS39DWG5E8RAT76`;
+  // let addr = user.eth_wallets[0]?.address;
+  // let url = `https://api.etherscan.io/api?module=account&action=balance&address=${addr}&tag=latest&apikey=QHC5B5ZS434HK6UFH26KS39DWG5E8RAT76`;
 
-  if (user.eth_wallets.length > 1) {
-    addr = user.eth_wallets.reduce((pwallet, wallet) => {
-      return `${pwallet}${wallet.address},`;
-    }, "");
+  // if (user.eth_wallets.length > 1) {
+  const addr = user.eth_wallets.reduce((pwallet, wallet) => {
+    return `${pwallet}${wallet.address},`;
+  }, "");
 
-    url = `https://api.etherscan.io/api?module=account&action=balancemulti&address=${addr}&tag=latest&apikey=QHC5B5ZS434HK6UFH26KS39DWG5E8RAT76`;
-  }
+  let url = `https://api.etherscan.io/api?module=account&action=balancemulti&address=${addr}&tag=latest&apikey=QHC5B5ZS434HK6UFH26KS39DWG5E8RAT76`;
+  // }
 
   React.useEffect(() => {
     let mounted = true;
@@ -27,15 +27,17 @@ function EthBalanceComponent() {
       let response = await fetch(url);
       response = await response.json();
 
+      console.log(response);
+
       let balance_map = {};
       let balance = wallet.ethereum.balance;
       let transactions = wallet.ethereum.transactions;
 
-      if (response.status == 1 && user.eth_wallets.length === 1) {
-        balance = response.result / 1e18;
-      }
+      // if (response.status == 1 && user.eth_wallets.length === 1) {
+      //   balance = response.result / 1e18;
+      // }
 
-      if (response.status == 1 && user.eth_wallets.length > 1) {
+      if (response.status == 1) {
         balance = response.result.reduce((sum, wallet) => {
           let wbalance = parseInt(wallet.balance);
           wbalance = wbalance / 1e18;
@@ -51,6 +53,8 @@ function EthBalanceComponent() {
       if (mounted) {
         setFetching(false);
       }
+
+      console.log(response);
 
       if (response.status == 1 || response.status == 0) {
         transactions = response.result;

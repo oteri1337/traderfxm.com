@@ -101,9 +101,9 @@ function UsdtBalanceComponent() {
               file_copy
             </span>
           </p>
-          <Link to="/user/wallet/usdt/create.html" className="btn-color">
+          {/* <Link to="/user/wallet/usdt/create.html" className="btn-color">
             GENERATE NEW ADDRESS
-          </Link>
+          </Link> */}
         </div>
         <div className="modal-footer">
           <a

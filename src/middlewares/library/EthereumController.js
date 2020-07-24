@@ -14,32 +14,6 @@ const network = {
 
 const web3 = new Web3(network.mainnet);
 
-const abiArray = [
-  {
-    constant: false,
-    inputs: [
-      {
-        name: "_to",
-        type: "address",
-      },
-      {
-        name: "_value",
-        type: "uint256",
-      },
-    ],
-    name: "transfer",
-    outputs: [
-      {
-        name: "success",
-        type: "bool",
-      },
-    ],
-    payable: false,
-    stateMutability: "nonpayable",
-    type: "function",
-  },
-];
-
 const erc20TokenContractAbi = [
   {
     constant: true,
@@ -315,19 +289,23 @@ EthereumController.validate = function (address) {
   return data;
 };
 
-EthereumController.createPayment = async function (path) {
+EthereumController.createPaymentAddress = function (path) {
   let instance = hdkey.fromExtendedKey(process.env.ETHEREUM_XPUB);
   instance = instance.deriveChild(0).deriveChild(path);
-  instance = instance.getWallet();
-  const address = "0x" + instance.getAddress().toString("hex");
+  return "0x" + instance.getWallet().getAddress().toString("hex");
+};
+
+EthereumController.createPayment = async function (path) {
+  const address = EthereumController.createPaymentAddress(path);
 
   console.log("deriving with ", path, " ", address);
 
   const url = `https://api.etherscan.io/api?module=account&action=balance&address=${address}&tag=latest&apikey=QHC5B5ZS434HK6UFH26KS39DWG5E8RAT76`;
-
   let response = await fetch(url);
-
   response = await response.json();
+
+  console.log(response);
+  console.log(" ");
 
   if (parseInt(response.result) > 0) {
     return EthereumController.createPayment(path + 1);
@@ -336,23 +314,23 @@ EthereumController.createPayment = async function (path) {
   return { address, path };
 };
 
-EthereumController.createPaymentAddress = function (path) {
-  let instance = hdkey.fromExtendedKey(process.env.ETHEREUM_XPUB);
-  instance = instance.deriveChild(0).deriveChild(path);
-  return "0x" + instance.getWallet().getAddress().toString("hex");
-};
+EthereumController.createUsdtPayment = async function (path) {
+  const address = EthereumController.createPaymentAddress(path);
 
-EthereumController.getUsdRate = async function () {
-  try {
-    let response = await fetch(
-      "https://api.coingecko.com/api/v3/simple/price?ids=ethereum&vs_currencies=usd"
-    );
-    response = await response.json();
-    return response.ethereum.usd;
-  } catch (error) {
-    console.log(error);
-    return -1;
+  console.log("deriving with ", path, " ", address);
+
+  const url = `https://api.etherscan.io/api?module=account&action=tokenbalance&contractaddress=0xdac17f958d2ee523a2206206994597c13d831ec7&address=${address}&tag=latest&apikey=QHC5B5ZS434HK6UFH26KS39DWG5E8RAT76`;
+  let response = await fetch(url);
+  response = await response.json();
+
+  console.log(response);
+  console.log(" ");
+
+  if (parseInt(response.result) > 0) {
+    return EthereumController.createPayment(path + 1);
   }
+
+  return { address, path };
 };
 
 EthereumController.broadcast = async function (raw) {
@@ -362,18 +340,38 @@ EthereumController.broadcast = async function (raw) {
   let errors = [];
   let message = "";
 
-  await web3.eth.sendSignedTransaction(raw, (error, txHash) => {
-    console.log(error, txHash);
+  const callback = (error, txHash) => {
+    console.log(txHash);
 
     if (error) {
+      data = {};
+      message = "";
       errors = ["failed to broadcast transaction"];
     } else {
+      errors = [];
       data = { txid: txHash };
-      message = `Ethers sent your transaction hash is ${txHash}`;
+      message = `Sent. Your transaction hash is ${txHash}`;
     }
-  });
 
-  return { errors, data, message };
+    return { errors, data, message };
+  };
+
+  try {
+    await web3.eth.sendSignedTransaction(raw, callback);
+  } catch (error) {
+    console.log("broadcast error ", error.message);
+    data = {};
+    message = "";
+    errors = ["broadcast error"];
+
+    if (error.message.length < 60) {
+      errors = [error.message];
+    } else {
+      console.log("too long");
+    }
+
+    return { errors, data, message };
+  }
 };
 
 EthereumController.getPrivateKey = function (phrase, path) {
@@ -391,20 +389,20 @@ EthereumController.createTransaction = async function (from, to, amount, pKey) {
 
   const gasLimit = web3.utils.toHex(21000);
 
-  const gasPrice = web3.utils.toHex(web3.utils.toWei("1", "gwei"));
-
   const value = web3.utils.toHex(web3.utils.toWei(amount, "ether"));
+
+  const gasPrice = web3.utils.toHex(web3.utils.toWei("60", "gwei"));
 
   const txObject = {
     to,
     value,
     nonce,
-    gasPrice,
     gasLimit,
+    gasPrice,
   };
 
   const tx = new Transaction(txObject, {
-    chain: "ropsten",
+    chain: "mainnet",
     hardfork: "petersburg",
   });
 
@@ -426,11 +424,17 @@ EthereumController.createUsdtTx = async function (from, to, amount, pKey) {
 
   const value = web3.utils.toHex(web3.utils.toWei("0", "ether"));
 
-  const gasPrice = web3.utils.toHex(web3.utils.toWei("1", "gwei"));
+  const gasPrice = web3.utils.toHex(web3.utils.toWei("90", "gwei"));
 
-  const contractAddress = "0xfab46e002bbf0b4509813474841e0716e6730136";
+  const contractAddress = "0xdac17f958d2ee523a2206206994597c13d831ec7";
 
-  const contract = new web3.eth.Contract(abiArray, contractAddress, { from });
+  const abiArray = `[{\"constant\":true,\"inputs\":[],\"name\":\"name\",\"outputs\":[{\"name\":\"\",\"type\":\"string\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"name\":\"_upgradedAddress\",\"type\":\"address\"}],\"name\":\"deprecate\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"name\":\"_spender\",\"type\":\"address\"},{\"name\":\"_value\",\"type\":\"uint256\"}],\"name\":\"approve\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"deprecated\",\"outputs\":[{\"name\":\"\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"name\":\"_evilUser\",\"type\":\"address\"}],\"name\":\"addBlackList\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"totalSupply\",\"outputs\":[{\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"name\":\"_from\",\"type\":\"address\"},{\"name\":\"_to\",\"type\":\"address\"},{\"name\":\"_value\",\"type\":\"uint256\"}],\"name\":\"transferFrom\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"upgradedAddress\",\"outputs\":[{\"name\":\"\",\"type\":\"address\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"name\":\"\",\"type\":\"address\"}],\"name\":\"balances\",\"outputs\":[{\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"decimals\",\"outputs\":[{\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"maximumFee\",\"outputs\":[{\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"_totalSupply\",\"outputs\":[{\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[],\"name\":\"unpause\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"name\":\"_maker\",\"type\":\"address\"}],\"name\":\"getBlackListStatus\",\"outputs\":[{\"name\":\"\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"name\":\"\",\"type\":\"address\"},{\"name\":\"\",\"type\":\"address\"}],\"name\":\"allowed\",\"outputs\":[{\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"paused\",\"outputs\":[{\"name\":\"\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"name\":\"who\",\"type\":\"address\"}],\"name\":\"balanceOf\",\"outputs\":[{\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[],\"name\":\"pause\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"getOwner\",\"outputs\":[{\"name\":\"\",\"type\":\"address\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"owner\",\"outputs\":[{\"name\":\"\",\"type\":\"address\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"symbol\",\"outputs\":[{\"name\":\"\",\"type\":\"string\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"name\":\"_to\",\"type\":\"address\"},{\"name\":\"_value\",\"type\":\"uint256\"}],\"name\":\"transfer\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"name\":\"newBasisPoints\",\"type\":\"uint256\"},{\"name\":\"newMaxFee\",\"type\":\"uint256\"}],\"name\":\"setParams\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"name\":\"amount\",\"type\":\"uint256\"}],\"name\":\"issue\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"name\":\"amount\",\"type\":\"uint256\"}],\"name\":\"redeem\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"name\":\"_owner\",\"type\":\"address\"},{\"name\":\"_spender\",\"type\":\"address\"}],\"name\":\"allowance\",\"outputs\":[{\"name\":\"remaining\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"basisPointsRate\",\"outputs\":[{\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"name\":\"\",\"type\":\"address\"}],\"name\":\"isBlackListed\",\"outputs\":[{\"name\":\"\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"name\":\"_clearedUser\",\"type\":\"address\"}],\"name\":\"removeBlackList\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"MAX_UINT\",\"outputs\":[{\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"name\":\"newOwner\",\"type\":\"address\"}],\"name\":\"transferOwnership\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"name\":\"_blackListedUser\",\"type\":\"address\"}],\"name\":\"destroyBlackFunds\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"name\":\"_initialSupply\",\"type\":\"uint256\"},{\"name\":\"_name\",\"type\":\"string\"},{\"name\":\"_symbol\",\"type\":\"string\"},{\"name\":\"_decimals\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"constructor\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"name\":\"amount\",\"type\":\"uint256\"}],\"name\":\"Issue\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"name\":\"amount\",\"type\":\"uint256\"}],\"name\":\"Redeem\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"name\":\"newAddress\",\"type\":\"address\"}],\"name\":\"Deprecate\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"name\":\"feeBasisPoints\",\"type\":\"uint256\"},{\"indexed\":false,\"name\":\"maxFee\",\"type\":\"uint256\"}],\"name\":\"Params\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"name\":\"_blackListedUser\",\"type\":\"address\"},{\"indexed\":false,\"name\":\"_balance\",\"type\":\"uint256\"}],\"name\":\"DestroyedBlackFunds\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"name\":\"_user\",\"type\":\"address\"}],\"name\":\"AddedBlackList\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"name\":\"_user\",\"type\":\"address\"}],\"name\":\"RemovedBlackList\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"name\":\"owner\",\"type\":\"address\"},{\"indexed\":true,\"name\":\"spender\",\"type\":\"address\"},{\"indexed\":false,\"name\":\"value\",\"type\":\"uint256\"}],\"name\":\"Approval\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"name\":\"from\",\"type\":\"address\"},{\"indexed\":true,\"name\":\"to\",\"type\":\"address\"},{\"indexed\":false,\"name\":\"value\",\"type\":\"uint256\"}],\"name\":\"Transfer\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[],\"name\":\"Pause\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[],\"name\":\"Unpause\",\"type\":\"event\"}]`;
+
+  const contract = new web3.eth.Contract(
+    JSON.parse(abiArray),
+    contractAddress,
+    { from }
+  );
 
   const data = contract.methods
     .transfer(to, web3.utils.toHex(web3.utils.toWei(amount, "ether")))
@@ -446,7 +450,7 @@ EthereumController.createUsdtTx = async function (from, to, amount, pKey) {
   };
 
   const tx = new Transaction(txObject, {
-    chain: "ropsten",
+    chain: "mainnet",
     hardfork: "petersburg",
   });
 
@@ -457,55 +461,6 @@ EthereumController.createUsdtTx = async function (from, to, amount, pKey) {
   const raw = "0x" + serialized.toString("hex");
 
   return raw;
-
-  // const chainId = 0x01;
-
-  // const gasLimit = web3.utils.toHex(22000);
-
-  // const gasPrice = web3.utils.toHex(web3.utils.toWei("1", "gwei"));
-
-  // // let response = await fetch(
-  // //   `http://api-ropsten.etherscan.io/api?module=account&action=txlist&address=${from}&startblock=0&endblock=99999999&sort=desc&apikey=QHC5B5ZS434HK6UFH26KS39DWG5E8RAT76`
-  // // );
-
-  // let response = await fetch(
-  //   `https://api-ropsten.etherscan.io/api?module=account&action=tokentx&address=${from}&startblock=0&endblock=999999999&sort=asc&apikey=QHC5B5ZS434HK6UFH26KS39DWG5E8RAT7`
-  // );
-
-  // response = await response.json();
-
-  // const txCount = response.result.length;
-
-  // // const txCount = 1000000000;
-
-  // const nonce = web3.utils.toHex(txCount);
-
-  // const contract = new web3.eth.Contract(abiArray, contractAddress, { from });
-
-  // console.log("contract", contract);
-
-  // const txObject = {
-  //   from,
-  //   nonce,
-  //   chainId,
-  //   gasPrice,
-  //   gasLimit,
-  //   to: contractAddress,
-  // data: contract.methods.transfer(to, web3.utils.toHex(1)).encodeABI(),
-  // };
-
-  // const tx = new Transaction(txObject, {
-  //   chain: "ropsten",
-  //   hardfork: "petersburg",
-  // });
-
-  // tx.sign(pKey);
-
-  // const serialized = tx.serialize();
-
-  // const raw = "0x" + serialized.toString("hex");
-
-  // return raw;
 };
 
 for (let key in EthereumController) {

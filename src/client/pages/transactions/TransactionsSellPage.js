@@ -58,7 +58,7 @@ function SellFormPage({ history, location }) {
 
   const dollar_rate = rates.find((rate) => rate.lower_limit == 1);
 
-  const [rate, setRate] = React.useState(dollar_rate.rate);
+  const [rate, setRate] = React.useState(dollar_rate?.rate ?? 0);
   const [cash, setCash] = React.useState(0);
   const [worth, setWorth] = React.useState(0);
   const [currency, setCurrency] = React.useState(initialCurrency);

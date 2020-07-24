@@ -17,8 +17,49 @@
 
   --button-font-colour: #ffffff;
 
+  --alt-color: #2e5067;
+
   --image: url("../images/app/bitcoinbg.jpg");
 }
+
+.bg.bg-secondary a {
+  color: #039be5;
+}
+
+.alt-color {
+  color: #2e5067;
+}
+
+.tabs,
+.tabs .tab a:focus {
+  background: var(--background-colour);
+  opacity: 0.8;
+}
+
+.tabs .indicator {
+  background-color: var(--alt-color);
+}
+
+.tabs .tab a {
+  color: #2e5067;
+}
+
+.tabs .tab a:hover,
+.tabs .tab a.active {
+  color: #039be5;
+}
+
+/* .tabs .tab a.active {
+  color: var(--alt-color);
+}
+
+.tabs .indicator {
+  background-color: var(--alt-color);
+}
+
+
+
+ */
 
 .coin {
   padding: 1rem;
@@ -26,10 +67,6 @@
   border-radius: 50%;
   background: var(--primary-font-colour);
   color: var(--primary-backgroud);
-}
-
-.alt-color {
-  color: #2e5067;
 }
 
 .app-bg-overlay {
@@ -66,10 +103,6 @@
 
 .app-blue {
   background: #313080;
-}
-
-.bg.bg-secondary a {
-  color: #039be5;
 }
 
 .app-orange {
@@ -191,21 +224,6 @@ input {
   background: var(--secondary-background);
 }
 
-.tabs,
-.tabs .tab a:focus {
-  background: var(--background-colour);
-  opacity: 0.8;
-}
-
-.tabs .tab a,
-.tabs .tab a:hover {
-  color: var(--background-font-colour);
-}
-
-.tabs .tab a.active {
-  color: var(--button-colour);
-}
-
 body {
   background: var(--background-colour);
   color: var(--background-font-colour);
@@ -215,10 +233,6 @@ nav ul a,
 .trasparent a,
 nav .brand-logo {
   color: var(--primary-font-colour);
-}
-
-.tabs .indicator {
-  background-color: var(--button-colour);
 }
 
 .bg {

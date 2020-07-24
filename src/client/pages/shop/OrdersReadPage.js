@@ -1,6 +1,7 @@
 import React from "react";
 import { format } from "functions/dom";
 import { formatOrder } from "functions/data";
+import TableComponent from "components/TableComponent";
 import SpinnerComponent from "components/SpinnerComponent";
 import BreadComponent from "components/container/BreadComponent";
 import TourNavComponent from "components/container/TourNavComponent";
@@ -90,60 +91,6 @@ function OrderReadPage({ match }) {
         logo: "https://www.traderfxm.com/assets/images/logo.png",
       },
     });
-
-    // var handler = PaystackPop.setup({
-    //   key: "pk_test_f2c23dc93935cb13f5c362d77856827d34a16be4",
-    //   email: rawData.email,
-    //   amount: rawData.total_in_ngn * 100,
-    //   currency: "NGN",
-    //   ref: rawData.reference, // generates a pseudo-unique reference. Please replace with a reference you generated. Or remove the line entirely so our API will generate one for you
-    //   metadata: {
-    //     custom_fields: [
-    //       {
-    //         display_name: "Mobile Number",
-    //         variable_name: "mobile_number",
-    //         value: "+2348012345678",
-    //       },
-    //     ],
-    //   },
-    //   callback: function (response) {
-    //     const body = { ...response };
-    //     callBack(
-    //       "/api/orders/confirm/paystack",
-    //       "UPDATE_ORDER",
-    //       body,
-    //       () => {},
-    //       "PATCH"
-    //     );
-    //   },
-    //   onClose: function () {
-    //     callBack(
-    //       "/api/orders/confirm/paystack",
-    //       "UPDATE_ORDER",
-    //       { reference: rawData.reference },
-    //       () => {},
-    //       "PATCH"
-    //     );
-    //   },
-    // });
-    // handler.openIframe();
-  };
-
-  const renderRow = () => {
-    return Object.keys(data).map((key) => {
-      if (typeof data[key] == "object") {
-        return false;
-      }
-
-      return (
-        <tr key={key}>
-          <td style={{ textTransform: "uppercase" }}>
-            {key.replace(/_/g, " ")}
-          </td>
-          <td>{data[key]}</td>
-        </tr>
-      );
-    });
   };
 
   const renderPaystack = () => {
@@ -187,13 +134,6 @@ function OrderReadPage({ match }) {
     });
   };
 
-  // const renderBread = () => {
-  //   if (props.bread) {
-  //     return <BreadComponent data={nav} className="container" />;
-  //   }
-  //   return <Helmet title={PWA_NAME} />;
-  // };
-
   return (
     <TourContainerComponent renderHeader={false}>
       <div className="bg">
@@ -221,10 +161,7 @@ function OrderReadPage({ match }) {
             </table>
             <br />
             <br />
-
-            <table className="striped">
-              <tbody>{renderRow()}</tbody>
-            </table>
+            <TableComponent data={data} />
           </div>
         </div>
       </div>

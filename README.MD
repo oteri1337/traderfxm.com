@@ -1,16 +1,10 @@
 # TASKS
 
-0 responsive table for buy, sell and order page
+4 test and perfect sending tether
 
-1 test and perfect crypto sell
+5 multiple address usdt
 
-2 test and perfect sending of crypto
-
-3 test and perfect crypto buy
-
-4 test and perfect shop buy
-
-5 configure pwa status bar ios
+6 configure pwa status bar ios
 
 
 # WALLET GENERATION
@@ -31,7 +25,11 @@ Chain Link Token Ropsten https://ropsten.chain.link/
 
 # BALANCE AND TRANSACTIONS
 
-Bitcoin Testnet https://testnet-api.smartbit.com.au/v1/blockchain/address/mmUo5dVgJ1ferCCAv1mv2L6D7XtZxTLBnQ
+https://jsapi.apiary.io/apis/blockchaininfo/reference/detailed-bitcoin-data/multiple-addresses/get.html
+
+https://github.com/bitpay/bitcore-explorers/blob/master/lib/insight.js
+
+https://github.com/particl/particl-insight-api
 
 Ethereum Ropsten Balance https://api-ropsten.etherscan.io/api?module=account&action=balance&address=0x9e2a579c1514008e12df96a0c427c74f7491df54&tag=latest&apikey=QHC5B5ZS434HK6UFH26KS39DWG5E8RAT76
 

@@ -52,7 +52,7 @@ function UsdtSendPage() {
     {
       id: "amount",
       type: "number",
-      prefix: "USD",
+      prefix: "USDT",
       min: "0.01",
       max: wallet.usdt.balance_approximate,
     },
@@ -79,6 +79,10 @@ function UsdtSendPage() {
         <div className="col l6 offset-l3 s12">
           <div className="card-panel">
             <center>
+              <p>
+                You need at least 0.005 Ethers in your USDT address to send a
+                transaction
+              </p>
               {!txid.length && (
                 <FormComponent
                   {...{
@@ -97,6 +101,10 @@ function UsdtSendPage() {
                 <React.Fragment>
                   <b style={{ fontSize: "1.5rem" }}>Tethers Sent !!!</b>
                   <br />
+                  <p>
+                    Your new balance will be updated as soon as the transaction
+                    is mined, this may take a few minutes.
+                  </p>
                   <br />
                   <a
                     href={`https://ropsten.etherscan.io/tx/${txid}`}
@@ -104,6 +112,7 @@ function UsdtSendPage() {
                   >
                     View On Etherscan
                   </a>
+
                   <br />
                   <br />
                   <Link to="/user/index.html">Back To Dashboard</Link>

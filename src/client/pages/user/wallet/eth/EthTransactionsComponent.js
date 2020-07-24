@@ -83,7 +83,9 @@ function EthereumTransactionsComponent() {
     );
   };
 
-  return <ListComponent {...{ list, callback }} />;
+  const empty = `No Transactions For ${eth_address}`;
+
+  return <ListComponent {...{ list, callback, empty }} />;
 }
 
 export default EthereumTransactionsComponent;

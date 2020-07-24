@@ -120,6 +120,10 @@ function EthSendPage() {
                 <React.Fragment>
                   <b style={{ fontSize: "1.5rem" }}>Ethers Sent !!!</b>
                   <br />
+                  <p>
+                    Your new balance will be updated as soon as the transaction
+                    is mined, this may take a few minutes.
+                  </p>
                   <br />
                   <a
                     href={`https://ropsten.etherscan.io/tx/${txid}`}
@@ -127,6 +131,7 @@ function EthSendPage() {
                   >
                     View On Etherscan
                   </a>
+
                   <br />
                   <br />
                   <Link to="/user/index.html">Back To Dashboard</Link>

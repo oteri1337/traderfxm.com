@@ -1,15 +1,20 @@
 {
-  "production": {
-    "ssl": true,
-    "dialectOptions": {
-      "ssl": true
-    }
-  },
   "development": {
     "dialect": "mysql",
     "username": "root",
     "host": "127.0.0.1",
     "database": "traderfxmlive",
     "password": "mysqlpassword"
+  },
+  "production": {
+    "dialect": "postgres",
+    "username": "qzevcvfieyrwir",
+    "host": "ec2-54-75-244-161.eu-west-1.compute.amazonaws.com",
+    "database": "dm6mk7q40ohif",
+    "password": "08b967dd2274c74cc3f741c9c782a5f5edf750957e3da77b57c948e24f4bcb8e",
+    "ssl": true,
+    "dialectOptions": {
+      "ssl": true
+    }
   }
 }

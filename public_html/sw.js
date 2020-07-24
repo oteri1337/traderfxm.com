@@ -1,5 +1,5 @@
 let appCache;
-const appCacheKey = "traderfxm.com-2020-07-21-01";
+const appCacheKey = "traderfxm.com-2020-07-24";
 
 self.addEventListener("push", (event) => {
   const { subject, body } = event.data.json();
@@ -50,7 +50,8 @@ var asyncCallback = async function ({ request }) {
   if (
     method === "GET" &&
     url.startsWith(`${origin}/assets`) &&
-    !url.endsWith("reactapp.js")
+    !url.endsWith("reactapp.js") &&
+    !url.endsWith("reactapp.css")
   ) {
     const cacheResponse = await caches.match(url);
 
