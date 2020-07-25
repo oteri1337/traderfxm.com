@@ -1,4 +1,5 @@
 import React from "react";
+import { AppContext } from "providers/AppProvider";
 import TradingViewSlider from "components/charts/SliderComponent";
 import TourNavComponent from "components/container/TourNavComponent";
 import TourSliderComponent from "components/tour/TourSliderComponent";
@@ -13,6 +14,7 @@ import TourGetStartedComponent from "components/tour/TourGetStartedComponent";
 // import TourPressComponent from "components/tour/TourPressComponent";
 
 function HomePage() {
+  const { state } = React.useContext(AppContext);
   const parent = React.useRef();
 
   return (
@@ -24,7 +26,7 @@ function HomePage() {
           <TourSliderComponent parentRef={parent} />
         </div>
       </div>
-      <TradingViewSlider />
+      <TradingViewSlider theme={state.theme.toLowerCase()} />
       <TourGetStartedComponent />
       <TourWalletComponent />
       <TourServicesComponent />

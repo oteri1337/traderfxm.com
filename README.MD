@@ -1,10 +1,8 @@
 # TASKS
 
-4 test and perfect sending tether
+1 test and perfect sending tether
 
-5 multiple address usdt
-
-6 configure pwa status bar ios
+2 configure pwa status bar ios
 
 
 # WALLET GENERATION
@@ -24,6 +22,8 @@ Chain Link Token Ropsten https://ropsten.chain.link/
 
 
 # BALANCE AND TRANSACTIONS
+
+https://github.com/ethereum/web3.js/issues/2709
 
 https://jsapi.apiary.io/apis/blockchaininfo/reference/detailed-bitcoin-data/multiple-addresses/get.html
 

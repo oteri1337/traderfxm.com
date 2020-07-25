@@ -9,16 +9,11 @@ function EthBalanceComponent() {
   const { state, callReducer } = React.useContext(AppContext);
   const { wallet, user, prices } = state;
 
-  // let addr = user.eth_wallets[0]?.address;
-  // let url = `https://api.etherscan.io/api?module=account&action=balance&address=${addr}&tag=latest&apikey=QHC5B5ZS434HK6UFH26KS39DWG5E8RAT76`;
-
-  // if (user.eth_wallets.length > 1) {
   const addr = user.eth_wallets.reduce((pwallet, wallet) => {
     return `${pwallet}${wallet.address},`;
   }, "");
 
   let url = `https://api.etherscan.io/api?module=account&action=balancemulti&address=${addr}&tag=latest&apikey=QHC5B5ZS434HK6UFH26KS39DWG5E8RAT76`;
-  // }
 
   React.useEffect(() => {
     let mounted = true;
@@ -27,15 +22,9 @@ function EthBalanceComponent() {
       let response = await fetch(url);
       response = await response.json();
 
-      console.log(response);
-
       let balance_map = {};
       let balance = wallet.ethereum.balance;
       let transactions = wallet.ethereum.transactions;
-
-      // if (response.status == 1 && user.eth_wallets.length === 1) {
-      //   balance = response.result / 1e18;
-      // }
 
       if (response.status == 1) {
         balance = response.result.reduce((sum, wallet) => {
@@ -53,8 +42,6 @@ function EthBalanceComponent() {
       if (mounted) {
         setFetching(false);
       }
-
-      console.log(response);
 
       if (response.status == 1 || response.status == 0) {
         transactions = response.result;
@@ -84,13 +71,6 @@ function EthBalanceComponent() {
     <div>
       <ul className="collection">
         <li className="collection-item center" style={style}>
-          {/* {fetching && (
-            <div style={{ marginLeft: "2rem", marginRight: "2rem" }}>
-              <div className="progress">
-                <div className="indeterminate"></div>
-              </div>
-            </div>
-          )} */}
           <p className="icon icon-eth" style={iconStyle} />
           {fetching ? (
             <p>

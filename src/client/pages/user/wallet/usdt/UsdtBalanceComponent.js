@@ -11,17 +11,20 @@ function UsdtBalanceComponent() {
 
   const usdt_address = user.usdt_wallets[0].address;
 
+  const addr = user.usdt_wallets.reduce((pwallet, wallet) => {
+    return `${pwallet}${wallet.address},`;
+  }, "");
+
   React.useEffect(() => {
     let mounted = true;
 
     const asyncOperation = async () => {
-      let url;
-
-      url = `https://api.etherscan.io/api?module=account&action=tokenbalance&contractaddress=0xdac17f958d2ee523a2206206994597c13d831ec7&address=${usdt_address}&tag=latest&apikey=QHC5B5ZS434HK6UFH26KS39DWG5E8RAT76`;
-      let response = await fetch(url);
+      let response = await fetch(`/api/users/usdt/${addr}`);
       response = await response.json();
 
-      url = `https://api.etherscan.io/api?module=account&action=tokentx&address=${usdt_address}&startblock=0&endblock=999999999&sort=desc&apikey=QHC5B5ZS434HK6UFH26KS39DWG5E8RAT76`;
+      console.log("usdt ", response);
+
+      const url = `https://api.etherscan.io/api?module=account&action=tokentx&address=${usdt_address}&startblock=0&endblock=999999999&sort=desc&apikey=QHC5B5ZS434HK6UFH26KS39DWG5E8RAT76`;
       let transResponse = await fetch(url);
       transResponse = await transResponse.json();
 
@@ -29,18 +32,16 @@ function UsdtBalanceComponent() {
         setFetching(false);
       }
 
-      let balance_map = {};
-
-      if (response.status == "1") {
-        const balance_approximate = response.result / 1e6;
-
-        balance_map[usdt_address] = balance_approximate;
-
+      if (response.errors.length === 0) {
         const transactions = transResponse.result;
+
+        const { total, balance_map } = response.data;
+
+        console.log(total, balance_map);
 
         callReducer({
           dispatch: "UPDATE_USDT_WALLET",
-          data: { balance_approximate, transactions, balance_map },
+          data: { balance_approximate: total, transactions, balance_map },
         });
       }
     };
@@ -101,9 +102,9 @@ function UsdtBalanceComponent() {
               file_copy
             </span>
           </p>
-          {/* <Link to="/user/wallet/usdt/create.html" className="btn-color">
+          <Link to="/user/wallet/usdt/create.html" className="btn-color">
             GENERATE NEW ADDRESS
-          </Link> */}
+          </Link>
         </div>
         <div className="modal-footer">
           <a

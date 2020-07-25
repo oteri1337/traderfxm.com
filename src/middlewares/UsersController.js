@@ -328,6 +328,30 @@ Controller.sendUsdt = async function (request, response) {
   return response.json(res);
 };
 
+Controller.usdtBalance = async function (request, response) {
+  let value = request.params.attr.split(",");
+
+  if (!value[value.length - 1].length) {
+    value.pop();
+  }
+
+  try {
+    const data = await EthereumController.checkUsdtBalance(value);
+
+    return response.json({
+      data,
+      errors: [],
+      message: "",
+    });
+  } catch (error) {
+    return response.json({
+      data: {},
+      errors: ["failed to get balance"],
+      message: "",
+    });
+  }
+};
+
 for (let key in Controller) {
   if (typeof Controller[key] == "function" && key != "model") {
     Controller[key] = Controller[key].bind(Controller);

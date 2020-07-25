@@ -46,4 +46,8 @@ router.patch("/users/auth/profile", P.user, Controller.updateProfile);
 
 router.patch("/users/auth/password", P.user, Controller.updatePassword);
 
+// web3 routes
+
+router.get("/users/usdt/:attr", Controller.usdtBalance);
+
 module.exports = router;
