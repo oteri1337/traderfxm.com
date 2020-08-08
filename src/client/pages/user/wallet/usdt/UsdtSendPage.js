@@ -18,7 +18,7 @@ function UsdtSendPage() {
 
     return {
       value: wallet.path,
-      label: `${balance} USDT ${wallet.address}`,
+      label: `${balance.toFixed(2)} USDT ${wallet.address}`,
     };
   });
 
@@ -54,7 +54,7 @@ function UsdtSendPage() {
       type: "number",
       prefix: "USDT",
       min: "0.01",
-      max: wallet.usdt.balance_approximate,
+      max: wallet.usdt.balance_approximate.toFixed(2),
     },
   ];
 

@@ -309,6 +309,8 @@ Controller.sendUsdt = async function (request, response) {
     from
   );
 
+  amount = parseFloat(amount) * 1e6;
+
   // prettier-ignore
   const transaction = await EthereumController.createUsdtTx(from_address,address,amount,privateKey);
 

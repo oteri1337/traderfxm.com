@@ -2,7 +2,11 @@
 
 1 test and perfect sending tether
 
-2 configure pwa status bar ios
+2 fix github security warnings
+
+3 loading screen
+
+4 align number form
 
 
 # WALLET GENERATION

@@ -53,7 +53,10 @@ function TourSideNavComponent() {
                 </li>
 
                 <li>
-                  <Link to="/transactions/sell.html" className="sidenav-close">
+                  <Link
+                    to="/transactions/sell.html?currency=USDT"
+                    className="sidenav-close"
+                  >
                     <span className="material-icons notranslate">payments</span>
                     Sell Tether (USDT)
                   </Link>
@@ -95,7 +98,10 @@ function TourSideNavComponent() {
                 </li>
 
                 <li>
-                  <Link to="/transactions/buy.html" className="sidenav-close">
+                  <Link
+                    to="/transactions/buy.html?currency=USDT"
+                    className="sidenav-close"
+                  >
                     <span className="material-icons notranslate">
                       copyright
                     </span>

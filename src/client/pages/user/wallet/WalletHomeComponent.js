@@ -14,7 +14,6 @@ function WalletHomeComponent() {
       callReducer({ dispatch: "UPDATE_BTC_BALANCE", data });
 
       data = await getEthAddressBalance(user.eth_address);
-      console.log("eth balance", data);
       //callReducer({ dispatch: "UPDATE_ETH_BALANCE", data });
     };
 

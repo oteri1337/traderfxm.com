@@ -46,7 +46,7 @@ function UsdtListPage() {
           >
             View On Etherscan
           </a>
-          <p>{balance} USDT</p>
+          <p>{balance.toFixed(2)} USDT</p>
           <p>{wallet.label}</p>
         </li>
       );
