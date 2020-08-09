@@ -21,7 +21,7 @@
     "ejs": "^3.0.1",
     "es6-promise": "^4.2.8",
     "ethereumjs-tx": "^2.1.2",
-    "ethereumjs-wallet": "^1.0.0",
+    "ethereumjs-wallet": "0.6.3",
     "express": "^4.17.1",
     "express-session": "^1.17.0",
     "faker": "^4.1.0",
