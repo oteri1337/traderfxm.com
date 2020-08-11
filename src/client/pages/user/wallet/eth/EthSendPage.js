@@ -125,10 +125,7 @@ function EthSendPage() {
                     is mined, this may take a few minutes.
                   </p>
                   <br />
-                  <a
-                    href={`https://ropsten.etherscan.io/tx/${txid}`}
-                    target="_blank"
-                  >
+                  <a href={`https://etherscan.io/tx/${txid}`} target="_blank">
                     View On Etherscan
                   </a>
 

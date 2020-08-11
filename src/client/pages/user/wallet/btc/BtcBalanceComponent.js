@@ -12,16 +12,9 @@ function BtcBalanceComponent() {
   let addr;
   let url;
 
-  // if (user.btc_wallets.length > 1) {
   addr = user.btc_wallets.reduce((pwallet, wallet) => {
     return `${pwallet}${wallet.address}|`;
   }, "");
-
-  // } else {
-  //  addr = user.btc_wallets[1].address;
-  // }
-
-  // url = `https://insight.bitpay.com/api/addr/${addr}`;
 
   url = `https://cors-anywhere.herokuapp.com/https://blockchain.info/multiaddr?active=${addr}`;
 
@@ -35,39 +28,16 @@ function BtcBalanceComponent() {
         setFetching(false);
       }
 
-      // url = `https://insight.bitpay.com/api/addrs/${addr}/txs?from=0&to=12`;
-      // let transResponse = await fetch(url);
-      // transResponse = await transResponse.json();
-
-      // console.log(transResponse);
-
-      // if (user.btc_wallets.length > 1) {
-      //   url = `https://api.smartbit.com.au/v1/blockchain/address/${user.btc_wallets[0].address}`;
-
-      //   let t = await fetch(url);
-      //   t = await t.json();
-      //   if (t.success) {
-      //     transactions = t.address.transactions;
-      //   }
-      // }
-
       if (response.wallet) {
         let balance = 0;
         let balance_map = {};
         let transactions = response.txs;
 
-        // if (user.btc_wallets.length > 1) {
         response.addresses.forEach((wallet) => {
-          //balance += parseFloat(wallet.total.balance);
           balance_map[wallet.address] = wallet.final_balance / 1e8;
         });
-        //   balance = balance.toFixed(8);
-        // } else {
-        //   const { address } = response;
+
         balance = response.wallet.final_balance / 1e8;
-        //transactions = transResponse.items;
-        //balance_map[addr] = response.balance + response.unconfirmedBalance;
-        // }
 
         callReducer({
           dispatch: "UPDATE_BTC_WALLET",
@@ -75,7 +45,8 @@ function BtcBalanceComponent() {
         });
       }
     };
-    asyncOperation();
+
+    // asyncOperation();
 
     return () => {
       mounted = false;
@@ -117,26 +88,27 @@ function BtcBalanceComponent() {
           <button data-target="modal1" className="btn modal-trigger">
             RECEIVE
           </button>
-          <Link to="/user/wallet/btc/send.html" className="btn" title="Send">
+          {/* <Link to="/user/wallet/btc/send.html" className="btn" title="Send">
             SEND
-          </Link>
+          </Link> */}
         </li>
       </ul>
       <div id="modal1" className="modal" style={{ color: "#000" }}>
         <div className="modal-content center">
-          <img
+          {/* <img
             src={`${chart_url}${user.btc_wallets[0].address}`}
             alt={user.btc_wallets[0].address}
-          />
+          /> */}
           <p>
-            {user.btc_wallets[0].address}{" "}
+            WALLET COMING SOON
+            {/* {user.btc_wallets[0].address}{" "}
             <span className="material-icons notranslate" onClick={copy}>
               file_copy
-            </span>
+            </span> */}
           </p>
-          <Link to="/user/wallet/btc/create.html" className="btn-color">
+          {/* <Link to="/user/wallet/btc/create.html" className="btn-color">
             GENERATE NEW ADDRESS
-          </Link>
+          </Link> */}
         </div>
         <div className="modal-footer">
           <a className={modal_class} style={{ color: "#000" }}>

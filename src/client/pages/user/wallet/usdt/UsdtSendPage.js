@@ -56,6 +56,15 @@ function UsdtSendPage() {
       min: "0.01",
       max: wallet.usdt.balance_approximate.toFixed(2),
     },
+    {
+      type: "component",
+      component: (
+        <p key="message">
+          You need at least 0.005 Ethers in your USDT address to send a
+          transaction
+        </p>
+      ),
+    },
   ];
 
   const text = "Send";
@@ -79,10 +88,6 @@ function UsdtSendPage() {
         <div className="col l6 offset-l3 s12">
           <div className="card-panel">
             <center>
-              <p>
-                You need at least 0.005 Ethers in your USDT address to send a
-                transaction
-              </p>
               {!txid.length && (
                 <FormComponent
                   {...{
@@ -106,10 +111,7 @@ function UsdtSendPage() {
                     is mined, this may take a few minutes.
                   </p>
                   <br />
-                  <a
-                    href={`https://ropsten.etherscan.io/tx/${txid}`}
-                    target="_blank"
-                  >
+                  <a href={`https://etherscan.io/tx/${txid}`} target="_blank">
                     View On Etherscan
                   </a>
 

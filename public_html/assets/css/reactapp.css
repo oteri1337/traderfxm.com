@@ -294,7 +294,7 @@ nav {
 }
 
 .sidenav {
-  background: var(--primary-backgroud);
+  background: black;
   overflow-y: scroll;
 }
 
@@ -868,75 +868,75 @@ a.hover:hover {
   font-style: normal;
 }
 .flaticon-bitcoin-1:before {
-  content: "\F100";
+  content: "\f100";
 }
 .flaticon-blocks-with-angled-cuts:before {
-  content: "\F101";
+  content: "\f101";
 }
 .flaticon-straight-quotes:before {
-  content: "\F102";
+  content: "\f102";
 }
 .flaticon-left-quote:before {
-  content: "\F103";
+  content: "\f103";
 }
 .flaticon-quote:before {
-  content: "\F104";
+  content: "\f104";
 }
 .flaticon-bitcoin:before {
-  content: "\F105";
+  content: "\f105";
 }
 .flaticon-arrows-1:before {
-  content: "\F106";
+  content: "\f106";
 }
 .flaticon-arrows:before {
-  content: "\F107";
+  content: "\f107";
 }
 .flaticon-school-material:before {
-  content: "\F108";
+  content: "\f108";
 }
 .flaticon-blogging:before {
-  content: "\F109";
+  content: "\f109";
 }
 .flaticon-factory:before {
-  content: "\F10A";
+  content: "\f10a";
 }
 .flaticon-people:before {
-  content: "\F10B";
+  content: "\f10b";
 }
 .flaticon-technology:before {
-  content: "\F10C";
+  content: "\f10c";
 }
 .flaticon-support:before {
-  content: "\F10D";
+  content: "\f10d";
 }
 .flaticon-secure-shield:before {
-  content: "\F10E";
+  content: "\f10e";
 }
 .flaticon-connection:before {
-  content: "\F10F";
+  content: "\f10f";
 }
 .flaticon-analytics:before {
-  content: "\F110";
+  content: "\f110";
 }
 .flaticon-money-2:before {
-  content: "\F111";
+  content: "\f111";
 }
 .flaticon-market:before {
-  content: "\F112";
+  content: "\f112";
 }
 .flaticon-money-1:before {
-  content: "\F113";
+  content: "\f113";
 }
 .flaticon-money:before {
-  content: "\F114";
+  content: "\f114";
 }
 .flaticon-coin:before {
-  content: "\F115";
+  content: "\f115";
 }
 .flaticon-credit-card:before {
-  content: "\F116";
+  content: "\f116";
 }
 .flaticon-wallet:before {
-  content: "\F117";
+  content: "\f117";
 }
 

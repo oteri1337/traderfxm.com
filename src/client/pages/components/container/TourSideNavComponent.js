@@ -1,6 +1,5 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import Logo from "assets/images/logo.png";
 import { AppContext } from "providers/AppProvider";
 import UserSideNavComponent from "./UserSideNavComponent";
 
@@ -21,7 +20,10 @@ function TourSideNavComponent() {
       <li>
         <div className="user-view">
           <div className="background">
-            <img src={Logo} style={{ paddingLeft: "1rem" }} />
+            <img
+              src="/assets/pwa/android-chrome-144x144.png"
+              style={{ marginTop: "0.7rem", marginLeft: "2rem" }}
+            />
           </div>
         </div>
       </li>

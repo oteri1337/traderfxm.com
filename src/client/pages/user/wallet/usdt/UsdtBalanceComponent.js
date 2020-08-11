@@ -45,7 +45,8 @@ function UsdtBalanceComponent() {
         });
       }
     };
-    asyncOperation();
+
+    // asyncOperation();
 
     return () => {
       mounted = false;
@@ -80,31 +81,30 @@ function UsdtBalanceComponent() {
           ) : (
             <p> {format("USD", wallet.usdt.balance_approximate)}</p>
           )}
-          {/* <p>{wallet.usdt.balance_approximate.toFixed(2)} USDT</p>
-          <p>{format("USD", wallet.usdt.balance_approximate)}</p> */}
           <button data-target="modal3" className="btn modal-trigger">
             RECEIVE
           </button>
-          <Link to="/user/wallet/usdt/send.html" className="btn" title="Send">
+          {/* <Link to="/user/wallet/usdt/send.html" className="btn" title="Send">
             SEND
-          </Link>
+          </Link> */}
         </li>
       </ul>
       <div id="modal3" className="modal" style={{ color: "#000" }}>
         <div className="modal-content center">
-          <img
-            src={`https://chart.googleapis.com/chart?cht=qr&chs=150x150&chl=bitcoin:${user.usdt_wallets[0].address}`}
+          {/* <img
+            src={`https://chart.googleapis.com/chart?cht=qr&chs=150x150&chl=${user.usdt_wallets[0].address}`}
             alt={user.usdt_wallets[0].address}
-          />
+          /> */}
           <p>
-            {user.usdt_wallets[0].address}{" "}
+            WALLET COMING SOON
+            {/* {user.usdt_wallets[0].address}{" "}
             <span className="material-icons notranslate" onClick={copy}>
               file_copy
-            </span>
+            </span> */}
           </p>
-          <Link to="/user/wallet/usdt/create.html" className="btn-color">
+          {/* <Link to="/user/wallet/usdt/create.html" className="btn-color">
             GENERATE NEW ADDRESS
-          </Link>
+          </Link> */}
         </div>
         <div className="modal-footer">
           <a

@@ -85,7 +85,7 @@ Controller.createBody = function (body) {
     wallets: [
       { address: btc_address, type: 1, path: 0, label: "Default BTC Wallet" },
       { address: eth_address, type: 2, path: 0, label: "Default ETH Wallet" },
-      { address: usdt_address, type: 3, path: 1, label: "Default USDT Wallet" },
+      { address: usdt_address, type: 3, path: 0, label: "Default USDT Wallet" },
     ],
   };
 };
@@ -271,20 +271,43 @@ Controller.sendEth = async function (request, response) {
   // prettier-ignore
   const transaction = await EthereumController.createTransaction(from_address,address,amount,privateKey);
 
-  // try {
-  const res = await EthereumController.broadcast(transaction);
+  EthereumController.broadcast(transaction, (error, txid) => {
+    if (txid) {
+      console.log("broadcast successful", txid);
 
-  console.log("broacast response", res);
+      this.sendEmail(
+        user.email,
+        `You have successfuly sent ${amount} ETH to ${address} `,
+        `${amount} ETH sent`
+      );
 
-  if (res.errors.length === 0) {
-    this.sendEmail(
-      user.email,
-      `You have successfuly sent ${amount} ETH to ${address} `,
-      "Ethers Sent"
-    );
-  }
+      return response.json({ errors: [], data: { txid }, message: "" });
+    }
 
-  return response.json(res);
+    if (error) {
+      console.log("broadcast error", error.message);
+
+      return response.json({
+        data: {},
+        message: "",
+        errors: [error.message],
+      });
+    }
+  });
+
+  // const res = await EthereumController.broadcast(transaction);
+
+  // console.log("broacast response", res);
+
+  // if (res.errors.length === 0) {
+  //   this.sendEmail(
+  //     user.email,
+  //     `You have successfuly sent ${amount} ETH to ${address} `,
+  //     "Ethers Sent"
+  //   );
+  // }
+
+  // return response.json(res);
 };
 
 Controller.sendUsdt = async function (request, response) {
@@ -309,25 +332,34 @@ Controller.sendUsdt = async function (request, response) {
     from
   );
 
-  amount = parseFloat(amount) * 1e6;
+  // amount = parseFloat(amount) * 1e6;
 
   // prettier-ignore
   const transaction = await EthereumController.createUsdtTx(from_address,address,amount,privateKey);
 
-  // try {
-  const res = await EthereumController.broadcast(transaction);
+  EthereumController.broadcast(transaction, (error, txid) => {
+    if (txid) {
+      console.log("broadcast successful", txid);
 
-  console.log("broacast response", res);
+      this.sendEmail(
+        user.email,
+        `You have successfuly sent ${amount} USDT to ${address} `,
+        `${amount} USDT sent`
+      );
 
-  if (res.errors.length === 0) {
-    this.sendEmail(
-      user.email,
-      `You have successfuly sent ${amount} USDT to ${address} `,
-      "Tethers Sent"
-    );
-  }
+      return response.json({ errors: [], data: { txid }, message: "" });
+    }
 
-  return response.json(res);
+    if (error) {
+      console.log("broadcast error", error.message);
+
+      return response.json({
+        data: {},
+        message: "",
+        errors: [error.message],
+      });
+    }
+  });
 };
 
 Controller.usdtBalance = async function (request, response) {

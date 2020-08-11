@@ -1,12 +1,6 @@
 # TASKS
 
-1 test and perfect sending tether
-
-2 fix github security warnings
-
-3 loading screen
-
-4 align number form
+1 align number form
 
 
 # WALLET GENERATION

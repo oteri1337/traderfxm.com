@@ -1,6 +1,5 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import Logo from "assets/images/logo.png";
 import { AppContext } from "providers/AppProvider";
 
 function TourSideNavComponent() {
@@ -16,7 +15,10 @@ function TourSideNavComponent() {
       <li>
         <div className="user-view">
           <div className="background">
-            <img src={Logo} style={{ paddingLeft: "1rem" }} />
+            <img
+              src="/assets/pwa/android-chrome-144x144.png"
+              style={{ marginTop: "0.7rem", marginLeft: "2rem" }}
+            />
           </div>
         </div>
       </li>
@@ -37,14 +39,14 @@ function TourSideNavComponent() {
                   </Link>
                 </li>
 
-                <li>
+                {/* <li>
                   <Link to="/user/wallet/list.html" className="sidenav-close">
                     <span className="material-icons notranslate">
                       copyright
                     </span>
                     Wallet
                   </Link>
-                </li>
+                </li> */}
 
                 <li>
                   <Link to="/user/auth/account.html" className="sidenav-close">

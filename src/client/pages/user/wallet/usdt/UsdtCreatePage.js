@@ -31,7 +31,7 @@ function UsdtCreatePage({ history }) {
   const text = "Generate";
 
   const initialState = {
-    path: user.eth_wallets.length,
+    path: user.usdt_wallets.length,
   };
 
   const onSucess = () => {

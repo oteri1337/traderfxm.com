@@ -41,7 +41,7 @@ function UsdtListPage() {
           </span>
           <br />
           <a
-            href={`https://etherscan.io/address/${wallet.address}`}
+            href={`https://etherscan.io/address/${wallet.address}#tokentxns`}
             target="_blank"
           >
             View On Etherscan
