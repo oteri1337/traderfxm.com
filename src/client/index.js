@@ -12,7 +12,10 @@ import {
 async function renderApp() {
   let state = await JSON.parse(localStorage.getItem("state"));
 
-  state = rootReducer(state, { dispatch: "UPDATE_THEME", data: state?.theme });
+  state = rootReducer(state, {
+    dispatch: "UPDATE_THEME",
+    data: state?.theme || "LIGHT",
+  });
 
   render(
     <AppProvider initialState={state}>
