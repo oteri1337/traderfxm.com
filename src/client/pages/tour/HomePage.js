@@ -8,11 +8,6 @@ import TourServicesComponent from "components/tour/TourServicesComponent";
 import ContainerComponent from "components/container/TourContainerComponent";
 import TourGetStartedComponent from "components/tour/TourGetStartedComponent";
 
-// import TourTestimonialsComponent from "components/tour/TourTestimonialsComponent";
-// import BitcoinConverterComponent from "components/tour/TourConverterComponent";
-// import TourAboutComponent from "components/tour/TourAboutComponent";
-// import TourPressComponent from "components/tour/TourPressComponent";
-
 function HomePage() {
   const { state } = React.useContext(AppContext);
   const parent = React.useRef();
@@ -26,15 +21,10 @@ function HomePage() {
           <TourSliderComponent parentRef={parent} />
         </div>
       </div>
-      <TradingViewSlider theme={state.theme.toLowerCase()} />
+      <TradingViewSlider theme={state.theme} />
       <TourGetStartedComponent />
       <TourWalletComponent />
       <TourServicesComponent />
-      {/* <TradingViewSlider />
-      <TourAboutComponent />
-      <BitcoinConverterComponent />
-      <TourTestimonialsComponent />
-      <TourPressComponent /> */}
     </ContainerComponent>
   );
 }

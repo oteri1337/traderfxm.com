@@ -1,6 +1,6 @@
 import React from "react";
 
-function TradingViewSliderComponent({ theme }) {
+function TradingViewSliderComponent({ theme = "light" }) {
   const iframe = React.useRef();
 
   React.useEffect(() => {
@@ -19,7 +19,7 @@ function TradingViewSliderComponent({ theme }) {
             "proName": "BITFINEX:ETHUSD"
           }
         ],
-        "colorTheme": "${theme ?? "light"}",
+        "colorTheme": "${theme.toLowerCase() ?? "light"}",
         "isTransparent": false,
         "displayMode": "adaptive",
         "locale": "en"
