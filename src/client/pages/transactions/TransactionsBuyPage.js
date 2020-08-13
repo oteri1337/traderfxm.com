@@ -112,13 +112,13 @@ function BuyFormPage({ history, location }) {
         },
       ],
     },
-    // {
-    //   id: "amount_in_ngn",
-    //   label: "amount",
-    //   type: "number",
-    //   min: 1000,
-    //   prefix: "NGN",
-    // },
+    {
+      id: "amount_in_ngn",
+      label: "amount",
+      type: "number",
+      min: 1000,
+      prefix: "NGN",
+    },
     {
       type: "component",
       component: (

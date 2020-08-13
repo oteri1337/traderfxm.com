@@ -691,8 +691,17 @@ a.hover:hover {
 .input-field .prefix ~ .validate ~ label,
 .input-field .prefix ~ .helper-text,
 .input-field .prefix ~ .autocomplete-content {
-  margin-left: 4rem;
+  margin-left: 2rem;
 }
+
+.input-field .prefix {
+  left: -15px;
+  width: 3rem;
+}
+/* .input-field .prefix ~ input {
+  width: 70%;
+  width: calc(100% - 6rem);
+} */
 
 /* Small Screen Mobile */
 @media (max-width: 320px) {
