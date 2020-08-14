@@ -53,7 +53,7 @@ function EthBalanceComponent() {
       });
     };
 
-    // asyncOperation();
+    asyncOperation();
 
     return () => {
       mounted = false;
@@ -94,27 +94,26 @@ function EthBalanceComponent() {
           <button data-target="modal2" className="btn modal-trigger">
             RECEIVE
           </button>
-          {/* <Link to="/user/wallet/eth/send.html" className="btn" title="Send">
+          <Link to="/user/wallet/eth/send.html" className="btn" title="Send">
             SEND
-          </Link> */}
+          </Link>
         </li>
       </ul>
       <div id="modal2" className="modal" style={{ color: "#000" }}>
         <div className="modal-content center">
-          {/* <img
+          <img
             src={`https://chart.googleapis.com/chart?cht=qr&chs=150x150&chl=${user.eth_wallets[0].address}`}
             alt={user.eth_wallets[0].address}
-          /> */}
+          />
           <p>
-            WALLET COMING SOON
-            {/* {user.eth_wallets[0].address}{" "}
+            {user.eth_wallets[0].address}{" "}
             <span className="material-icons notranslate" onClick={copy}>
               file_copy
-            </span> */}
+            </span>
           </p>
-          {/* <Link to="/user/wallet/eth/create.html" className="btn-color">
+          <Link to="/user/wallet/eth/create.html" className="btn-color">
             GENERATE NEW ADDRESS
-          </Link> */}
+          </Link>
         </div>
         <div className="modal-footer">
           <a

@@ -39,14 +39,14 @@ function TourSideNavComponent() {
                   </Link>
                 </li>
 
-                {/* <li>
+                <li>
                   <Link to="/user/wallet/list.html" className="sidenav-close">
                     <span className="material-icons notranslate">
                       copyright
                     </span>
                     Wallet
                   </Link>
-                </li> */}
+                </li>
 
                 <li>
                   <Link to="/user/auth/account.html" className="sidenav-close">

@@ -46,7 +46,7 @@ function BtcBalanceComponent() {
       }
     };
 
-    // asyncOperation();
+    asyncOperation();
 
     return () => {
       mounted = false;
@@ -88,27 +88,26 @@ function BtcBalanceComponent() {
           <button data-target="modal1" className="btn modal-trigger">
             RECEIVE
           </button>
-          {/* <Link to="/user/wallet/btc/send.html" className="btn" title="Send">
+          <Link to="/user/wallet/btc/send.html" className="btn" title="Send">
             SEND
-          </Link> */}
+          </Link>
         </li>
       </ul>
       <div id="modal1" className="modal" style={{ color: "#000" }}>
         <div className="modal-content center">
-          {/* <img
+          <img
             src={`${chart_url}${user.btc_wallets[0].address}`}
             alt={user.btc_wallets[0].address}
-          /> */}
+          />
           <p>
-            WALLET COMING SOON
-            {/* {user.btc_wallets[0].address}{" "}
+            {user.btc_wallets[0].address}{" "}
             <span className="material-icons notranslate" onClick={copy}>
               file_copy
-            </span> */}
+            </span>
           </p>
-          {/* <Link to="/user/wallet/btc/create.html" className="btn-color">
+          <Link to="/user/wallet/btc/create.html" className="btn-color">
             GENERATE NEW ADDRESS
-          </Link> */}
+          </Link>
         </div>
         <div className="modal-footer">
           <a className={modal_class} style={{ color: "#000" }}>
