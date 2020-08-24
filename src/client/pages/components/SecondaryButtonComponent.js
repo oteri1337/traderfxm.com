@@ -26,8 +26,12 @@ function SecondaryButtonComponent(props) {
     );
   }
 
-  const onClick = () => {
-    callBack(endpoint, dispatch, body, undefined, type);
+  const onClick = (e) => {
+    e.preventDefault();
+    const sure = confirm(props.message ?? "are you sure?");
+    if (sure) {
+      callBack(endpoint, dispatch, body, undefined, type);
+    }
   };
 
   return (

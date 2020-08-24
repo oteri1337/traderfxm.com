@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import AdminListComponent from "components/container/AdminListComponent";
+import SecondaryButtonComponent from "components/SecondaryButtonComponent";
 
 function UsersListPage() {
   const nav = [
@@ -37,6 +38,14 @@ function UsersListPage() {
         >
           <b>{props.account_name}</b>
         </Link>
+        <SecondaryButtonComponent
+          type="DELETE"
+          title="Delete USER"
+          dispatch="UPDATE_USERS"
+          endpoint={endpoint}
+          body={{ id: props.id }}
+          message={`are you sure you want to delete ${props.account_name}`}
+        />
       </li>
     );
   };

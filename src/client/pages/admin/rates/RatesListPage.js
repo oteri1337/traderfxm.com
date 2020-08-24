@@ -32,6 +32,7 @@ function RatesListPage() {
           dispatch="UPDATE_RATES"
           endpoint={endpoint}
           body={{ id: props.id }}
+          message={`are you sure you want to delete ${props.lower_limit} to ${props.upper_limit}`}
         />
         <Link to={`/control/rates/${props.id}`}>
           {props.type === 1 && "Sell Rate "} {props.type === 2 && "Buy Rate"} $
