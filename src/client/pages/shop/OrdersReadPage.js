@@ -1,4 +1,5 @@
 import React from "react";
+import { Helmet } from "react-helmet";
 import { format } from "functions/dom";
 import { formatOrder } from "functions/data";
 import TableComponent from "components/TableComponent";
@@ -136,6 +137,9 @@ function OrderReadPage({ match }) {
 
   return (
     <TourContainerComponent renderHeader={false}>
+      <Helmet>
+        <script src="https://checkout.flutterwave.com/v3.js"></script>
+      </Helmet>
       <div className="bg">
         <TourNavComponent />
       </div>
