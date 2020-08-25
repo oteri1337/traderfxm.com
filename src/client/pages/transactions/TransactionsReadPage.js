@@ -1,6 +1,7 @@
 import React from "react";
-import { formatTransaction } from "functions/data";
+import { Helmet } from "react-helmet";
 import { getRequest } from "functions/http";
+import { formatTransaction } from "functions/data";
 import TableComponent from "components/TableComponent";
 import BuyPayComponent from "./components/BuyPayComponent";
 import SellPayComponent from "./components/SellPayComponent";
@@ -92,6 +93,9 @@ function TransactionsReadPage({ match }) {
   return (
     <TourContainerComponent bread={nav}>
       <div className="container app-mt-1">
+        <Helmet>
+          <script src="https://checkout.flutterwave.com/v3.js"></script>
+        </Helmet>
         <div className="card-panel">
           <div className="row">
             <div className="col l5 s12">{renderStep()}</div>
