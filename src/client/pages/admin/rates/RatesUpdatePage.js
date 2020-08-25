@@ -51,6 +51,7 @@ function RatesUpdatePage({ history, match }) {
       id: "upper_limit",
       type: "number",
       prefix: "$",
+      required: false,
     },
     {
       id: "rate",

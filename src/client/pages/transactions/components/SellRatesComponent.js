@@ -3,11 +3,13 @@ import { getRequestThenDispatch } from "hooks";
 import ListComponent from "components/ListComponent";
 
 function RatesListComponent() {
-  const { state } = getRequestThenDispatch("/api/rates/sell", "UPDATE_RATES");
+  const { state } = getRequestThenDispatch("/api/rates", "UPDATE_RATES");
 
   const list = state.rates;
 
   const callback = (props) => {
+    if (props.type != 1) return false;
+
     let className = "material-icons notranslate";
 
     let upper_limit = "";

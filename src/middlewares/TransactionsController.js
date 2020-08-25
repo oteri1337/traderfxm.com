@@ -83,24 +83,6 @@ async function getPaymentAddressAsync(cryptoId, path) {
   }
 }
 
-// function getPaymentAddressSync(cryptoId, path) {
-//   let address;
-
-//   if (cryptoId == 1) {
-//     address = BitcoinController.createPaymentAddress(path);
-//   }
-
-//   if (cryptoId == 2) {
-//     address = EthereumController.createPaymentAddress(path);
-//   }
-
-//   if (cryptoId == 3) {
-//     address = EthereumController.createPaymentAddress(path);
-//   }
-
-//   return address;
-// }
-
 Controller.createBuy = async (request, response) => {
   const { body } = request;
 
@@ -112,7 +94,7 @@ Controller.createBuy = async (request, response) => {
 
   body.amount_in_usd = body.amount_in_ngn / body.rate;
 
-  const crypto_price = await getCrptoPrice();
+  const crypto_price = await getCryptoPrice(body.cryptoId);
 
   if (!crypto_price) {
     return response.json({

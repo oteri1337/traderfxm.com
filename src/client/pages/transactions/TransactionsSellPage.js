@@ -153,7 +153,7 @@ function SellFormPage({ history, location }) {
             {amount} {currency} = {format("USD", worth)} = {format("NGN", cash)}
           </p>
           <p>
-            1 {currency} = ${state.prices[name].usd} ={" "}
+            1 {currency} = {format("USD", state.prices[name].usd)} ={" "}
             {format("NGN", state.prices[name].usd * rate)}
           </p>
         </div>

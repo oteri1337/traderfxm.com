@@ -14,6 +14,8 @@ const format = (currency, amount) => {
 function BuyFormPage({ history, location }) {
   const { request, callBack, state } = sendRequestThenDispatch();
 
+  const buyRate = state.rates.array.find((rate) => rate.type == 2);
+
   let Container = TourContainerComponent;
 
   const { user } = state;
@@ -73,7 +75,7 @@ function BuyFormPage({ history, location }) {
   const onChangeCallBack = ({ cryptoId, amount_in_ngn = 0 }) => {
     setAmount(amount_in_ngn);
 
-    let worth = amount_in_ngn / 360;
+    let worth = amount_in_ngn / buyRate.rate;
     setWorth(worth);
 
     if (cryptoId == 1) {
@@ -125,7 +127,7 @@ function BuyFormPage({ history, location }) {
         <div key="message">
           <p>
             Rate: <s>N</s>
-            360 = $1
+            {buyRate.rate} = $1
           </p>
           <p>
             <s>N</s>
@@ -175,10 +177,10 @@ function BuyFormPage({ history, location }) {
                         ></span>
                       </td>
                       <td style={{ textAlign: "center" }}>
-                        ${state.prices.bitcoin.usd}
+                        {format("USD", state.prices.bitcoin.usd)}
                       </td>
                       <td style={{ textAlign: "center" }}>
-                        {format("NGN", state.prices.bitcoin.usd * 360)}
+                        {format("NGN", state.prices.bitcoin.usd * buyRate.rate)}
                       </td>
                     </tr>
                     <tr>
@@ -192,7 +194,10 @@ function BuyFormPage({ history, location }) {
                         ${state.prices.ethereum.usd}
                       </td>
                       <td style={{ textAlign: "center" }}>
-                        {format("NGN", state.prices.ethereum.usd * 360)}
+                        {format(
+                          "NGN",
+                          state.prices.ethereum.usd * buyRate.rate
+                        )}
                       </td>
                     </tr>
                     <tr>
@@ -206,7 +211,7 @@ function BuyFormPage({ history, location }) {
                         ${state.prices.tether.usd.toString().slice(0, 4)}
                       </td>
                       <td style={{ textAlign: "center" }}>
-                        {format("NGN", state.prices.tether.usd * 360)}
+                        {format("NGN", state.prices.tether.usd * buyRate.rate)}
                       </td>
                     </tr>
                   </tbody>
