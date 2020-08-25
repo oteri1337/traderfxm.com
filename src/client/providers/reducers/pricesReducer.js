@@ -1,4 +1,8 @@
-const defaultState = { bitcoin: { usd: 7078.52 }, ethereum: { usd: 181.79 } };
+const defaultState = {
+  tether: { usd: 1 },
+  bitcoin: { usd: 1 },
+  ethereum: { usd: 1 },
+};
 
 function bitcoinReducer(state = defaultState, action) {
   switch (action.dispatch) {

@@ -1,6 +1,6 @@
 import React from "react";
-import { sendRequestThenDispatch } from "hooks";
 import FormComponent from "components/FormComponent";
+import { sendRequestThenDispatch, getRequestThenDispatch } from "hooks";
 import TourContainerComponent from "components/container/TourContainerComponent";
 
 const format = (currency, amount) => {
@@ -12,15 +12,39 @@ const format = (currency, amount) => {
 };
 
 function BuyFormPage({ history, location }) {
+  getRequestThenDispatch("/api/rates", "UPDATE_RATES");
+
   const { request, callBack, state } = sendRequestThenDispatch();
+  const { fetching, errors, message } = request;
+  const { user } = state;
+
+  const [worth, setWorth] = React.useState(0);
+
+  const [crypto, setCrypto] = React.useState(0);
+
+  const [amount, setAmount] = React.useState(0);
+
+  const params = new URLSearchParams(location.search);
+
+  const initialCurrency = params.get("currency") || "BTC";
+
+  const [currency, setCurrency] = React.useState(initialCurrency);
 
   const buyRate = state.rates.array.find((rate) => rate.type == 2);
 
-  let Container = TourContainerComponent;
+  const nav = [
+    {
+      label: "Buy Crypto",
+    },
+  ];
 
-  const { user } = state;
-  const params = new URLSearchParams(location.search);
-  const initialCurrency = params.get("currency") || "BTC";
+  if (!buyRate) {
+    return (
+      <TourContainerComponent bread={nav}>
+        <div className="card-panel">Fetching Rates</div>
+      </TourContainerComponent>
+    );
+  }
 
   let cryptoId = 1;
 
@@ -56,15 +80,8 @@ function BuyFormPage({ history, location }) {
     };
   }
 
-  const { fetching, errors, message } = request;
-
   const btcprice = state.prices.bitcoin.usd;
   const ethprice = state.prices.ethereum.usd;
-
-  const [worth, setWorth] = React.useState(0);
-  const [crypto, setCrypto] = React.useState(0);
-  const [amount, setAmount] = React.useState(0);
-  const [currency, setCurrency] = React.useState(initialCurrency);
 
   let name = "bitcoin";
 
@@ -87,12 +104,6 @@ function BuyFormPage({ history, location }) {
       setCrypto((worth / ethprice).toFixed(8));
     }
   };
-
-  const nav = [
-    {
-      label: "Buy Crypto",
-    },
-  ];
 
   const formArray = [
     {
@@ -161,7 +172,7 @@ function BuyFormPage({ history, location }) {
   const text = "Proceed";
 
   return (
-    <Container bread={nav}>
+    <TourContainerComponent bread={nav}>
       <div className="container">
         <div className="row app-my-3">
           <div className="col s12 m12 l6 offset-l3">
@@ -208,10 +219,10 @@ function BuyFormPage({ history, location }) {
                         ></span>
                       </td>
                       <td style={{ textAlign: "center" }}>
-                        ${state.prices.tether.usd.toString().slice(0, 4)}
+                        ${state.prices.tether?.usd.toString().slice(0, 4)}
                       </td>
                       <td style={{ textAlign: "center" }}>
-                        {format("NGN", state.prices.tether.usd * buyRate.rate)}
+                        {format("NGN", state.prices.tether?.usd * buyRate.rate)}
                       </td>
                     </tr>
                   </tbody>
@@ -234,7 +245,7 @@ function BuyFormPage({ history, location }) {
           </div>
         </div>
       </div>
-    </Container>
+    </TourContainerComponent>
   );
 }
 
