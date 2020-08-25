@@ -106,6 +106,10 @@ Controller.createBuy = async (request, response) => {
 
   body.amount_in_crypto = body.amount_in_usd / crypto_price;
 
+  body.amount_in_crypto = body.amount_in_crypto.toFixed(8);
+
+  body.amount_in_crypto = parseFloat(body.amount_in_crypto);
+
   const { id } = await model.create(body);
 
   const data = await model.findOne({ where: { id } });
