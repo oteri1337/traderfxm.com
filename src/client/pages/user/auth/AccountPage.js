@@ -14,6 +14,12 @@ function AccountPage() {
             </li>
             <li className="collection-item">
               <span className="material-icons notranslate">
+                account_balance
+              </span>
+              <Link to="/user/banks/list.html">Bank Accounts</Link>
+            </li>
+            <li className="collection-item">
+              <span className="material-icons notranslate">
                 insert_emoticon
               </span>
               <Link to="/user/auth/update-profile.html">Update Profile</Link>
@@ -22,10 +28,6 @@ function AccountPage() {
               <span className="material-icons notranslate">linear_scale</span>
               <Link to="/user/auth/password.html">Update Password</Link>
             </li>
-            {/* <li className="collection-item">
-              <span className="material-icons notranslate">mail</span>
-              <Link to="/user/auth/email.html">Change Email</Link>
-            </li> */}
           </ul>
         </div>
       </div>

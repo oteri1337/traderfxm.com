@@ -60,6 +60,9 @@ module.exports = (sequelize, DataTypes) => {
     {}
   );
   user.associate = function (models) {
+    user.hasMany(models.account, {
+      foreignKey: "user_id",
+    });
     user.hasMany(models.order, {
       foreignKey: "user_id",
     });

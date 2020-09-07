@@ -10,7 +10,7 @@ function ProductGroupsUpdatePage({ location, match, history }) {
   const { request, callBack } = sendRequestThenDispatch();
   const { fetching, errors, message } = request;
 
-  const data = state.groups.object[slug] || location.item;
+  const data = state.parentgroups.object[slug] || location.item;
 
   const nav = [
     {
@@ -22,8 +22,8 @@ function ProductGroupsUpdatePage({ location, match, history }) {
       link: "/control/products/index.html",
     },
     {
-      label: "Sub Categories",
-      link: "/control/productgroups/list.html",
+      label: "Categories",
+      link: "/control/parentgroups/list.html",
     },
     {
       label: data?.name ?? "",
@@ -42,11 +42,11 @@ function ProductGroupsUpdatePage({ location, match, history }) {
   };
 
   const onSuccess = () => {
-    history.push("/control/productgroups/list.html");
+    history.push("/control/parentgroups/list.html");
   };
 
   const onSubmit = (body) => {
-    callBack("/api/groups", dispatch, body, onSuccess, "PATCH");
+    callBack("/api/parentgroups", dispatch, body, onSuccess, "PATCH");
   };
 
   return (

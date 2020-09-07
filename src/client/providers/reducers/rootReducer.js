@@ -1,18 +1,16 @@
-import pricesReducer from "./pricesReducer";
-import ratesReducer from "./ratesReducer";
-import transactionsReducer from "./transactionsReducer";
-
-import productsReducer from "./productsReducer";
 import cartReducer from "./cartReducer";
-import ordersReducer from "./ordersReducer";
-import groupsReducer from "./groupsReducer";
-
 import userReducer from "./userReducer";
-import walletReducer from "./walletReducer";
-import themeReducer from "./themeReducer";
-
+import ratesReducer from "./ratesReducer";
 import adminReducer from "./adminReducer";
 import usersReducer from "./usersReducer";
+import themeReducer from "./themeReducer";
+import ordersReducer from "./ordersReducer";
+import groupsReducer from "./groupsReducer";
+import walletReducer from "./walletReducer";
+import pricesReducer from "./pricesReducer";
+import productsReducer from "./productsReducer";
+import parentgroupsReducer from "./parentgroupsReducer";
+import transactionsReducer from "./transactionsReducer";
 
 function rootReducer(state = {}, action) {
   if (action.dispatch == "UPDATE_STATE") {
@@ -22,18 +20,19 @@ function rootReducer(state = {}, action) {
   }
 
   return {
-    prices: pricesReducer(state?.prices, action),
-    rates: ratesReducer(state?.rates, action),
-    transactions: transactionsReducer(state?.transactions, action),
-    products: productsReducer(state?.products, action),
     cart: cartReducer(state?.cart, action),
-    orders: ordersReducer(state?.orders, action),
-    groups: groupsReducer(state?.groups, action),
     user: userReducer(state?.user, action),
-    wallet: walletReducer(state?.wallet, action),
     theme: themeReducer(state?.theme, action),
     admin: adminReducer(state?.admin, action),
     users: usersReducer(state?.users, action),
+    rates: ratesReducer(state?.rates, action),
+    wallet: walletReducer(state?.wallet, action),
+    orders: ordersReducer(state?.orders, action),
+    groups: groupsReducer(state?.groups, action),
+    prices: pricesReducer(state?.prices, action),
+    products: productsReducer(state?.products, action),
+    parentgroups: parentgroupsReducer(state?.parentgroups, action),
+    transactions: transactionsReducer(state?.transactions, action),
   };
 }
 

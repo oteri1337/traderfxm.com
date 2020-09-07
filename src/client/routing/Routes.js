@@ -20,6 +20,7 @@ import OrdersListPage from "../pages/shop/OrdersListPage";
 import OrdersReadPage from "../pages/shop/OrdersReadPage";
 import CategoryListPage from "../pages/shop/CategoryListPage";
 import CategoryReadPage from "../pages/shop/CategoryReadPage";
+import SubCategoryPage from "../pages/shop/SubCategoryPage";
 
 import SignInPage from "../pages/tour/auth/SignInPage";
 import SignUpPage from "../pages/tour/auth/SignUpPage";
@@ -54,6 +55,10 @@ import ProductGroupsListPage from "../pages/admin/products/groups/ProductGroupsL
 import ProductGroupsCreatePage from "../pages/admin/products/groups/ProductGroupsCreatePage";
 import ProductGroupsUpdatePage from "../pages/admin/products/groups/ProductGroupsUpdatePage";
 
+import ParentGroupsListPage from "../pages/admin/products/parentgroups/ParentGroupsListPage";
+import ParentGroupsCreatePage from "../pages/admin/products/parentgroups/ParentGroupsCreatePage";
+import ParentGroupsUpdatePage from "../pages/admin/products/parentgroups/ParentGroupsUpdatePage";
+
 import WalletListPage from "../pages/user/wallet/WalletListPage";
 
 import BtcListPage from "../pages/user/wallet/btc/BtcListPage";
@@ -70,6 +75,9 @@ import UsdtCreatePage from "../pages/user/wallet/usdt/UsdtCreatePage";
 
 import ReferralsListPage from "../pages/user/referrals/ReferralsListPage";
 import TransactionsListPage from "../pages/user/wallet/TransactionsListPage";
+
+import BanksListPage from "../pages/user/banks/BanksListPage";
+import BanksCreatePage from "../pages/user/banks/BanksCreatePage";
 
 import AdminHomePage from "../pages/admin/AdminHomePage";
 import AdminSigninPage from "../pages/admin/AdminSignInPage";
@@ -98,10 +106,13 @@ function Routes() {
         <Route exact path="/shop/cart.html" component={CartPage}/>
         <Route exact path="/shop/products.html" component={ProductsListPage}/>
         <UserRoute exact path="/shop/orders.html" component={OrdersListPage} />
-        <Route exact path="/shop/categories/list.html" component={CategoryListPage} />
-        <Route exact path="/shop/categories/:slug" component={CategoryReadPage} />
         <Route exact path="/shop/orders/:reference" component={OrdersReadPage} />
         <Route exact path="/shop/products/:slug" component={ProductsReadPage}/>
+
+        <Route exact path="/shop/categories/list.html" component={CategoryListPage} />
+        <Route exact path="/shop/categories/:slug" component={CategoryReadPage} />
+        <Route exact path="/shop/categories/:slug/:sub" component={SubCategoryPage} />
+
 
         <GuestRoute exact path="/signin.html" component={SignInPage} />
         <GuestRoute exact path="/signup.html" component={SignUpPage} />
@@ -118,6 +129,9 @@ function Routes() {
 
         <UserRoute exact path="/user/referrals/list.html" component={ReferralsListPage}/>
         <UserRoute exact path="/user/wallet/list.html" component={WalletListPage} />
+
+        <UserRoute exact path="/user/banks/list.html" component={BanksListPage} />
+        <UserRoute exact path="/user/banks/create.html" component={BanksCreatePage} />
 
         <UserRoute exact path="/user/wallet/btc/list.html" component={BtcListPage} />
         <UserRoute exact path="/user/wallet/btc/send.html" component={BtcSendPage} />
@@ -167,6 +181,10 @@ function Routes() {
         <AdminRoute exact path="/control/productgroups/list.html" component={ProductGroupsListPage} />              
         <AdminRoute exact path="/control/productgroups/create.html" component={ProductGroupsCreatePage} />             
         <AdminRoute exact path="/control/productgroups/:slug" component={ProductGroupsUpdatePage} />  
+
+        <AdminRoute exact path="/control/parentgroups/list.html" component={ParentGroupsListPage} />              
+        <AdminRoute exact path="/control/parentgroups/create.html" component={ParentGroupsCreatePage} />             
+        <AdminRoute exact path="/control/parentgroups/:slug" component={ParentGroupsUpdatePage} />  
 
         <Route component={ErrorPage} />
       </Switch>

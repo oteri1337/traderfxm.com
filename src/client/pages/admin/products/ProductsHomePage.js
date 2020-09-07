@@ -19,14 +19,21 @@ function MusicHomePage() {
         <li className="collection-item">
           <Link to="/control/products/list.html" className="black-text">
             <span className="material-icons notranslate">shopping_cart</span>
-            <b>Product List</b>
+            <b>List</b>
+          </Link>
+        </li>
+
+        <li className="collection-item">
+          <Link to="/control/parentgroups/list.html" className="black-text">
+            <span className="material-icons notranslate">shopping_cart</span>
+            <b>Categories</b>
           </Link>
         </li>
 
         <li className="collection-item">
           <Link to="/control/productgroups/list.html" className="black-text">
             <span className="material-icons notranslate">shopping_cart</span>
-            <b>Product Categories</b>
+            <b>Sub Categories</b>
           </Link>
         </li>
       </ul>

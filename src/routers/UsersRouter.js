@@ -14,6 +14,12 @@ router.get("/users/:attr", Controller.read);
 
 router.delete("/users", P.admin, Controller.delete);
 
+// account create
+
+router.post("/users/accounts", P.user, Controller.createAccount);
+
+router.delete("/users/accounts", P.user, Controller.deleteAccount);
+
 // wallet create
 router.post("/users/wallet/btc/create", P.user, Controller.createBtc);
 

@@ -1,7 +1,12 @@
 # TASKS
 
-1 align number form
+shift twak widget up
 
+transaction tab on mobile
+
+reduce padding on mobile
+
+fix transaction read page title
 
 # WALLET GENERATION
 
@@ -9,15 +14,11 @@ https://iancoleman.io/bip39/#english
 
 https://github.com/ethereumjs/ethereumjs-wallet/blob/master/docs/classes/ethereumhdkey.md
 
-
-
 # FAUCETS
 
 Erc20 Faucet https://erc20faucet.com/
 
 Chain Link Token Ropsten https://ropsten.chain.link/
-
-
 
 # BALANCE AND TRANSACTIONS
 

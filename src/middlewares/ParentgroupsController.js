@@ -1,4 +1,4 @@
-const model = require("../database/models").group;
+const model = require("../database/models").parentgroup;
 const ApiController = require("./library/ApiController");
 
 const Controller = { ...ApiController };
@@ -7,7 +7,7 @@ Controller.model = model;
 
 Controller.readBy = "slug";
 
-Controller.readInclude = "products";
+Controller.include = "groups";
 
 Controller.createBody = ({ name }) => {
   const slug = name.replace(/ /g, "-").toLowerCase();

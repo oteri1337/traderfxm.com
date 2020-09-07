@@ -7,9 +7,9 @@ import ContainerComponent from "components/container/TourContainerComponent";
 function CategoryListPage() {
   const { state, getRequestThenDispatch } = React.useContext(AppContext);
 
-  getRequestThenDispatch("/api/groups", "UPDATE_GROUPS");
+  getRequestThenDispatch("/api/parentgroups", "UPDATE_PARENTGROUPS");
 
-  const list = state.groups;
+  const list = state.parentgroups;
 
   const nav = [
     {

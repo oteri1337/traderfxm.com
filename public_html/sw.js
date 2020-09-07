@@ -1,5 +1,5 @@
 let appCache;
-const appCacheKey = "traderfxm.com-2020-08-24";
+const appCacheKey = "traderfxm.com-2020-09-07";
 
 self.addEventListener("push", (event) => {
   const { subject, body } = event.data.json();

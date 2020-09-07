@@ -8,8 +8,8 @@ import SecondaryButtonComponent from "components/SecondaryButtonComponent";
 import AdminContainerComponent from "components/container/AdminContainerComponent";
 
 function ProductGroupsListPage() {
-  const dispatch = "UPDATE_GROUPS";
-  const endpoint = "/api/groups";
+  const dispatch = "UPDATE_PARENTGROUPS";
+  const endpoint = "/api/parentgroups";
   const { state } = getRequestThenDispatch(endpoint, dispatch);
 
   const nav = [
@@ -22,18 +22,18 @@ function ProductGroupsListPage() {
       link: "/control/products/index.html",
     },
     {
-      label: "Sub Categories",
+      label: "Categories",
     },
   ];
 
   const callback = (item) => {
-    const pathname = `/control/productgroups/${item.slug}`;
+    const pathname = `/control/parentgroups/${item.slug}`;
     return (
       <li key={item.id} className="collection-item app-item avatar ">
         <SecondaryButtonComponent
           type="DELETE"
           title="Delete Rate"
-          dispatch="UPDATE_GROUPS"
+          dispatch="UPDATE_PARENTGROUPS"
           endpoint={endpoint}
           body={{ id: item.id }}
         />
@@ -51,16 +51,12 @@ function ProductGroupsListPage() {
         endpoint={endpoint + "/search"}
         dispatch={dispatch}
         label="Search"
-        data={state.groups.search_keys}
+        data={state.parentgroups.search_keys}
       />
-      <ListComponent
-        list={state.groups}
-        dispatch={`${dispatch}`}
-        callback={callback}
-      />
+      <ListComponent list={state.parentgroups} {...{ dispatch, callback }} />
       <FloatingButtonComponent
         title="Add Category"
-        to="/control/productgroups/create.html"
+        to="/control/parentgroups/create.html"
       />
     </AdminContainerComponent>
   );

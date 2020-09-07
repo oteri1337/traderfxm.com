@@ -13,8 +13,8 @@ const nav = [
     link: "/control/products/index.html",
   },
   {
-    label: "Sub Categories",
-    link: "/control/productgroups/list.html",
+    label: "Categories",
+    link: "/control/parentgroups/list.html",
   },
   {
     label: "Create",
@@ -31,11 +31,11 @@ function ProductGroupsCreatePage(props) {
   ];
 
   const onSuccess = () => {
-    props.history.push("/control/productgroups/list.html");
+    props.history.push("/control/parentgroups/list.html");
   };
 
   const onSubmit = async (body) => {
-    callBack("/api/groups", "UPDATE_GROUP", body, onSuccess);
+    callBack("/api/parentgroups", "UPDATE_PARENTGROUP", body, onSuccess);
   };
 
   return (

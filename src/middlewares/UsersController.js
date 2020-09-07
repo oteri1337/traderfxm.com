@@ -2,6 +2,7 @@ const bip39 = require("bip39");
 const bitcore = require("bitcore-lib");
 const model = require("../database/models").user;
 const wallet = require("../database/models").wallet;
+const account = require("../database/models").account;
 const rawuser = require("../database/models").rawuser;
 const AuthController = require("./library/AuthController");
 const BitcoinController = require("./library/BitcoinController");
@@ -17,6 +18,7 @@ Controller.createInclude = "wallets";
 
 Controller.readInclude = [
   "orders",
+  "accounts",
   "referrals",
   "transactions",
   {
@@ -179,6 +181,62 @@ Controller.createUsdt = async function (request, response) {
 
   const data = await this.model.findOne({
     where: { id: user_id },
+    order: this.readOrder,
+    include: this.readInclude,
+  });
+
+  return response.json({ errors, data, message: "" });
+};
+
+Controller.createAccount = async function (request, response) {
+  const errors = [];
+  const { bank_name, account_name, account_number } = request.body;
+
+  if (bank_name === undefined) {
+    errors.push("bank name is required");
+  }
+
+  if (account_name === undefined) {
+    errors.push("account name is required");
+  }
+
+  if (account_number === undefined) {
+    errors.push("account number is required");
+  }
+
+  if (errors.length) {
+    return response.json({ errors, data: {}, message: "" });
+  }
+
+  const user_id = request.session.user.id;
+
+  await account.create({ bank_name, account_name, account_number, user_id });
+
+  const data = await this.model.findOne({
+    where: { id: user_id },
+    order: this.readOrder,
+    include: this.readInclude,
+  });
+
+  return response.json({ errors, data, message: "" });
+};
+
+Controller.deleteAccount = async function (request, response) {
+  const errors = [];
+  const { id } = request.body;
+
+  if (id === undefined) {
+    errors.push("id is required");
+  }
+
+  if (errors.length) {
+    return response.json({ errors, data: {}, message: "" });
+  }
+
+  await account.destroy({ where: { id } });
+
+  const data = await this.model.findOne({
+    where: { id: request.session.user.id },
     order: this.readOrder,
     include: this.readInclude,
   });
