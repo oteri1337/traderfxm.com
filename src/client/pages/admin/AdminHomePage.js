@@ -20,6 +20,13 @@ function AdminHomePage() {
         </li>
 
         <li className="collection-item">
+          <Link to="/control/products/index.html" className="app-list-link">
+            <span className="material-icons notranslate">shopping_cart</span>
+            <b>Products</b>
+          </Link>
+        </li>
+
+        <li className="collection-item">
           <Link to="/control/orders/list.html" className="app-list-link">
             <span className="material-icons notranslate">airport_shuttle</span>
             <b>Orders</b>
@@ -39,13 +46,6 @@ function AdminHomePage() {
               supervised_user_circle
             </span>
             <b>Users</b>
-          </Link>
-        </li>
-
-        <li className="collection-item">
-          <Link to="/control/products/index.html" className="app-list-link">
-            <span className="material-icons notranslate">shopping_cart</span>
-            <b>Products</b>
           </Link>
         </li>
       </ul>

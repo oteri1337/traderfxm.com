@@ -1,13 +1,15 @@
 import React from "react";
-import { format } from "functions/dom";
 import { Link } from "react-router-dom";
-import { AppContext } from "providers/AppProvider";
+import { getRequestThenDispatch } from "hooks";
 import ListComponent from "components/ListComponent";
 import ContainerComponent from "components/container/TourContainerComponent";
 
 function CategoryReadPage({ match }) {
-  const { state, callReducer } = React.useContext(AppContext);
   const { slug } = match.params;
+  const { state } = getRequestThenDispatch(
+    `/api/parentgroups/${slug}`,
+    "UPDATE_PARENTGROUP"
+  );
 
   const data = state.parentgroups.object[slug];
   const array = data.groups;

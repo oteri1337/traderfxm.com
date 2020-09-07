@@ -3,7 +3,6 @@ import { format } from "functions/dom";
 import { Link } from "react-router-dom";
 import ErrorPage from "../tour/ErrorPage";
 import { getRequestThenDispatch } from "hooks";
-import { AppContext } from "providers/AppProvider";
 import ListComponent from "components/ListComponent";
 import ContainerComponent from "components/container/TourContainerComponent";
 

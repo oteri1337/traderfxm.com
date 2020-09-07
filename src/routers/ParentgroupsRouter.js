@@ -1,6 +1,6 @@
 const express = require("express");
-const Controller = require("../middlewares/ParentgroupsController");
 const V = require("../middlewares/validators/GroupsValidator");
+const Controller = require("../middlewares/ParentgroupsController");
 const P = require("../middlewares/validators/PermissionsValidator");
 
 const router = express.Router();
@@ -16,5 +16,7 @@ router.delete("/parentgroups", P.admin, Controller.delete);
 router.post("/parentgroups/search", Controller.search);
 
 router.get("/parentgroups/:attr", Controller.read);
+
+router.patch("/parentgroups/sync", P.admin, V.sync, Controller.sync);
 
 module.exports = router;

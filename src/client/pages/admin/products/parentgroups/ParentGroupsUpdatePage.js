@@ -1,5 +1,6 @@
 import React from "react";
 import FormComponent from "components/FormComponent";
+import SubUpdateComponent from "./SubUpdateComponent";
 import { getRequestThenDispatch, sendRequestThenDispatch } from "hooks";
 import AdminContainerComponent from "components/container/AdminContainerComponent";
 
@@ -55,6 +56,9 @@ function ProductGroupsUpdatePage({ location, match, history }) {
         <FormComponent
           {...{ formArray, initialState, fetching, errors, message, onSubmit }}
         />
+        <br />
+        <h2>Sub Categories</h2>
+        <SubUpdateComponent data={data} />
       </div>
     </AdminContainerComponent>
   );
