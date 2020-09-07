@@ -5,6 +5,7 @@
   "scripts": {
     "start": "node src/index.js",
     "seed": "sequelize-cli db:seed:all",
+    "build": "sequelize-cli db:migrate",
     "migrate": "sequelize-cli db:migrate",
     "rollback": "sequelize-cli db:migrate:undo",
     "build:client": "webpack --mode production",
