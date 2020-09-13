@@ -35,8 +35,8 @@ function TransactionsComponent() {
           </div>
           <div className="app-flex-3">
             <span>
-              <Link to={`/transactions/${props.id}`}>
-                {formatted.type} {formatted.amount_in_crypto} ({" "}
+              <Link to={`/transactions/${props.reference}`}>
+                {formatted.type} {formatted.amount_in_crypto} (
                 {formatted.amount_in_ngn})
               </Link>
             </span>

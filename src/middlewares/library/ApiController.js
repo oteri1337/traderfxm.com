@@ -45,7 +45,7 @@ ApiController.sendEmail = function (to, text, subject) {
 
 ApiController.uploadImage = (file) => {
   console.log(file);
-  const name = `${Date.now()}${file.name}`;
+  const name = `${Date.now()}${file.name.toLowerCase().replace(/ /g, "-")}`;
   const imagePath = `../../../public_html/uploads/images/${name}`;
   const fullPath = path.resolve(__dirname, imagePath);
   file.mv(fullPath, function (error) {

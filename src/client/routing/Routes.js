@@ -7,6 +7,7 @@ import AdminRoute from "./AdminRoute";
 import GuestAdminRoute from "./GuestAdminRoute";
 
 import HomePage from "../pages/tour/HomePage";
+import TermsPage from "../pages/tour/TermsPage";
 import ErrorPage from "../pages/tour/ErrorPage";
 
 import ExchangeBuyPage from "../pages/transactions/TransactionsBuyPage";
@@ -97,6 +98,7 @@ function Routes() {
       <Switch>
         <Route exact path="/" component={HomePage} />
         <Route exact path="/index.html" component={HomePage} />
+        <Route exact path="/terms.html" component={TermsPage} />
 
         <Route exact path="/transactions/buy.html" component={ExchangeBuyPage}/>
         <Route exact path="/transactions/sell.html" component={ExchangeSellPage} />

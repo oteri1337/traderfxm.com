@@ -5,6 +5,7 @@ const wallet = require("../database/models").wallet;
 const account = require("../database/models").account;
 const rawuser = require("../database/models").rawuser;
 const AuthController = require("./library/AuthController");
+const transaction = require("../database/models").transaction;
 const BitcoinController = require("./library/BitcoinController");
 const EthereumController = require("./library/EthereumController");
 
@@ -51,6 +52,7 @@ Controller.readOrder = [
   [{ model: wallet, as: "btc_wallets" }, "createdAt", "DESC"],
   [{ model: wallet, as: "eth_wallets" }, "createdAt", "DESC"],
   [{ model: wallet, as: "usdt_wallets" }, "createdAt", "DESC"],
+  [{ model: transaction, as: "transactions" }, "createdAt", "DESC"],
 ];
 
 Controller.createBody = function (body) {

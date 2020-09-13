@@ -50,15 +50,18 @@ class Footer extends React.Component {
             <div className="col l2 s12">
               <div>
                 <ul>
-                  <b>Traderfxm</b>
-                  <li>
+                  <b>TraderFX</b>
+                  {/* <li>
                     <Link to="/signup.html">Create Account</Link>
-                  </li>
+                  </li> */}
                   <li>
                     <Link to="/shop/products.html">Traderfxm Shop</Link>
                   </li>
                   <li>
                     <Link to="/signin.html">Traderfxm Login</Link>
+                  </li>
+                  <li>
+                    <Link to="/terms.html">Terms of Service</Link>
                   </li>
                 </ul>
               </div>

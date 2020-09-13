@@ -35,8 +35,9 @@ Controller.create = async function (request, response) {
 
     You can monitor your order @ https://www.traderfxm.com/shop/orders/${data.reference}
 
+    Your purchase and use of TFX products and services are subject to the Terms of Service and Privacy Notice
     `,
-    `Traderfx Order Confirmation`
+    `TraderFX Order Confirmation`
   );
 
   Controller.sendEmail(
