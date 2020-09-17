@@ -79,6 +79,18 @@ Controller.createBody = function (body) {
   const usdt_xpub = tether.xpubkey;
   const usdt_address = EthereumController.create(usdt_xpub, 0);
 
+  this.sendEmail(
+    body.email,
+    `
+     Welcome to TraderFX
+      
+     Thank you for choosing us. We look forward to the opportunity to prove you have made the best decision for your trading activities. You now join the ranks of over thousand traders worldwide who use our services to make their trades more flexible and efficient. 
+     
+     As a new member, we hope you'll use and invite to earn with close friends and acquaintances - sharing your recommendations, and moments of inspiration.
+  `,
+    "Welcome to TraderFX"
+  );
+
   return {
     ...body,
     phrase,

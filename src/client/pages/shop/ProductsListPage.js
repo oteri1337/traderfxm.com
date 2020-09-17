@@ -34,7 +34,7 @@ function HomePage() {
     };
     return (
       <div className="col l4 m6 s6" key={props.id}>
-        <div className="card animated fadeInUp">
+        <div className="card medium animated fadeInUp">
           <div className="card-image">
             <img src={`/uploads/images/${props.image_one}`} />
           </div>
@@ -43,6 +43,7 @@ function HomePage() {
               <Link to={{ pathname: `/shop/products/${props.slug}`, props }}>
                 {props.title}
               </Link>
+
               <br />
               <p>{format("NGN", props.price)}</p>
             </center>

@@ -7,6 +7,23 @@ function SellPayComponent({ data, rawData }) {
   const [received, setReceived] = React.useState(0);
   const [fetching, setFetching] = React.useState(false);
 
+  const confirm = async () => {
+    setFetching(true);
+    let response = await fetch("/api/transactions/confirm/sell", {
+      method: "PATCH",
+      body: JSON.stringify({ reference }),
+      headers: {
+        "content-type": "application/json",
+      },
+    });
+    response = await response.json();
+    setFetching(false);
+
+    if (response.errors.length === 0) {
+      location.reload();
+    }
+  };
+
   React.useEffect(() => {
     (async () => {
       if (cryptoId == 1) {
@@ -38,22 +55,11 @@ function SellPayComponent({ data, rawData }) {
     })();
   }, []);
 
-  const confirm = async () => {
-    setFetching(true);
-    let response = await fetch("/api/transactions/confirm/sell", {
-      method: "PATCH",
-      body: JSON.stringify({ reference }),
-      headers: {
-        "content-type": "application/json",
-      },
-    });
-    response = await response.json();
-    setFetching(false);
-
-    if (response.errors.length === 0) {
-      location.reload();
+  React.useEffect(() => {
+    if (received >= rawData.amount_in_crypto) {
+      confirm();
     }
-  };
+  }, [received]);
 
   return (
     <div>

@@ -3,11 +3,13 @@ import { Helmet } from "react-helmet";
 import { getRequest } from "functions/http";
 import { formatTransaction } from "functions/data";
 import TableComponent from "components/TableComponent";
+import SpinnerComponent from "components/SpinnerComponent";
 import BuyPayComponent from "./components/BuyPayComponent";
 import SellPayComponent from "./components/SellPayComponent";
 import TourContainerComponent from "components/container/TourContainerComponent";
 
 function TransactionsReadPage({ match }) {
+  const [refreshing, setRefreshing] = React.useState(true);
   const { reference } = match.params;
   const [rawData, setRaw] = React.useState(false);
 
@@ -17,8 +19,21 @@ function TransactionsReadPage({ match }) {
       if (response.errors.length === 0) {
         setRaw(response.data);
       }
+      setRefreshing(false);
     })();
   }, []);
+
+  if (refreshing) {
+    return (
+      <TourContainerComponent bread={[{ label: "Transaction Not Found" }]}>
+        <div className="container">
+          <br />
+          <br />
+          <SpinnerComponent />
+        </div>
+      </TourContainerComponent>
+    );
+  }
 
   if (!rawData) {
     return (

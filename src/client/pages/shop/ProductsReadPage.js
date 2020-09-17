@@ -64,7 +64,7 @@ function ProductReadPage({ match, location }) {
               <br />
 
               <h1 style={{ fontWeight: "bold" }}>{data.title}</h1>
-
+              <br />
               {format("NGN", data.price)}
               <p>MIN ORDER: {data.min_order}</p>
               <p>IN STOCK: {data.max_order}</p>
@@ -75,10 +75,13 @@ function ProductReadPage({ match, location }) {
               {renderCartButton(data)}
             </div>
             <div className="col l8 s12">
-              <p dangerouslySetInnerHTML={{ __html: data.description }} />
+              <div className="container">
+                <pre>{data.description}</pre>
+              </div>
             </div>
           </div>
         </div>
+        <br />
       </div>
     </TourContainerComponent>
   );

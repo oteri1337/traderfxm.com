@@ -108,7 +108,7 @@ function ProductReadPage({ match }) {
             </center>
           </div>
           <div className="col l8 s12">
-            <p dangerouslySetInnerHTML={{ __html: data.description }}></p>
+            <pre>{data.description}</pre>
             <table className="striped">
               <tbody>{renderRow}</tbody>
             </table>

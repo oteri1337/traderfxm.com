@@ -18,7 +18,7 @@ ApiController.listInclude = "";
 
 ApiController.sendEmail = function (to, text, subject) {
   const mailObject = {
-    from: '"Trader_FX" <info@traderfxm.com>',
+    from: '"TraderFX" <info@traderfxm.com>',
     to,
     subject,
     text,

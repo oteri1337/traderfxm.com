@@ -52,6 +52,10 @@
 
 /* Mobile Sure */
 @media (max-width: 415px) {
+  .card.medium {
+    height: 310px;
+  }
+
   .table-title {
     text-decoration: underline;
     text-transform: uppercase;
