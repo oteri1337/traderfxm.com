@@ -207,8 +207,27 @@ AuthController.signin = async function (request, response) {
     this.sendEmail(
       email,
       `
-      Your verification pin is ${pin}
+      Dear ${data.account_name},
       
+      Your verification code is ${pin}
+      
+
+      This code remains valid for a short period. Please do not disclose it to anyone (including us)
+      
+      Notice: If you did not login to your account recently, your account may be compromised. 
+      
+      Please log in to your account and change your password or freeze your account immediately by contacting support.
+      
+
+
+      
+      TFX Security Notice
+      
+      24/7 Help Center & Live Chat
+      
+      ©️ 2020 www.traderfxm.com All Rights Reserved.
+
+      Join TFX community to explore more possibilities.
       `,
       "Traderfx Security check"
     );

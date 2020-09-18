@@ -1,11 +1,15 @@
 // App
 const express = require("express");
+const session = require("express-session");
+const fileUpload = require("express-fileupload");
+
 const app = express();
+
+app.use(fileUpload());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // Middlewares
-const session = require("express-session");
 app.use(
   session({
     secret: "secret",
@@ -14,9 +18,6 @@ app.use(
     cookie: { maxAge: 3600000 },
   })
 );
-
-const fileUpload = require("express-fileupload");
-app.use(fileUpload());
 
 // Routes
 const RatesRouter = require("./routers/RatesRouter");

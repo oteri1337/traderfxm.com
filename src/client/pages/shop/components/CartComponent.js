@@ -35,7 +35,6 @@ function CartComponent() {
           <img
             src={`/uploads/images/${product.image_one}`}
             className="responsive-img"
-            style={{ maxHeight: "160px", width: "100%" }}
           />
           <br />
 
