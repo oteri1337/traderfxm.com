@@ -21,8 +21,8 @@ function TourSideNavComponent() {
         <div className="user-view">
           <div className="background">
             <img
-              src="/assets/pwa/android-chrome-144x144.png"
-              style={{ marginTop: "0.7rem", marginLeft: "2rem" }}
+              src="/assets/images/logo.png"
+              style={{ width: "150px", marginTop: "5px" }}
             />
           </div>
         </div>
