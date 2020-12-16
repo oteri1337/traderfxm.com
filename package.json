@@ -17,6 +17,7 @@
     "bip39": "^3.0.2",
     "bitcoin-address-validation": "^1.0.2",
     "bitcore-lib": "^8.22.0",
+    "coinpayments": "^2.1.0",
     "crypto-icons": "^1.0.62",
     "dotenv": "^8.2.0",
     "ejs": "^3.0.1",
@@ -42,6 +43,7 @@
     "react-router-dom": "^5.0.0",
     "react-transition-group": "^4.3.0",
     "sequelize": "^6.3.4",
+    "twilio": "^3.49.3",
     "typeface-signika-negative": "^0.0.71",
     "web3": "^1.2.9",
     "wowjs": "^1.1.3"

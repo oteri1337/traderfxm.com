@@ -22,6 +22,14 @@
   --image: url("../images/app/bitcoinbg.jpg");
 }
 
+.btn.btn-secondary {
+  border-radius: 5px;
+  font-weight: normal;
+  background: transparent;
+  color: var(--secondary-font-colour) !important;
+  border: 1px solid var(--secondary-font-colour);
+}
+
 .bg.bg-secondary a {
   color: #039be5;
 }
@@ -115,18 +123,13 @@
 }
 
 .btn,
-.btn-floating,
-.btn:hover,
 .btn:focus,
+.btn-floating,
 .btn-floating:hover {
+  text-transform: uppercase;
   background: var(--button-colour);
   color: var(--button-font-colour) !important;
   font-weight: bold;
-}
-
-.btn.btn-secondary {
-  background: var(--button-font-colour);
-  color: #fab915 !important;
 }
 
 .btn-color {

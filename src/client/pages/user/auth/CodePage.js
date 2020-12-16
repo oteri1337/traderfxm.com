@@ -52,6 +52,7 @@ function pinPage({ location, history }) {
   const formArray = [
     {
       id: "pin",
+      type: "number",
     },
   ];
 

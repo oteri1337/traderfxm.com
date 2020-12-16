@@ -1,3 +1,4 @@
+const Coinpayments = require("coinpayments");
 const model = require("../database/models").order;
 const ApiController = require("./library/ApiController");
 const productModel = require("../database/models").product;
@@ -70,44 +71,110 @@ Controller.createBody = async (body) => {
   return body;
 };
 
-Controller.confirmPaystackPayment = async function (request, response) {
-  const { reference } = request.body;
+Controller.createCoinPayment = async function (request, response) {
+  const { id, currency } = request.body;
+  // const reference = txref;
 
-  if (reference === undefined) {
+  if (id === undefined) {
     return response.json({
-      errors: ["reference is required"],
+      errors: ["id is required"],
       mesage: "",
       data: {},
     });
   }
 
-  const url = `https://api.paystack.co/transaction/verify/${reference}`;
-  let fetchResponse = await fetch(url, {
-    headers: {
-      Authorization: `Bearer ${process.env.PAYSTACK_PRIVATE_KEY}`,
-    },
-  });
-  fetchResponse = await fetchResponse.json();
-
-  if (fetchResponse.status) {
-    let data = await this.model.findOne({ where: { reference } });
-
-    if (data.status == 1) {
-      await this.model.update({ status: 2 }, { where: { reference } });
-      data = await this.model.findOne({ where: { reference } });
-    }
-
+  if (currency === undefined) {
     return response.json({
-      errors: [],
+      errors: ["currency is required"],
       mesage: "",
-      data,
+      data: {},
     });
   }
 
+  let data = await this.model.findOne({ where: { id } });
+
+  if (!data) {
+    return response.json({
+      errors: ["order not found"],
+      mesage: "",
+      data: {},
+    });
+  }
+
+  const key = process.env.COIN_KEY;
+  const secret = process.env.COIN_SECRET;
+  const client = new Coinpayments({ key, secret });
+
+  const fetchResponse = await client.createTransaction({
+    currency1: "NGN",
+    currency2: currency,
+    buyer_email: data.email,
+    amount: data.total_in_ngn,
+    item_number: data.reference,
+  });
+
+  console.log(fetchResponse);
+
+  if (fetchResponse.checkout_url && fetchResponse.txn_id) {
+    const { txn_id, checkout_url } = fetchResponse;
+
+    const cp_url = checkout_url;
+    const cp_reference = txn_id;
+
+    await this.model.update({ cp_url, cp_reference }, { where: { id } });
+
+    data = await this.model.findOne({ where: { id } });
+  }
+
   return response.json({
-    errors: ["fake transaction"],
+    errors: [],
     mesage: "",
-    data: {},
+    data,
+  });
+};
+
+Controller.confirmCoinPayment = async function (request, response) {
+  const { id } = request.body;
+  // const reference = txref;
+
+  if (id === undefined) {
+    return response.json({
+      errors: ["id is required"],
+      mesage: "",
+      data: {},
+    });
+  }
+
+  let data = await this.model.findOne({ where: { id } });
+
+  if (!data) {
+    return response.json({
+      errors: ["order not found"],
+      mesage: "",
+      data: {},
+    });
+  }
+
+  const key = process.env.COIN_KEY;
+  const secret = process.env.COIN_SECRET;
+
+  const client = new Coinpayments({ key, secret });
+
+  const fetchResponse = await client.getTx({ txid: data.cp_reference });
+
+  console.log(fetchResponse);
+
+  if (fetchResponse.status == "success") {
+    if (data.status == 1) {
+      await this.model.update({ status: 2 }, { where: { id } });
+      data = await this.model.findOne({ where: { id } });
+    }
+  }
+
+  return response.json({
+    errors: [],
+    mesage: "",
+    data,
   });
 };
 
@@ -137,6 +204,47 @@ Controller.confirmFlutterPayment = async function (request, response) {
   fetchResponse = await fetchResponse.json();
 
   if (fetchResponse.status == "success") {
+    let data = await this.model.findOne({ where: { reference } });
+
+    if (data.status == 1) {
+      await this.model.update({ status: 2 }, { where: { reference } });
+      data = await this.model.findOne({ where: { reference } });
+    }
+
+    return response.json({
+      errors: [],
+      mesage: "",
+      data,
+    });
+  }
+
+  return response.json({
+    errors: ["fake transaction"],
+    mesage: "",
+    data: {},
+  });
+};
+
+Controller.confirmPaystackPayment = async function (request, response) {
+  const { reference } = request.body;
+
+  if (reference === undefined) {
+    return response.json({
+      errors: ["reference is required"],
+      mesage: "",
+      data: {},
+    });
+  }
+
+  const url = `https://api.paystack.co/transaction/verify/${reference}`;
+  let fetchResponse = await fetch(url, {
+    headers: {
+      Authorization: `Bearer ${process.env.PAYSTACK_PRIVATE_KEY}`,
+    },
+  });
+  fetchResponse = await fetchResponse.json();
+
+  if (fetchResponse.status) {
     let data = await this.model.findOne({ where: { reference } });
 
     if (data.status == 1) {

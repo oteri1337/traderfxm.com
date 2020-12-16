@@ -3,25 +3,32 @@ import { sendRequestThenDispatch } from "hooks";
 import FormComponent from "components/FormComponent";
 import UserContainerComponent from "components/container/UserContainerComponent";
 
-function ResendPinComponent({ email }) {
+function ResendSmsComponent() {
   const { request, callBack, state } = sendRequestThenDispatch();
   const { errors, message, fetching } = request;
 
   const initialState = {
-    email: state.user.email,
+    phone_number: state.user.phone_number,
   };
 
-  const text = "Resend Pin";
+  const text = "Resend SMS";
 
   const onSubmit = (body) => {
-    callBack("/api/users/auth/resendpin", "N", body);
+    callBack("/api/users/auth/resendsms", "UPDATE_USER", body);
   };
+
+  const formArray = [
+    {
+      id: "phone_number",
+    },
+  ];
 
   const className = "btn btn-secondary";
 
   return (
     <FormComponent
       {...{
+        formArray,
         initialState,
         errors,
         fetching,
@@ -34,12 +41,12 @@ function ResendPinComponent({ email }) {
   );
 }
 
-function VerifyEmailPage({ location, history }) {
+function VerifyPhonePage({ history }) {
   const { request, callBack, state } = sendRequestThenDispatch();
   const { errors, message, fetching } = request;
   const { user } = state;
 
-  if (user.verified) {
+  if (user.phone_verified) {
     history.push("/user/index.html");
   }
 
@@ -67,7 +74,7 @@ function VerifyEmailPage({ location, history }) {
   const text = "Verify";
 
   const onSubmit = (body) => {
-    callBack("/api/users/auth/verifyemail", "UPDATE_USER", body);
+    callBack("/api/users/auth/verifyphone", "UPDATE_USER", body);
   };
 
   return (
@@ -80,10 +87,21 @@ function VerifyEmailPage({ location, history }) {
                 <div className="step-title">Account Information</div>
               </li>
 
-              <li className="step active">
+              <li className="step">
                 <div className="step-title">Email Verification</div>
+              </li>
+
+              <li className="step active">
+                <div className="step-title">Phone Verification</div>
+
                 <div className="step-content">
                   <center>
+                    <p>A text message is on its way</p>
+                    <p>
+                      {" "}
+                      Please enter the Verification PIN sent to{" "}
+                      {user.phone_number}
+                    </p>
                     <FormComponent
                       {...{
                         formArray,
@@ -95,14 +113,15 @@ function VerifyEmailPage({ location, history }) {
                         initialState,
                       }}
                     />
-                    <ResendPinComponent />
+                    <br />
+                    <br />
+                    <br />
+                    <br />
+                    <ResendSmsComponent />
                   </center>
                 </div>
               </li>
 
-              <li className="step">
-                <div className="step-title">Phone Verification</div>
-              </li>
               <li className="step">
                 <div className="step-title">BVN Verification</div>
               </li>
@@ -114,4 +133,4 @@ function VerifyEmailPage({ location, history }) {
   );
 }
 
-export default VerifyEmailPage;
+export default VerifyPhonePage;

@@ -31,15 +31,32 @@ import UserHomePage from "../pages/user/UserHomePage";
 import AuthCodePage from "../pages/user/auth/CodePage";
 import AccountPage from "../pages/user/auth/AccountPage";
 import ProfilePage from "../pages/user/auth/ProfilePage";
+import VerifyBvnPage from "../pages/user/auth/VerifyBvnPage";
 import VerifyEmailPage from "../pages/user/auth/VerifyEmailPage";
+import VerifyPhonePage from "../pages/user/auth/VerifyPhonePage";
 import UpdatePasswordPage from "../pages/user/auth/PasswordPage";
 import UpdateProfilePage from "../pages/user/auth/UpdateProfilePage";
 
+import WalletListPage from "../pages/user/wallet/WalletListPage";
+
+import NairaListPage from "../pages/user/wallet/naira/NairaListPage";
+import NairaSendPage from "../pages/user/wallet/naira/NairaSendPage";
+import NairaDepositPage from "../pages/user/wallet/naira/NairaDepositPage";
+
+import BtcListPage from "../pages/user/wallet/btc/BtcListPage";
+import BtcSendPage from "../pages/user/wallet/btc/BtcSendPage";
+import BtcCreatePage from "../pages/user/wallet/btc/BtcCreatePage";
+
+import EthListPage from "../pages/user/wallet/eth/EthListPage";
+import EthSendPage from "../pages/user/wallet/eth/EthSendPage";
+import EthCreatePage from "../pages/user/wallet/eth/EthCreatePage";
+
+import UsdtListPage from "../pages/user/wallet/usdt/UsdtListPage";
+import UsdtSendPage from "../pages/user/wallet/usdt/UsdtSendPage";
+import UsdtCreatePage from "../pages/user/wallet/usdt/UsdtCreatePage";
+
 import AdminOrdersListPage from "../pages/admin/orders/OrdersListPage";
 import AdminOrdersReadPage from "../pages/admin/orders/OrdersReadPage";
-
-import AdminTransactionsListPage from "../pages/admin/transactions/TransactionsListPage";
-import AdminTransactionsReadPage from "../pages/admin/transactions/TransactionsReadPage";
 
 import UsersListPage from "../pages/admin/users/UsersListPage";
 import UsersReadPage from "../pages/admin/users/UsersReadPage";
@@ -60,20 +77,6 @@ import ParentGroupsListPage from "../pages/admin/products/parentgroups/ParentGro
 import ParentGroupsCreatePage from "../pages/admin/products/parentgroups/ParentGroupsCreatePage";
 import ParentGroupsUpdatePage from "../pages/admin/products/parentgroups/ParentGroupsUpdatePage";
 
-import WalletListPage from "../pages/user/wallet/WalletListPage";
-
-import BtcListPage from "../pages/user/wallet/btc/BtcListPage";
-import BtcSendPage from "../pages/user/wallet/btc/BtcSendPage";
-import BtcCreatePage from "../pages/user/wallet/btc/BtcCreatePage";
-
-import EthListPage from "../pages/user/wallet/eth/EthListPage";
-import EthSendPage from "../pages/user/wallet/eth/EthSendPage";
-import EthCreatePage from "../pages/user/wallet/eth/EthCreatePage";
-
-import UsdtListPage from "../pages/user/wallet/usdt/UsdtListPage";
-import UsdtSendPage from "../pages/user/wallet/usdt/UsdtSendPage";
-import UsdtCreatePage from "../pages/user/wallet/usdt/UsdtCreatePage";
-
 import ReferralsListPage from "../pages/user/referrals/ReferralsListPage";
 import TransactionsListPage from "../pages/user/wallet/TransactionsListPage";
 
@@ -90,6 +93,12 @@ import AdminUpdatePasswordPage from "../pages/admin/auth/PasswordPage";
 import RatesListPage from "../pages/admin/rates/RatesListPage";
 import RatesUpdatePage from "../pages/admin/rates/RatesUpdatePage";
 import RatesCreatePage from "../pages/admin/rates/RatesCreatePage";
+
+import AdminTransactionsListPage from "../pages/admin/transactions/TransactionsListPage";
+import AdminTransactionsReadPage from "../pages/admin/transactions/TransactionsReadPage";
+
+import NairaTransactionsListPage from "../pages/admin/nairatransactions/NairaTransactionsListPage";
+import NairaTransactionsReadPage from "../pages/admin/nairatransactions/NairaTransactionsReadPage";
 
 function Routes() {
   // prettier-ignore
@@ -125,7 +134,11 @@ function Routes() {
         <UserRoute exact path="/user/auth/account.html" component={AccountPage} />
         <UserRoute exact path="/user/auth/code.html" component={AuthCodePage} />
         <UserRoute exact path="/user/auth/profile.html" component={ProfilePage} />
+
+        <UserRoute exact path="/user/auth/verifybvn.html" component={VerifyBvnPage} />
+        <UserRoute exact path="/user/auth/verifyphone.html" component={VerifyPhonePage} />
         <UserRoute exact path="/user/auth/verifyemail.html" component={VerifyEmailPage} />
+        
         <UserRoute exact path="/user/auth/password.html" component={UpdatePasswordPage} />
         <UserRoute exact path="/user/auth/update-profile.html" component={UpdateProfilePage} />
 
@@ -134,6 +147,10 @@ function Routes() {
 
         <UserRoute exact path="/user/banks/list.html" component={BanksListPage} />
         <UserRoute exact path="/user/banks/create.html" component={BanksCreatePage} />
+
+        <UserRoute exact path="/user/wallet/naira/list.html" component={NairaListPage} />
+        <UserRoute exact path="/user/wallet/naira/send.html" component={NairaSendPage} />
+        <UserRoute exact path="/user/wallet/naira/deposit.html" component={NairaDepositPage} />
 
         <UserRoute exact path="/user/wallet/btc/list.html" component={BtcListPage} />
         <UserRoute exact path="/user/wallet/btc/send.html" component={BtcSendPage} />
@@ -164,6 +181,9 @@ function Routes() {
 
         <AdminRoute exact path="/control/transactions/list.html" component={AdminTransactionsListPage} />
         <AdminRoute exact path="/control/transactions/:reference" component={AdminTransactionsReadPage} />
+
+        <AdminRoute exact path="/control/nairatransactions/list.html" component={NairaTransactionsListPage} />
+        <AdminRoute exact path="/control/nairatransactions/:id" component={NairaTransactionsReadPage} />
 
         <AdminRoute exact path="/control/rates/list.html" component={RatesListPage} />
         <AdminRoute exact path="/control/rates/create.html" component={RatesCreatePage} />

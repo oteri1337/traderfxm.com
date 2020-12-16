@@ -4,6 +4,7 @@ import SymbolComponent from "components/charts/SymbolComponent";
 import UsdtTransactionsComponent from "./usdt/UsdtTransactionsComponent";
 import BitcoinTransactionsComponent from "./btc/BtcTransactionsComponent";
 import EthereumTransactionsComponent from "./eth/EthTransactionsComponent";
+import NairaTransactionsComponent from "./naira/NairaTransactionsComponent";
 import ExchangeTransactionsComponent from "./ExchangeTransactionsComponent";
 
 function TransactionsListComponent() {
@@ -27,7 +28,7 @@ function TransactionsListComponent() {
       >
         <div className="col s12 app-mt-1">
           <ul className="tabs">
-            <li className="tab col l3 s12">
+            {/* <li className="tab col l3 s12">
               <a className="active" href="#traderfxm">
                 <b>T</b>
                 <span
@@ -35,6 +36,19 @@ function TransactionsListComponent() {
                   style={{ paddingLeft: "0.5rem" }}
                 >
                   Traderfxm
+                </span>
+              </a>
+            </li> */}
+            <li className="tab col l3 s12">
+              <a className="active" href="#naira">
+                <b>
+                  <s>N</s>
+                </b>
+                <span
+                  className="hide-on-small-only"
+                  style={{ paddingLeft: "0.5rem" }}
+                >
+                  Naira
                 </span>
               </a>
             </li>
@@ -73,9 +87,13 @@ function TransactionsListComponent() {
             </li>
           </ul>
         </div>
-        <div id="traderfxm" className="col s12">
+        {/* <div id="traderfxm" className="col s12">
           <br />
           <ExchangeTransactionsComponent />
+        </div> */}
+        <div id="naira" className="col s12">
+          <br />
+          <NairaTransactionsComponent />
         </div>
         <div id="bitcoin" className="col s12">
           <br />

@@ -8,26 +8,41 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER,
       },
-      user_id: {
-        type: Sequelize.INTEGER,
-      },
-      verified: {
-        type: Sequelize.INTEGER,
-        defaultValue: 0,
-      },
-      photo_profile: {
-        type: Sequelize.STRING,
-        defaultValue: "human.png",
-      },
-      account_name: {
-        type: Sequelize.STRING,
-        allowNull: true,
-      },
       email: {
         type: Sequelize.STRING,
         unique: true,
       },
       password: Sequelize.STRING,
+      account_name: {
+        type: Sequelize.STRING,
+        allowNull: true,
+      },
+      first_name: {
+        type: Sequelize.STRING,
+      },
+      last_name: {
+        type: Sequelize.STRING,
+      },
+      phone_verified: {
+        type: Sequelize.INTEGER,
+        defaultValue: 0,
+      },
+      bvn_verified: {
+        type: Sequelize.INTEGER,
+        defaultValue: 0,
+      },
+      naira_balance: {
+        defaultValue: 0,
+        type: Sequelize.FLOAT(11, 2),
+      },
+      phone_number: {
+        type: Sequelize.STRING,
+        unique: true,
+      },
+      photo_profile: {
+        type: Sequelize.STRING,
+        defaultValue: "human.png",
+      },
       pin: {
         type: Sequelize.INTEGER,
       },
@@ -46,7 +61,6 @@ module.exports = {
       usdt_xpub: {
         type: Sequelize.STRING,
       },
-      phone_number: Sequelize.STRING,
       account_number: {
         type: Sequelize.STRING,
         allowNull: true,
@@ -67,19 +81,16 @@ module.exports = {
         type: Sequelize.STRING,
         allowNull: true,
       },
-
+      user_id: {
+        type: Sequelize.INTEGER,
+      },
+      verified: {
+        type: Sequelize.INTEGER,
+        defaultValue: 0,
+      },
       push_subscription: {
         type: Sequelize.TEXT,
       },
-      // btc_address: {
-      //   type: Sequelize.STRING,
-      // },
-      // eth_address: {
-      //   type: Sequelize.STRING,
-      // },
-      // usdt_address: {
-      //   type: Sequelize.STRING,
-      // },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE,

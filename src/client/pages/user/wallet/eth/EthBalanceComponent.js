@@ -81,7 +81,7 @@ function EthBalanceComponent() {
             <p> {wallet.ethereum.balance} ETH</p>
           )}
 
-          {fetching ? (
+          {/* {fetching ? (
             <p>
               <Skeleton count={1} width={150} />
             </p>
@@ -90,13 +90,21 @@ function EthBalanceComponent() {
               {" "}
               {format("USD", prices.ethereum.usd * wallet.ethereum.balance)}
             </p>
-          )}
-          <button data-target="modal2" className="btn modal-trigger">
-            RECEIVE
-          </button>
-          <Link to="/user/wallet/eth/send.html" className="btn" title="Send">
+          )} */}
+          <Link
+            to="/user/wallet/eth/send.html"
+            className="btn btn-secondary btn-flat"
+            title="Send"
+          >
             SEND
           </Link>
+          <br />
+          <button
+            data-target="modal2"
+            className="btn btn-secondary btn-flat modal-trigger"
+          >
+            RECEIVE
+          </button>
         </li>
       </ul>
       <div id="modal2" className="modal" style={{ color: "#000" }}>

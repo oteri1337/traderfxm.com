@@ -15,7 +15,17 @@ function AdminHomePage() {
         <li className="collection-item">
           <Link to="/control/transactions/list.html" className="app-list-link">
             <span className="material-icons notranslate">copyright</span>
-            <b>Transactions</b>
+            <b>Exchange Transactions</b>
+          </Link>
+        </li>
+
+        <li className="collection-item">
+          <Link
+            to="/control/nairatransactions/list.html"
+            className="app-list-link"
+          >
+            <span className="material-icons notranslate">payments</span>
+            <b>Naira Transactions</b>
           </Link>
         </li>
 

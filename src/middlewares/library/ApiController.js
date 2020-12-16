@@ -1,4 +1,5 @@
 const path = require("path");
+const twilio = require("twilio");
 const { Op } = require("sequelize");
 const nodemailer = require("nodemailer");
 
@@ -16,7 +17,7 @@ ApiController.readInclude = "";
 
 ApiController.listInclude = "";
 
-ApiController.sendEmail = function (to, text, subject) {
+ApiController.sendEmail = async function (to, text, subject) {
   const mailObject = {
     from: '"TraderFX" <info@traderfxm.com>',
     to,
@@ -41,6 +42,20 @@ ApiController.sendEmail = function (to, text, subject) {
       console.log("failed to send email to", to);
     }
   });
+};
+
+ApiController.sendSms = async function (to, body) {
+  console.log("sending sms to ", to);
+
+  const from = process.env.TWILIO_NUMBER;
+  const accountSid = process.env.TWILIO_SID;
+  const authToken = process.env.TWILIO_TOKEN;
+
+  const client = new twilio(accountSid, authToken);
+
+  client.messages
+    .create({ body, to, from })
+    .then((message) => console.log("sms sent ", message.sid));
 };
 
 ApiController.uploadImage = (file) => {
@@ -113,7 +128,7 @@ ApiController.getList = async function (page, baseUrl, path, where = {}) {
 
 ApiController.create = async function (request, response) {
   const { body } = request;
-  const newBody = await this.createBody(body);
+  const newBody = await this.createBody(body, request);
   const data = await this.model.create(newBody);
   return response.json({ data, errors: [], message: "Created Successfully" });
 };

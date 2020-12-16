@@ -11,7 +11,7 @@ function ResendPinComponent({ email }) {
     email: state.user.email,
   };
 
-  const text = "Resend Pin";
+  const text = "SKIP";
 
   const onSubmit = (body) => {
     callBack("/api/users/auth/resendpin", "N", body);
@@ -34,12 +34,12 @@ function ResendPinComponent({ email }) {
   );
 }
 
-function VerifyEmailPage({ location, history }) {
+function VerifyBvnPage({ location, history }) {
   const { request, callBack, state } = sendRequestThenDispatch();
   const { errors, message, fetching } = request;
   const { user } = state;
 
-  if (user.verified) {
+  if (user.bvn_verified) {
     history.push("/user/index.html");
   }
 
@@ -55,7 +55,7 @@ function VerifyEmailPage({ location, history }) {
 
   const formArray = [
     {
-      id: "pin",
+      id: "bvn",
       type: "number",
     },
   ];
@@ -80,8 +80,15 @@ function VerifyEmailPage({ location, history }) {
                 <div className="step-title">Account Information</div>
               </li>
 
-              <li className="step active">
+              <li className="step">
                 <div className="step-title">Email Verification</div>
+              </li>
+
+              <li className="step">
+                <div className="step-title">Phone Verification</div>
+              </li>
+              <li className="step active">
+                <div className="step-title">BVN Verification</div>
                 <div className="step-content">
                   <center>
                     <FormComponent
@@ -99,13 +106,6 @@ function VerifyEmailPage({ location, history }) {
                   </center>
                 </div>
               </li>
-
-              <li className="step">
-                <div className="step-title">Phone Verification</div>
-              </li>
-              <li className="step">
-                <div className="step-title">BVN Verification</div>
-              </li>
             </ul>
           </div>
         </div>
@@ -114,4 +114,4 @@ function VerifyEmailPage({ location, history }) {
   );
 }
 
-export default VerifyEmailPage;
+export default VerifyBvnPage;

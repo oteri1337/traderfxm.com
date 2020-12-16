@@ -73,20 +73,28 @@ function UsdtBalanceComponent() {
           ) : (
             <p> {wallet.usdt.balance_approximate.toFixed(2)} USDT</p>
           )}
-
+          {/* 
           {fetching ? (
             <p>
               <Skeleton count={1} width={150} />
             </p>
           ) : (
             <p> {format("USD", wallet.usdt.balance_approximate)}</p>
-          )}
-          <button data-target="modal3" className="btn modal-trigger">
-            RECEIVE
-          </button>
-          <Link to="/user/wallet/usdt/send.html" className="btn" title="Send">
+          )} */}
+          <Link
+            to="/user/wallet/usdt/send.html"
+            className="btn btn-secondary btn-flat"
+            title="Send"
+          >
             SEND
           </Link>
+          <br />
+          <button
+            data-target="modal3"
+            className="btn btn-secondary btn-flat modal-trigger"
+          >
+            RECEIVE
+          </button>
         </li>
       </ul>
       <div id="modal3" className="modal" style={{ color: "#000" }}>

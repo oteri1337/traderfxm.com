@@ -21,28 +21,32 @@ function BtcBalanceComponent() {
   React.useEffect(() => {
     let mounted = true;
     const asyncOperation = async () => {
-      let response = await fetch(url);
-      response = await response.json();
+      try {
+        let response = await fetch(url);
+        response = await response.json();
 
-      if (mounted) {
-        setFetching(false);
-      }
+        if (mounted) {
+          setFetching(false);
+        }
 
-      if (response.wallet) {
-        let balance = 0;
-        let balance_map = {};
-        let transactions = response.txs;
+        if (response.wallet) {
+          let balance = 0;
+          let balance_map = {};
+          let transactions = response.txs;
 
-        response.addresses.forEach((wallet) => {
-          balance_map[wallet.address] = wallet.final_balance / 1e8;
-        });
+          response.addresses.forEach((wallet) => {
+            balance_map[wallet.address] = wallet.final_balance / 1e8;
+          });
 
-        balance = response.wallet.final_balance / 1e8;
+          balance = response.wallet.final_balance / 1e8;
 
-        callReducer({
-          dispatch: "UPDATE_BTC_WALLET",
-          data: { balance, balance_map, transactions },
-        });
+          callReducer({
+            dispatch: "UPDATE_BTC_WALLET",
+            data: { balance, balance_map, transactions },
+          });
+        }
+      } catch (e) {
+        console.log("btc balance component", e);
       }
     };
 
@@ -68,7 +72,6 @@ function BtcBalanceComponent() {
       <ul className="collection">
         <li className="collection-item center" style={style}>
           <p className="icon icon-btc" style={iconStyle} />
-
           {fetching ? (
             <p>
               <Skeleton count={1} width={100} />
@@ -76,21 +79,27 @@ function BtcBalanceComponent() {
           ) : (
             <p> {wallet.bitcoin.balance.toFixed(8)} BTC</p>
           )}
-
-          {fetching ? (
+          {/* {fetching ? (
             <p>
               <Skeleton count={1} width={150} />
             </p>
           ) : (
             <p> {format("USD", prices.bitcoin.usd * wallet.bitcoin.balance)}</p>
-          )}
-
-          <button data-target="modal1" className="btn modal-trigger">
-            RECEIVE
-          </button>
-          <Link to="/user/wallet/btc/send.html" className="btn" title="Send">
+          )} */}
+          <Link
+            to="/user/wallet/btc/send.html"
+            className="btn btn-secondary btn-flat"
+            title="Send"
+          >
             SEND
           </Link>
+          <br />
+          <button
+            data-target="modal1"
+            className="btn btn-secondary btn-flat modal-trigger"
+          >
+            RECEIVE
+          </button>
         </li>
       </ul>
       <div id="modal1" className="modal" style={{ color: "#000" }}>

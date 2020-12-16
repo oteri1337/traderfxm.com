@@ -8,6 +8,7 @@ const AuthController = require("./library/AuthController");
 const transaction = require("../database/models").transaction;
 const BitcoinController = require("./library/BitcoinController");
 const EthereumController = require("./library/EthereumController");
+const nairatransaction = require("../database/models").nairatransaction;
 
 const Controller = { ...AuthController };
 
@@ -22,6 +23,7 @@ Controller.readInclude = [
   "accounts",
   "referrals",
   "transactions",
+  "nairatransactions",
   {
     model: wallet,
     as: "btc_wallets",
@@ -53,6 +55,7 @@ Controller.readOrder = [
   [{ model: wallet, as: "eth_wallets" }, "createdAt", "DESC"],
   [{ model: wallet, as: "usdt_wallets" }, "createdAt", "DESC"],
   [{ model: transaction, as: "transactions" }, "createdAt", "DESC"],
+  [{ model: nairatransaction, as: "nairatransactions" }, "createdAt", "DESC"],
 ];
 
 Controller.createBody = function (body) {
@@ -430,6 +433,38 @@ Controller.sendUsdt = async function (request, response) {
         errors: [error.message],
       });
     }
+  });
+};
+
+Controller.sendNaira = async function (request, response) {
+  // subtract naira
+  const { id } = request.session.user;
+  const User = await this.model.findOne({ where: { id } });
+  const { amount, account_name, account_number, type } = request.body;
+  const { bank_name, cryptoId, address } = request.body;
+
+  const naira_balance = User.naira_balance - amount;
+
+  User.update({ naira_balance });
+
+  // if crypto id is not = 0 get rate
+
+  // create naira transaction
+  let t = { amount, account_name, type, bank_name, account_number };
+  t = { ...t, cryptoId, address, user_id: id };
+  await nairatransaction.create(t);
+
+  // return updated user
+  const data = await this.model.findOne({
+    where: { id },
+    order: this.readOrder,
+    include: this.readInclude,
+  });
+
+  return response.json({
+    data,
+    errors: [],
+    message: "",
   });
 };
 

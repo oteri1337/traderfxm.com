@@ -5,13 +5,15 @@ module.exports = (sequelize, DataTypes) => {
   const order = sequelize.define(
     "order",
     {
-      user_id: DataTypes.INTEGER,
-      status: DataTypes.INTEGER,
-      total_in_ngn: DataTypes.FLOAT,
-      reference: DataTypes.STRING,
-      phone_number: DataTypes.STRING,
-      full_name: DataTypes.STRING,
       email: DataTypes.STRING,
+      cp_url: DataTypes.STRING,
+      status: DataTypes.INTEGER,
+      user_id: DataTypes.INTEGER,
+      reference: DataTypes.STRING,
+      full_name: DataTypes.STRING,
+      total_in_ngn: DataTypes.FLOAT,
+      phone_number: DataTypes.STRING,
+      cp_reference: DataTypes.STRING,
       delivery_address: DataTypes.STRING,
       month: {
         type: DataTypes.STRING,

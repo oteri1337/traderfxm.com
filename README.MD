@@ -1,5 +1,21 @@
 # TASKS
 
+dig traderfxm.com
+
+referral comission
+
+naira wallet deposits
+
+naira wallet withdraw to bank
+
+naira wallet withdraw to wallet
+
+refactor verification
+
+check if email and phone number exits
+
+fix image upload bug
+
 shift twak widget up
 
 transaction tab on mobile

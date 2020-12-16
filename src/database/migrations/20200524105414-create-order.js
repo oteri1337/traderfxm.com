@@ -25,6 +25,16 @@ module.exports = {
         type: Sequelize.STRING,
         unique: true,
       },
+      cp_url: {
+        unique: true,
+        allowNull: true,
+        type: Sequelize.STRING,
+      },
+      cp_reference: {
+        unique: true,
+        allowNull: true,
+        type: Sequelize.STRING,
+      },
       phone_number: {
         type: Sequelize.STRING,
       },

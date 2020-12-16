@@ -17,7 +17,7 @@ function TransactionsListPage() {
       link: "/control/index.html",
     },
     {
-      label: "Transactions",
+      label: "Exchange Transactions",
     },
   ];
 

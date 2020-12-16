@@ -3,6 +3,185 @@ const ApiController = require("./ApiController");
 
 const AuthController = { ...ApiController };
 
+AuthController.resendPin = async function (request, response) {
+  const { email } = request.body;
+
+  if (!email) {
+    return response.json({
+      errors: ["email is required"],
+      message: "",
+      data: {},
+    });
+  }
+
+  let data = await this.model.findOne({ where: { email } });
+
+  if (!data) {
+    return response.json({
+      errors: ["user not found"],
+      message: "",
+      data: {},
+    });
+  }
+
+  let pin = Math.random();
+  pin = pin * 100000;
+  pin = pin.toFixed(0);
+
+  await this.model.update({ pin }, { where: { email } });
+
+  this.sendEmail(data.email, `Your pin is ${pin}`, "Pin");
+
+  const message = "Pin Sent";
+
+  return response.json({ data, message, errors: [] });
+};
+
+AuthController.resendSms = async function (request, response) {
+  const { id } = request.session.user;
+  const { phone_number } = request.body;
+
+  if (!phone_number) {
+    return response.json({
+      errors: ["phone_number is required"],
+      message: "",
+      data: {},
+    });
+  }
+
+  //let data = await this.model.findOne({ where: { phone_number } });
+
+  // if (!data) {
+  //   return response.json({
+  //     errors: ["user not found"],
+  //     message: "",
+  //     data: {},
+  //   });
+  // }
+
+  let pin = Math.random();
+  pin = pin * 100000;
+  pin = pin.toFixed(0);
+
+  await this.model.update({ pin, phone_number }, { where: { id } });
+
+  const data = await this.model.findOne({
+    where: { id },
+    order: this.readOrder,
+    include: this.readInclude,
+  });
+
+  this.sendSms(phone_number, `Your TraderFX Verification PIN is ${pin}`);
+
+  const message = "Pin Sent";
+
+  return response.json({ data, message, errors: [] });
+};
+
+AuthController.verifyEmail = async function (request, response) {
+  const { id, pin } = request.body;
+
+  if (id === undefined) {
+    return response.json({
+      errors: ["id is required"],
+      message: "",
+      data: {},
+    });
+  }
+
+  if (pin === undefined) {
+    return response.json({
+      errors: ["pin is required"],
+      message: "",
+      data: {},
+    });
+  }
+
+  let data = await this.model.findOne({ where: { id, pin } });
+
+  if (data) {
+    let pin = Math.random();
+
+    pin = pin * 100000;
+
+    pin = pin.toFixed(0);
+
+    const verified = 2;
+
+    let updated = await this.model.update({ pin, verified }, { where: { id } });
+
+    this.sendSms(data.phone_number, `Your TraderFX Verification PIN is ${pin}`);
+
+    if (updated == 1) {
+      data = await this.model.findOne({
+        where: { id },
+        order: this.readOrder,
+        include: this.readInclude,
+      });
+
+      return response.json({
+        data,
+        message: "verification successful",
+        errors: [],
+      });
+    }
+  }
+
+  return response.json({ errors: ["invalid pin"] });
+};
+
+AuthController.verifyPhone = async function (request, response) {
+  const { id, pin } = request.body;
+
+  if (id === undefined) {
+    return response.json({
+      errors: ["id is required"],
+      message: "",
+      data: {},
+    });
+  }
+
+  if (pin === undefined) {
+    return response.json({
+      errors: ["pin is required"],
+      message: "",
+      data: {},
+    });
+  }
+
+  let data = await this.model.findOne({ where: { id, pin } });
+
+  if (data) {
+    let pin = Math.random();
+
+    pin = pin * 100000;
+
+    pin = pin.toFixed(0);
+
+    const phone_verified = 1;
+
+    let data = await this.model.update(
+      { pin, phone_verified },
+      { where: { id } }
+    );
+
+    if (data == 1) {
+      data = await this.model.findOne({
+        where: { id },
+        order: this.readOrder,
+        include: this.readInclude,
+      });
+      return response.json({
+        data,
+        message: "verification successful",
+        errors: [],
+      });
+    }
+  }
+
+  return response.json({ errors: ["invalid pin"] });
+};
+
 AuthController.encryptPassword = function (password) {
   return crypto.createHash("md5").update(password).digest("hex");
 };
@@ -44,40 +223,6 @@ AuthController.create = async function (request, response) {
   request.session[this.authKey] = data;
 
   return response.json({ data, errors: [], message: "Created Successfully" });
-};
-
-AuthController.resendPin = async function (request, response) {
-  const { email } = request.body;
-
-  if (!email) {
-    return response.json({
-      errors: ["email is required"],
-      message: "",
-      data: {},
-    });
-  }
-
-  let data = await this.model.findOne({ where: { email } });
-
-  if (!data) {
-    return response.json({
-      errors: ["user not found"],
-      message: "",
-      data: {},
-    });
-  }
-
-  let pin = Math.random();
-  pin = pin * 100000;
-  pin = pin.toFixed(0);
-
-  await this.model.update({ pin }, { where: { email } });
-
-  this.sendEmail(data.email, `Your pin is ${pin}`, "Pin");
-
-  const message = "Pin Sent";
-
-  return response.json({ data, message, errors: [] });
 };
 
 AuthController.resetEmail = async function (request, response) {
@@ -261,55 +406,6 @@ AuthController.signout = async function (request, response) {
   request.session[this.authKey] = false;
 
   return response.json({ errors: [], data: false, message: "" });
-};
-
-AuthController.verifyEmail = async function (request, response) {
-  const { id, pin } = request.body;
-
-  if (id === undefined) {
-    return response.json({
-      errors: ["id is required"],
-      message: "",
-      data: {},
-    });
-  }
-
-  if (pin === undefined) {
-    return response.json({
-      errors: ["pin is required"],
-      message: "",
-      data: {},
-    });
-  }
-
-  let data = await this.model.findOne({ where: { id, pin } });
-
-  if (data) {
-    let pin = Math.random();
-
-    pin = pin * 100000;
-
-    pin = pin.toFixed(0);
-
-    const verified = 2;
-
-    let data = await this.model.update({ pin, verified }, { where: { id } });
-
-    if (data == 1) {
-      data = await this.model.findOne({
-        where: { id },
-        order: this.readOrder,
-        include: this.readInclude,
-      });
-      return response.json({
-        data,
-        message: "verification successful",
-        errors: [],
-      });
-    }
-  }
-
-  return response.json({ errors: ["invalid pin"] });
 };
 
 AuthController.updatePassword = async function (request, response) {

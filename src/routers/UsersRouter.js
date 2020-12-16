@@ -1,61 +1,67 @@
 const express = require("express");
-const Controller = require("../middlewares/UsersController");
+const C = require("../middlewares/UsersController");
 const V = require("../middlewares/validators/AuthValidator");
 const P = require("../middlewares/validators/PermissionsValidator");
 
 const router = express.Router();
 
 // standard
-router.get("/users", P.admin, Controller.list);
+router.get("/users", P.admin, C.list);
 
-router.post("/users", V.signup, Controller.create);
+router.post("/users", V.signup, V.exists, C.create);
 
-router.get("/users/:attr", Controller.read);
+router.get("/users/:attr", C.read);
 
-router.delete("/users", P.admin, Controller.delete);
+router.delete("/users", P.admin, C.delete);
 
 // account create
 
-router.post("/users/accounts", P.user, Controller.createAccount);
+router.post("/users/accounts", P.user, C.createAccount);
 
-router.delete("/users/accounts", P.user, Controller.deleteAccount);
+router.delete("/users/accounts", P.user, C.deleteAccount);
 
 // wallet create
-router.post("/users/wallet/btc/create", P.user, Controller.createBtc);
+router.post("/users/wallet/btc/create", P.user, C.createBtc);
 
-router.post("/users/wallet/eth/create", P.user, Controller.createEth);
+router.post("/users/wallet/eth/create", P.user, C.createEth);
 
-router.post("/users/wallet/usdt/create", P.user, Controller.createUsdt);
+router.post("/users/wallet/usdt/create", P.user, C.createUsdt);
 
 // wallet send
 
-router.post("/users/wallet/btc/send", P.user, V.send, Controller.sendBtc);
+router.post("/users/wallet/btc/send", P.user, V.send, C.sendBtc);
 
-router.post("/users/wallet/eth/send", P.user, V.send, Controller.sendEth);
+router.post("/users/wallet/eth/send", P.user, V.send, C.sendEth);
 
-router.post("/users/wallet/usdt/send", P.user, V.send, Controller.sendUsdt);
+router.post("/users/wallet/usdt/send", P.user, V.send, C.sendUsdt);
+
+router.post("/users/wallet/naira/send", P.user, V.sendNaira, C.sendNaira);
 
 // auth
-router.post("/users/auth/signin", V.signin, Controller.signin);
+router.post("/users/auth/verifyemail", P.user, C.verifyEmail);
 
-router.get("/users/auth/status", Controller.status);
+router.post("/users/auth/verifyphone", P.user, C.verifyPhone);
 
-router.get("/users/auth/signout", P.user, Controller.signout);
+router.post("/users/auth/resendpin", P.user, C.resendPin);
 
-router.post("/users/auth/verifyemail", Controller.verifyEmail);
+router.post("/users/auth/resendsms", P.user, C.resendSms);
 
-router.post("/users/auth/resendpin", Controller.resendPin);
+router.post("/users/auth/signin", V.signin, C.signin);
 
-router.post("/users/auth/password", V.reset, Controller.resetPassword);
+router.get("/users/auth/status", C.status);
 
-router.post("/users/auth/email", V.reset, Controller.resetEmail);
+router.get("/users/auth/signout", P.user, C.signout);
 
-router.patch("/users/auth/profile", P.user, Controller.updateProfile);
+router.post("/users/auth/password", V.reset, C.resetPassword);
 
-router.patch("/users/auth/password", P.user, Controller.updatePassword);
+router.post("/users/auth/email", V.reset, C.resetEmail);
+
+router.patch("/users/auth/profile", P.user, C.updateProfile);
+
+router.patch("/users/auth/password", P.user, C.updatePassword);
 
 // web3 routes
 
-router.get("/users/usdt/:attr", Controller.usdtBalance);
+router.get("/users/usdt/:attr", C.usdtBalance);
 
 module.exports = router;

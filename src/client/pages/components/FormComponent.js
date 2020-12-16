@@ -43,7 +43,6 @@ function FormComponent(props) {
 
   const onChange = ({ target }) => {
     const newState = { ...state, [target.id]: target.checked || target.value };
-    console.log(newState);
     setState(newState);
     onChangeCallBack(newState);
   };
@@ -70,7 +69,7 @@ function FormComponent(props) {
       const def = initialState[formObject.id];
 
       return (
-        <div key={formObject.id} className="app-mb-2">
+        <div key={formObject.id} className={formObject.className || "app-mb-2"}>
           <label>{formObject.label || formObject.id.replace(/_/g, " ")}</label>
           <select
             id={formObject.id}
@@ -182,7 +181,7 @@ function FormComponent(props) {
             className={formObject.className || "validate"}
             value={state[formObject.id] || ""}
             onChange={onChange}
-            inputMode="decimal"
+            inputMode={props.inputMode || "decimal"}
             required
           />
           {!formObject.removeLabel && (

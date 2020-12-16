@@ -23,7 +23,7 @@ function ContainerComponent(props) {
     const renderHeader = props.renderHeader ?? true;
     if (renderHeader) {
       return (
-        <div className="bg app-relative app-vh-image">
+        <div className="bg app-relative app-image-hero-1">
           <div className="app-bg-overlay"></div>
           <NavComponent />
           <div className=" app-py-1 center">

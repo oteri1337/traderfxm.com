@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <form action="https://www.coinpayments.net/index.php" method="post">
+      <input type="hidden" name="cmd" value="_pay_simple" />
+      <input type="hidden" name="reset" value="1" />
+      <input
+        type="hidden"
+        name="merchant"
+        value="f4ba7bb032cdcd0dd3ce211bdbb6e9ce"
+      />
+      <input type="hidden" name="item_name" value="Test" />
+      <input type="hidden" name="invoice" value="testid" />
+      <input type="hidden" name="currency" value="USD" />
+      <input type="hidden" name="amountf" value="10.00000000" />
+      <input type="hidden" name="want_shipping" value="0" />
+      <input
+        type="hidden"
+        name="success_url"
+        value="http://www.traderfxm.com/"
+      />
+      <input
+        type="hidden"
+        name="cancel_url"
+        value="http://www.traderfxm.com/"
+      />
+      <input
+        type="image"
+        src="https://www.coinpayments.net/images/pub/buynow-wide-yellow.png"
+        alt="Buy Now with CoinPayments.net"
+      />
+    </form>
+  </body>
+</html>

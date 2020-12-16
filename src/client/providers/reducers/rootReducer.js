@@ -11,6 +11,7 @@ import pricesReducer from "./pricesReducer";
 import productsReducer from "./productsReducer";
 import parentgroupsReducer from "./parentgroupsReducer";
 import transactionsReducer from "./transactionsReducer";
+import nairaTransactionsReducer from "./nairaTransactionsReducer";
 
 function rootReducer(state = {}, action) {
   if (action.dispatch == "UPDATE_STATE") {
@@ -33,6 +34,7 @@ function rootReducer(state = {}, action) {
     products: productsReducer(state?.products, action),
     parentgroups: parentgroupsReducer(state?.parentgroups, action),
     transactions: transactionsReducer(state?.transactions, action),
+    ntransactions: nairaTransactionsReducer(state?.ntransactions, action),
   };
 }
 

@@ -13,6 +13,10 @@ router.post("/orders/search", Controller.search);
 
 router.post("/orders", V.create, Controller.create);
 
+router.post("/orders/create/coin", Controller.createCoinPayment);
+
+router.patch("/orders/confirm/coin", Controller.confirmCoinPayment);
+
 router.patch("/orders/confirm/flutter", Controller.confirmFlutterPayment);
 
 router.get("/orders/:attr", Controller.read);
