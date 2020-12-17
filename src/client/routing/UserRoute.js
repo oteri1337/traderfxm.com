@@ -30,15 +30,15 @@ function UserRoute(props) {
     return <Redirect to={verPath} />;
   }
 
-  if (user.phone_verified == 0) {
-    let verPath = "/user/auth/verifyphone.html";
+  // if (user.phone_verified == 0) {
+  //   let verPath = "/user/auth/verifyphone.html";
 
-    if (props.path == verPath) {
-      return <Route {...props} />;
-    }
+  //   if (props.path == verPath) {
+  //     return <Route {...props} />;
+  //   }
 
-    return <Redirect to={verPath} />;
-  }
+  //   return <Redirect to={verPath} />;
+  // }
 
   // if (user.bvn_verified == 0) {
   //   let verPath = "/user/auth/verifybvn.html";

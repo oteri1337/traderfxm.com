@@ -194,4 +194,23 @@ AuthValidator.sendNaira = async function (request, response, next) {
   next();
 };
 
+AuthValidator.depositNaira = async function (request, response, next) {
+  const errors = [];
+  const { type, amount } = request.body;
+
+  if (type === undefined) {
+    errors.push("type is required");
+  }
+
+  if (amount === undefined) {
+    errors.push("amount is required");
+  }
+
+  if (errors.length) {
+    return response.json({ errors, data: {}, message: "" });
+  }
+
+  next();
+};
+
 module.exports = AuthValidator;

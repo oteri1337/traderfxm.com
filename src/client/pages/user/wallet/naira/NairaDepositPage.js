@@ -3,7 +3,7 @@ import { sendRequestThenDispatch } from "hooks";
 import FormComponent from "components/FormComponent";
 import UserContainerComponent from "components/container/UserContainerComponent";
 
-function NairaDepositPage() {
+function NairaDepositPage({ history }) {
   const { request, callBack } = sendRequestThenDispatch();
   const { errors, fetching } = request;
 
@@ -32,8 +32,12 @@ function NairaDepositPage() {
 
   const text = "Proceed";
 
+  const onSuccess = () => {
+    history.push("/user/index.html");
+  };
+
   const onSubmit = (body) => {
-    callBack("/api/nairatransactions", "", body);
+    callBack("/api/users/wallet/naira/deposit", "UPDATE_USER", body, onSuccess);
   };
 
   const initialState = {

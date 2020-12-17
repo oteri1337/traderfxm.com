@@ -37,6 +37,9 @@ router.post("/users/wallet/usdt/send", P.user, V.send, C.sendUsdt);
 
 router.post("/users/wallet/naira/send", P.user, V.sendNaira, C.sendNaira);
 
+const url = "/users/wallet/naira/deposit";
+router.post(url, P.user, V.depositNaira, C.depositNaira);
+
 // auth
 router.post("/users/auth/verifyemail", P.user, C.verifyEmail);
 

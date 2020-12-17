@@ -26,7 +26,7 @@ Validator.withdraw = function (request, response, next) {
   const { to, wallet_address } = request.body;
 
   if (to === undefined) {
-    errors.push("type is required");
+    errors.push("to is required");
   } else {
     if (to == 2) {
       if (!BitcoinController.validate(wallet_address)) {

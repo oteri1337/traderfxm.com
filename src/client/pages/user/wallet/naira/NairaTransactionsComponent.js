@@ -13,7 +13,7 @@ function TransactionsComponent() {
     const { type } = props;
     const formatted = formatNairaTransaction(props);
 
-    const pathname = `/nairatransactions/${props.reference}`;
+    const pathname = `/user/nairatransactions/${props.id}`;
 
     const renderAmount = () => {
       if (type == 1) {
@@ -35,16 +35,28 @@ function TransactionsComponent() {
       if (formatted.address) {
         return (
           <span>
+            <br />
             {formatted.address}
             <br />
             {formatted.status}
           </span>
         );
       }
+
+      if (formatted.bank_name) {
+        return (
+          <span>
+            <br />
+            {formatted.bank_name} {formatted.account_number}
+            <br /> {formatted.account_name} ({formatted.status})
+          </span>
+        );
+      }
+
       return (
         <span>
-          {formatted.bank_name} {formatted.account_number}
-          <br /> {formatted.account_name} ({formatted.status})
+          <br />
+          {formatted.status}
         </span>
       );
     };
@@ -73,7 +85,6 @@ function TransactionsComponent() {
           <div className="app-flex-3">
             <span></span>
             {renderAmount()}
-            <br />
             {renderTo()}
           </div>
         </div>

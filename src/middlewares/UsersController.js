@@ -439,9 +439,14 @@ Controller.sendUsdt = async function (request, response) {
 Controller.sendNaira = async function (request, response) {
   // subtract naira
   const { id } = request.session.user;
+
   const User = await this.model.findOne({ where: { id } });
-  const { amount, account_name, account_number, type } = request.body;
+
+  let { amount, account_name, account_number, type } = request.body;
+
   const { bank_name, cryptoId, address } = request.body;
+
+  amount = parseFloat(amount);
 
   const naira_balance = User.naira_balance - amount;
 
@@ -457,6 +462,37 @@ Controller.sendNaira = async function (request, response) {
   // return updated user
   const data = await this.model.findOne({
     where: { id },
+    order: this.readOrder,
+    include: this.readInclude,
+  });
+
+  return response.json({
+    data,
+    errors: [],
+    message: "",
+  });
+};
+
+Controller.depositNaira = async function (request, response) {
+  const user_id = request.session.user.id;
+
+  let { amount, type } = request.body;
+
+  amount = parseFloat(amount);
+
+  const User = await this.model.findOne({ where: { id: user_id } });
+
+  const naira_balance = User.naira_balance + amount;
+
+  User.update({ naira_balance });
+
+  const status = 2;
+
+  await nairatransaction.create({ amount, type, user_id, status });
+
+  // return updated user
+  const data = await this.model.findOne({
+    where: { id: user_id },
     order: this.readOrder,
     include: this.readInclude,
   });
