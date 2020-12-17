@@ -22,7 +22,7 @@ module.exports = (sequelize, DataTypes) => {
         get() {
           const an = this.getDataValue("account_name");
 
-          if (!an?.length) {
+          if (!an) {
             const fn = this.getDataValue("first_name");
             const ln = this.getDataValue("last_name");
 
