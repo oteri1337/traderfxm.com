@@ -13,12 +13,12 @@ function TourSliderTwoComponent() {
             Coins
             <br />
           </span>
-          on TraderFX
+          on {PWA_NAME}
         </h1>
         <br />
         <p>
           Avoid stress. Buy, Sell, Send, and Recieve Bitcoin, Ethereum and
-          Tether (USDT) with your TraderFX Wallet.
+          Tether (USDT) with your {PWA_NAME} Wallet.
         </p>
         <br />
         <Link to="/signup.html" className="btn btn-alt">
