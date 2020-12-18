@@ -50,15 +50,15 @@ class Footer extends React.Component {
             <div className="col l2 s12">
               <div>
                 <ul>
-                  <b>TraderFX</b>
+                  <b>TraderFXM</b>
                   {/* <li>
                     <Link to="/signup.html">Create Account</Link>
                   </li> */}
                   <li>
-                    <Link to="/shop/products.html">Traderfxm Shop</Link>
+                    <Link to="/shop/products.html">TraderFXM Shop</Link>
                   </li>
                   <li>
-                    <Link to="/signin.html">Traderfxm Login</Link>
+                    <Link to="/signin.html">TraderFXM Login</Link>
                   </li>
                   <li>
                     <Link to="/terms.html">Terms of Service</Link>
@@ -69,8 +69,8 @@ class Footer extends React.Component {
 
             <div className="col l6 s12 app-desktop-right">
               <p>
-                <span className="material-icons notranslate">phone</span> +2341
-                234 5678
+                <span className="material-icons notranslate">phone</span> +234
+                812 906 6060
               </p>
 
               <p>
@@ -79,7 +79,7 @@ class Footer extends React.Component {
               </p>
 
               <span className="material-icons notranslate">location_on</span>
-              <span>98 Green Road, Farmgate, Bitcoin Estate</span>
+              <span>98 Green Road, Farmgate, Bitcoin Estate, Nigeria.</span>
             </div>
           </div>
         </div>

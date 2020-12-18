@@ -21,7 +21,10 @@ function themeReducer(state = "LIGHT", action) {
         root.style.setProperty("--border-colour", "#434651");
         root.style.setProperty("--secondary-background", "#1e222d");
         root.style.setProperty("--secondary-font-colour", "#898C95");
-        root.style.setProperty("--image", `url("/assets/images/Slider1.jpg")`);
+        root.style.setProperty(
+          "--image",
+          `url("/assets/images/bitcoinbg.jpg")`
+        );
       }
       return action.data;
     default:
