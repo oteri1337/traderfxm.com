@@ -122,7 +122,7 @@ Controller.createBuy = async (request, response) => {
     You can monitor your transaction @ https://www.traderfxm.com/transactions/${data.reference}
 
     `,
-    `Traderfx Transaction Confirmation`
+    `TraderFXM Transaction Confirmation`
   );
 
   Controller.sendEmail(
@@ -336,7 +336,7 @@ Controller.confirmSell = async function (request, response) {
       Please confirm the payment, then complete the transaction
 
       `,
-      "Traderfx Crypto Payment Recieved"
+      "TraderFXM Crypto Payment Recieved"
     );
   }
 

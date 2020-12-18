@@ -38,7 +38,7 @@ Controller.create = async function (request, response) {
 
     Your purchase and use of TFX products and services are subject to the Terms of Service and Privacy Notice
     `,
-    `TraderFX Order Confirmation`
+    `TraderFXM Order Confirmation`
   );
 
   Controller.sendEmail(
