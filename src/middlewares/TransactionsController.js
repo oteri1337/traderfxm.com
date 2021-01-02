@@ -292,10 +292,10 @@ Controller.confirmSell = async function (request, response) {
   const { cryptoId, address, amount_in_crypto } = data.dataValues;
 
   if (cryptoId == 1) {
-    const url = `https://insight.bitpay.com/api/addr/${address}`;
+    const url = `https://blockchain.info/rawaddr/${address}`;
     let response = await fetch(url);
     response = await response.json();
-    if (response.totalReceived >= amount_in_crypto) {
+    if (response.total_received >= amount_in_crypto) {
       status = 2;
     }
   }

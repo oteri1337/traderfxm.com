@@ -27,11 +27,12 @@ function SellPayComponent({ data, rawData }) {
   React.useEffect(() => {
     (async () => {
       if (cryptoId == 1) {
-        const url = `https://insight.bitpay.com/api/addr/${address}`;
+        // const url = `https://insight.bitpay.com/api/addr/${address}`;
+        const url = `https://blockchain.info/rawaddr/${address}`;
         let response = await fetch(url);
         response = await response.json();
-        if (response.totalReceived) {
-          setReceived(response.totalReceived);
+        if (response.total_received) {
+          setReceived(response.total_received);
         }
       }
 

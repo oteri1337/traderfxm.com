@@ -42,7 +42,7 @@ BitcoinController.createPayment = async function (path) {
   // console.log("deriving with ", path, " ", address);
 
   // const url = `https://insight.bitpay.com/api/addr/${address}/totalReceived`;
-  const url = `https://blockchain.info/rawaddr/1FHWG4STnnLMnym9R2ix2G9LugNymHAdtC`;
+  const url = `https://blockchain.info/rawaddr/${address}`;
   let response = await fetch(url);
   response = await response.json();
 
