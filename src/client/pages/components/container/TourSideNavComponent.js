@@ -19,13 +19,48 @@ function TourSideNavComponent() {
     <ul className="sidenav" id="mobile-demo">
       <li>
         <div className="user-view">
-          <div className="background">
-            <img
-              src="/assets/images/logo.png"
-              style={{ width: "150px", marginTop: "5px" }}
-            />
+          <div
+            className="background"
+            style={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+            }}
+          >
+            <img src="/assets/images/logo.png" style={{ width: "150px" }} />
           </div>
         </div>
+      </li>
+
+      <li className="no-padding">
+        <ul className="collapsible collapsible-accordion">
+          <li className="active">
+            <a className="collapsible-header">
+              Account
+              <i className="material-icons notranslate">arrow_drop_down</i>
+            </a>
+            <div className="collapsible-body">
+              <ul>
+                <li>
+                  <Link to="/signin.html" className="sidenav-close">
+                    <span className="material-icons notranslate">
+                      account_circle
+                    </span>
+                    Sign In
+                  </Link>
+                </li>
+                <li>
+                  <Link to="/signup.html" className="sidenav-close">
+                    <span className="material-icons notranslate">
+                      person_add
+                    </span>
+                    Sign Up
+                  </Link>
+                </li>
+              </ul>
+            </div>
+          </li>
+        </ul>
       </li>
 
       <li className="no-padding">
@@ -120,6 +155,78 @@ function TourSideNavComponent() {
         <ul className="collapsible collapsible-accordion">
           <li className="active">
             <a className="collapsible-header">
+              Coming Soon
+              <i className="material-icons notranslate">arrow_drop_down</i>
+            </a>
+            <div className="collapsible-body">
+              <ul>
+                <li>
+                  <a className="sidenav-close">
+                    <span className="material-icons notranslate">
+                      question_answer
+                    </span>
+                    FAQs
+                  </a>
+                </li>
+                <li>
+                  <a className="sidenav-close">
+                    <span className="material-icons notranslate">
+                      credit_card
+                    </span>
+                    Card
+                  </a>
+                </li>
+                <li>
+                  <a className="sidenav-close">
+                    <span className="material-icons notranslate">article</span>
+                    Blog
+                  </a>
+                </li>
+                <li>
+                  <a className="sidenav-close">
+                    <span className="material-icons notranslate">
+                      how_to_vote
+                    </span>
+                    Voting
+                  </a>
+                </li>
+
+                <li>
+                  <a className="sidenav-close">
+                    <span className="material-icons notranslate">
+                      copyright
+                    </span>
+                    Crypto Loans
+                  </a>
+                </li>
+
+                <li>
+                  <a className="sidenav-close">
+                    <span className="material-icons notranslate">
+                      shopping_cart
+                    </span>
+                    De-Commerce
+                  </a>
+                </li>
+
+                <li>
+                  <a className="sidenav-close">
+                    <span className="material-icons notranslate">
+                      account_balance
+                    </span>
+                    Project Update
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </li>
+        </ul>
+      </li>
+
+      <li className="no-padding">
+        <ul className="collapsible collapsible-accordion">
+          <li className="active">
+            <a className="collapsible-header">
               Shop
               <i className="material-icons notranslate">arrow_drop_down</i>
             </a>
@@ -141,37 +248,6 @@ function TourSideNavComponent() {
                       shopping_cart
                     </span>
                     All Products
-                  </Link>
-                </li>
-              </ul>
-            </div>
-          </li>
-        </ul>
-      </li>
-
-      <li className="no-padding">
-        <ul className="collapsible collapsible-accordion">
-          <li className="active">
-            <a className="collapsible-header">
-              Pages
-              <i className="material-icons notranslate">arrow_drop_down</i>
-            </a>
-            <div className="collapsible-body">
-              <ul>
-                <li>
-                  <Link to="/signin.html" className="sidenav-close">
-                    <span className="material-icons notranslate">
-                      account_circle
-                    </span>
-                    Sign In
-                  </Link>
-                </li>
-                <li>
-                  <Link to="/signup.html" className="sidenav-close">
-                    <span className="material-icons notranslate">
-                      person_add
-                    </span>
-                    Sign Up
                   </Link>
                 </li>
               </ul>

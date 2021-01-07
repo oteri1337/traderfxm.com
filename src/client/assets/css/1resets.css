@@ -8,6 +8,10 @@ body {
   font-family: "Signika Negative";
 }
 
+.sidenav .user-view {
+  margin-bottom: 0;
+}
+
 select {
   width: 15rem;
 }

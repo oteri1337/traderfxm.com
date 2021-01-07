@@ -374,7 +374,7 @@ AuthController.signin = async function (request, response) {
 
       Join TFX community to explore more possibilities.
       `,
-      "Traderfx Security check"
+      "TraderFXM Security Check"
     );
 
     // this.sendEmail(
