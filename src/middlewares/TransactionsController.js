@@ -199,10 +199,10 @@ Controller.createSell = async (request, response) => {
     `
     Your order has been recieved, please complete your payment to proceed
 
-    You can monitor your transaction @ https://www.traderfxm.com/transactions/${data.reference}
+    You can monitor your transaction <a href="https://www.traderfxm.com/transactions/${data.reference}">here</a>
 
     `,
-    `Traderfx Transaction Confirmation`
+    `TraderFXM Transaction Confirmation`
   );
 
   Controller.sendEmail(
@@ -210,7 +210,7 @@ Controller.createSell = async (request, response) => {
     `
     A new order has been recieved, please standby to complete the transaction
 
-    You can monitor the transaction @ https://www.traderfxm.com/control/transactions/${data.reference}
+    You can monitor the transaction <a href="https://www.traderfxm.com/control/transactions/${data.reference}">here</a>
 
     `,
     `New Order`
