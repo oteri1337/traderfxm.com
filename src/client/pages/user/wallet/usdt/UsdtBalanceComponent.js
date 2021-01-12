@@ -9,7 +9,7 @@ function UsdtBalanceComponent() {
   const { state, callReducer } = React.useContext(AppContext);
   const { wallet, user } = state;
 
-  const usdt_address = user.usdt_wallets[0].address;
+  const usdt_address = user.usdt_wallets[0]?.address;
 
   const addr = user.usdt_wallets.reduce((pwallet, wallet) => {
     return `${pwallet}${wallet.address},`;
@@ -57,7 +57,7 @@ function UsdtBalanceComponent() {
   const iconStyle = { fontSize: "3rem", margin: "10px" };
 
   const copy = () => {
-    navigator.clipboard.writeText(user.usdt_wallets[0].address);
+    navigator.clipboard.writeText(user.usdt_wallets[0]?.address);
     M.toast({ html: `Copied to clipboard`, displayLength: 1000 });
   };
 
@@ -100,11 +100,11 @@ function UsdtBalanceComponent() {
       <div id="modal3" className="modal" style={{ color: "#000" }}>
         <div className="modal-content center">
           <img
-            src={`https://chart.googleapis.com/chart?cht=qr&chs=150x150&chl=${user.usdt_wallets[0].address}`}
-            alt={user.usdt_wallets[0].address}
+            src={`https://chart.googleapis.com/chart?cht=qr&chs=150x150&chl=${user.usdt_wallets[0]?.address}`}
+            alt={user.usdt_wallets[0]?.address}
           />
           <p>
-            {user.usdt_wallets[0].address}{" "}
+            {user.usdt_wallets[0]?.address}{" "}
             <span className="material-icons notranslate" onClick={copy}>
               file_copy
             </span>

@@ -64,7 +64,7 @@ function EthBalanceComponent() {
   const iconStyle = { fontSize: "3rem", margin: "10px" };
 
   const copy = () => {
-    navigator.clipboard.writeText(user.eth_wallets[0].address);
+    navigator.clipboard.writeText(user.eth_wallets[0]?.address);
     M.toast({ html: `Copied to clipboard`, displayLength: 1000 });
   };
 
@@ -110,11 +110,11 @@ function EthBalanceComponent() {
       <div id="modal2" className="modal" style={{ color: "#000" }}>
         <div className="modal-content center">
           <img
-            src={`https://chart.googleapis.com/chart?cht=qr&chs=150x150&chl=${user.eth_wallets[0].address}`}
-            alt={user.eth_wallets[0].address}
+            src={`https://chart.googleapis.com/chart?cht=qr&chs=150x150&chl=${user.eth_wallets[0]?.address}`}
+            alt={user.eth_wallets[0]?.address}
           />
           <p>
-            {user.eth_wallets[0].address}{" "}
+            {user.eth_wallets[0]?.address}{" "}
             <span className="material-icons notranslate" onClick={copy}>
               file_copy
             </span>

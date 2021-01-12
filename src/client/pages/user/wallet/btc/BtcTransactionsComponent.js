@@ -7,7 +7,7 @@ function BitcoinTransactionsComponent() {
   const { state } = React.useContext(AppContext);
   const { wallet, user } = state;
 
-  const btc_address = user.btc_wallets[0].address;
+  // const btc_address = user.btc_wallets[0]?.address;
   const list = { array: wallet.bitcoin.transactions };
 
   const callback = (props) => {

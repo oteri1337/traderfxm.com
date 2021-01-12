@@ -63,7 +63,7 @@ function BtcBalanceComponent() {
   const modal_class = "modal-close waves-effect waves-green btn-flat";
 
   const copy = () => {
-    navigator.clipboard.writeText(user.btc_wallets[0].address);
+    navigator.clipboard.writeText(user.btc_wallets[0]?.address);
     M.toast({ html: `Copied to clipboard`, displayLength: 1000 });
   };
 
@@ -105,11 +105,11 @@ function BtcBalanceComponent() {
       <div id="modal1" className="modal" style={{ color: "#000" }}>
         <div className="modal-content center">
           <img
-            src={`${chart_url}${user.btc_wallets[0].address}`}
-            alt={user.btc_wallets[0].address}
+            src={`${chart_url}${user.btc_wallets[0]?.address}`}
+            alt={user.btc_wallets[0]?.address}
           />
           <p>
-            {user.btc_wallets[0].address}{" "}
+            {user.btc_wallets[0]?.address}{" "}
             <span className="material-icons notranslate" onClick={copy}>
               file_copy
             </span>

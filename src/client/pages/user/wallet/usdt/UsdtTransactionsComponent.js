@@ -80,7 +80,7 @@ function UsdtTansactionsComponent() {
     );
   };
 
-  const empty = `No Transactions For ${user.usdt_wallets[0].address}`;
+  const empty = `No Transactions For ${user.usdt_wallets[0]?.address}`;
 
   return <ListComponent {...{ array, callback, empty }} />;
 }

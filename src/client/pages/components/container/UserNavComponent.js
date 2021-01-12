@@ -117,6 +117,34 @@ function TourNavComponent() {
               <Link to="/shop/products.html">All Products</Link>
             </li>
           </ul>
+          <li>
+            <a className="hover dropdown-trigger" data-target="soon">
+              Coming Soon
+            </a>
+          </li>
+          <ul id="soon" className="dropdown-content">
+            <li>
+              <a>FAQs</a>
+            </li>
+            <li>
+              <a>Card</a>
+            </li>
+            <li>
+              <a>Blog</a>
+            </li>
+            <li>
+              <a>Voting</a>
+            </li>
+            <li>
+              <a>De-Commerce</a>
+            </li>
+            <li>
+              <a>Crypto Loans</a>
+            </li>
+            <li>
+              <a>Project Update</a>
+            </li>
+          </ul>
           {renderUser()}
           <ThemeChangerNavComponent />
           <li>

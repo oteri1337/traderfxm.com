@@ -7,7 +7,7 @@ function EthereumTransactionsComponent() {
   const { state } = React.useContext(AppContext);
   const { user, wallet } = state;
 
-  const eth_address = user.eth_wallets[0].address;
+  const eth_address = user.eth_wallets[0]?.address;
   const list = { array: wallet.ethereum.transactions };
 
   const callback = (props) => {
