@@ -217,6 +217,15 @@ function TourSideNavComponent() {
                     Project Update
                   </a>
                 </li>
+
+                <li>
+                  <a className="sidenav-close">
+                    <span className="material-icons notranslate">
+                      data_usage
+                    </span>
+                    Tokenized Data Management
+                  </a>
+                </li>
               </ul>
             </div>
           </li>

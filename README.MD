@@ -1,28 +1,18 @@
 # TASKS
 
-dig traderfxm.com
+naira wallet beta testing message
 
-referral comission
+complete naira wallet
 
-naira wallet deposits
+check emails
 
-naira wallet withdraw to bank
+update ethereum xpub
 
-naira wallet withdraw to wallet
+update fluttewave api keys
 
-refactor verification
+check image upload bug
 
-check if email and phone number exits
-
-fix image upload bug
-
-shift twak widget up
-
-transaction tab on mobile
-
-reduce padding on mobile
-
-fix transaction read page title
+check transaction read page title
 
 # WALLET GENERATION
 

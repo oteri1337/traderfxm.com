@@ -178,6 +178,9 @@ function TourNavComponent() {
             <li>
               <a>Project Update</a>
             </li>
+            <li>
+              <a>Tokenized Data Management</a>
+            </li>
           </ul>
           {renderUser()}
           <ThemeChangerNavComponent />
