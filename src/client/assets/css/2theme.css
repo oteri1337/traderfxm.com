@@ -243,9 +243,9 @@ nav .brand-logo {
   color: var(--primary-font-colour);
 }
 
-.bg a {
+/* .bg a {
   color: var(--primary-font-colour);
-}
+} */
 
 .bg.bg-secondary {
   background-color: var(--secondary-background);

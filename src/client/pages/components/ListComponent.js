@@ -41,12 +41,16 @@ function ListComponent(props) {
       return <ListDefaultComponent {...props} key={props.id} />;
     };
 
-  const list_items = data.map(callback);
-
   const renderList = () => {
     if (props.style == "none") {
       return list_items;
     }
+
+    if (typeof data != "object") {
+      return null;
+    }
+
+    const list_items = data?.map(callback);
 
     return <ul className="collection">{list_items}</ul>;
   };

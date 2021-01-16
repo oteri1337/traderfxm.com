@@ -13,6 +13,9 @@ module.exports = {
         unique: true,
       },
       password: Sequelize.STRING,
+      pin: {
+        type: Sequelize.INTEGER,
+      },
       account_name: {
         type: Sequelize.STRING,
         allowNull: true,
@@ -43,9 +46,7 @@ module.exports = {
         type: Sequelize.STRING,
         defaultValue: "human.png",
       },
-      pin: {
-        type: Sequelize.INTEGER,
-      },
+
       phrase: {
         type: Sequelize.STRING,
       },

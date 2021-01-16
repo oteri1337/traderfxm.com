@@ -22,8 +22,6 @@ function UsdtBalanceComponent() {
       let response = await fetch(`/api/users/usdt/${addr}`);
       response = await response.json();
 
-      console.log("usdt ", response);
-
       const url = `https://api.etherscan.io/api?module=account&action=tokentx&address=${usdt_address}&startblock=0&endblock=999999999&sort=desc&apikey=QHC5B5ZS434HK6UFH26KS39DWG5E8RAT76`;
       let transResponse = await fetch(url);
       transResponse = await transResponse.json();

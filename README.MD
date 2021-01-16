@@ -1,7 +1,5 @@
 # TASKS
 
-naira wallet beta testing message
-
 complete naira wallet
 
 check emails

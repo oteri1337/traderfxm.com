@@ -1,4 +1,5 @@
 import React from "react";
+import DismissableComponent from "components/DismissableComponent";
 import BtcBalanceComponent from "./wallet/btc/BtcBalanceComponent";
 import EthBalanceComponent from "./wallet/eth/EthBalanceComponent";
 import UsdtBalanceComponent from "./wallet/usdt/UsdtBalanceComponent";
@@ -16,6 +17,18 @@ function UserHomePage() {
     <UserContainerComponent showFooter={false}>
       <div className="bg app-py-1">
         <div className="container">
+          <DismissableComponent>
+            <span>
+              Wallets are currently in{" "}
+              <a
+                href="https://en.wikipedia.org/wiki/Software_testing#Alpha_testing"
+                target="_blank"
+              >
+                beta testing mode
+              </a>
+              , please fund with only test coins.
+            </span>
+          </DismissableComponent>
           <div className="row">
             <div className="col l3 s12">
               <NairaBalanceComponent />
