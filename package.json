@@ -28,7 +28,7 @@
     "express-fileupload": "^1.1.10",
     "express-session": "^1.17.0",
     "faker": "^4.1.0",
-    "isomorphic-fetch": "^2.2.1",
+    "isomorphic-fetch": "^3.0.0",
     "materialize-css": "^1.0.0",
     "materialize-stepper": "^3.0.1",
     "moment": "^2.27.0",
