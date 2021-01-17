@@ -1,12 +1,12 @@
 # TASKS
 
-complete naira wallet
+complete naira wallet - funding flutter wave
+
+complete naira wallet - complete transaction admin
+
+complete naira wallet - reverse transaction admin
 
 check emails
-
-update ethereum xpub
-
-update fluttewave api keys
 
 check image upload bug
 
