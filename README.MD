@@ -12,6 +12,8 @@ check image upload bug
 
 check transaction read page title
 
+fix github issues
+
 # WALLET GENERATION
 
 https://iancoleman.io/bip39/#english
