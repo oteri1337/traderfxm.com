@@ -5,6 +5,18 @@ module.exports = (sequelize, DataTypes) => {
   const transaction = sequelize.define(
     "transaction",
     {
+      cryptoId: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+      },
+      path: {
+        type: DataTypes.INTEGER,
+        allowNull: true,
+      },
+      reference: {
+        type: DataTypes.STRING,
+        unique: true,
+      },
       status: {
         type: DataTypes.INTEGER,
         defaultValue: 1,
@@ -57,22 +69,11 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.FLOAT(11, 2),
         defaultValue: 0,
       },
-      reference: {
-        type: DataTypes.STRING,
-        unique: true,
-      },
       user_id: {
         type: DataTypes.INTEGER,
         allowNull: true,
       },
-      cryptoId: {
-        type: DataTypes.INTEGER,
-        allowNull: false,
-      },
-      path: {
-        type: DataTypes.INTEGER,
-        allowNull: true,
-      },
+
       month: {
         type: DataTypes.STRING,
         get() {

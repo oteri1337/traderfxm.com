@@ -8,6 +8,22 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER,
       },
+      reference: {
+        type: Sequelize.STRING,
+        unique: true,
+      },
+      cryptoId: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+      },
+      path: {
+        type: Sequelize.INTEGER,
+        allowNull: true,
+      },
+      address: {
+        type: Sequelize.STRING,
+        allowNull: false,
+      },
       status: {
         type: Sequelize.INTEGER,
         defaultValue: 1,
@@ -20,10 +36,7 @@ module.exports = {
         defaultValue: 0,
         type: Sequelize.FLOAT(11, 2),
       },
-      address: {
-        type: Sequelize.STRING,
-        allowNull: false,
-      },
+
       bank_name: {
         type: Sequelize.STRING,
         allowNull: true,
@@ -44,10 +57,6 @@ module.exports = {
         type: Sequelize.STRING,
         allowNull: true,
       },
-      reference: {
-        type: Sequelize.STRING,
-        unique: true,
-      },
       type: {
         type: Sequelize.INTEGER,
         allowNull: false,
@@ -63,14 +72,6 @@ module.exports = {
       amount_in_usd: {
         defaultValue: 0,
         type: Sequelize.FLOAT(11, 2),
-      },
-      cryptoId: {
-        type: Sequelize.INTEGER,
-        allowNull: false,
-      },
-      path: {
-        type: Sequelize.INTEGER,
-        allowNull: true,
       },
       user_id: {
         type: Sequelize.INTEGER,

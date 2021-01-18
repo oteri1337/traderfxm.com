@@ -20,6 +20,7 @@ app.use(
 );
 
 // Routes
+const XpubRouter = require("./routers/XpubRouter");
 const RatesRouter = require("./routers/RatesRouter");
 const UsersRouter = require("./routers/UsersRouter");
 const AdminsRouter = require("./routers/AdminsRouter");
@@ -30,6 +31,7 @@ const ParentgroupsRouter = require("./routers/ParentgroupsRouter");
 const TransactionsRouter = require("./routers/TransactionsRouter");
 const NairaTransactionsRouter = require("./routers/NairaTransactionsRouter");
 
+app.use("/api", XpubRouter);
 app.use("/api", UsersRouter);
 app.use("/api", RatesRouter);
 app.use("/api", OrdersRouter);

@@ -27,9 +27,9 @@ BitcoinController.validate = function (address) {
   return false;
 };
 
-BitcoinController.createPaymentAddress = function (path) {
+BitcoinController.createPaymentAddress = function (path, xpub) {
   const { publicKey } = bitcore
-    .HDPublicKey(process.env.BITCOIN_XPUB)
+    .HDPublicKey(xpub || process.env.BITCOIN_XPUB)
     .derive(0)
     .derive(path);
   const address = publicKey.toAddress().toString();

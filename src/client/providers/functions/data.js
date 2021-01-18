@@ -52,7 +52,6 @@ export const formatTransaction = function (data) {
   }
 
   delete newData.id;
-  delete newData.path;
   delete newData.user_id;
   delete newData.cryptoId;
   return newData;

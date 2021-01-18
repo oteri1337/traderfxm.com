@@ -8,7 +8,7 @@ module.exports = {
       "admins",
       [
         {
-          email: "info@traderfxm.com",
+          email: "cpaneltfx@gmail.com",
           password: crypto
             .createHash("md5")
             .update("adminpassword")

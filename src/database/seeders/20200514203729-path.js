@@ -6,7 +6,7 @@ module.exports = {
       "paths",
       [
         {
-          last_path: 44,
+          last_path: 1,
           cryptoId: 1,
           createdAt: new Date(),
           updatedAt: new Date(),

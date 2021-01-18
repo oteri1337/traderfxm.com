@@ -79,7 +79,7 @@ class Footer extends React.Component {
               </p>
 
               <span className="material-icons notranslate">location_on</span>
-              <span>98 Green Road, Farmgate, Bitcoin Estate, Nigeria.</span>
+              <span>Nigeria.</span>
             </div>
           </div>
         </div>

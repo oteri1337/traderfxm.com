@@ -26,8 +26,8 @@ EthereumController.validate = function (address) {
   return data;
 };
 
-EthereumController.createPaymentAddress = function (path) {
-  let instance = hdkey.fromExtendedKey(process.env.ETHEREUM_XPUB);
+EthereumController.createPaymentAddress = function (path, xpub) {
+  let instance = hdkey.fromExtendedKey(xpub || process.env.ETHEREUM_XPUB);
   instance = instance.deriveChild(0).deriveChild(path);
   return "0x" + instance.getWallet().getAddress().toString("hex");
 };

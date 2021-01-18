@@ -1,5 +1,7 @@
 # TASKS
 
+xpub analyzer
+
 complete naira wallet - funding flutter wave
 
 complete naira wallet - complete transaction admin
