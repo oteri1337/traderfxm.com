@@ -21,7 +21,7 @@ Controller.bitcoin = async (request, response) => {
 };
 
 Controller.ethereum = async (request, response) => {
-  const { xpub, path } = request.params;
+  let { xpub, path } = request.params;
   path = parseInt(path);
 
   let data = "";
