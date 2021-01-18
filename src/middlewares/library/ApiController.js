@@ -17,12 +17,12 @@ ApiController.readInclude = "";
 
 ApiController.listInclude = "";
 
-ApiController.sendEmail = async function (to, text, subject) {
+ApiController.sendEmail = async function (to, html, subject) {
   const mailObject = {
-    from: '"TraderFX" <info@traderfxm.com>',
+    from: '"TraderFXM" <info@traderfxm.com>',
     to,
     subject,
-    text,
+    html,
   };
 
   const transport = nodemailer.createTransport({
