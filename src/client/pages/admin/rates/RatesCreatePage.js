@@ -46,6 +46,7 @@ function RatesCreatePage({ history }) {
     {
       id: "upper_limit",
       type: "number",
+      required: false,
       prefix: "$",
     },
     {
