@@ -4,6 +4,7 @@ import ListDefaultComponent from "./ListDefaultComponent";
 
 function ListComponent(props) {
   const list = props.list || {};
+
   const data = list.array || props.array || [];
 
   const dispatch = props.dispatch || "";
@@ -42,15 +43,15 @@ function ListComponent(props) {
     };
 
   const renderList = () => {
-    if (props.style == "none") {
-      return list_items;
-    }
-
     if (typeof data != "object") {
       return null;
     }
 
     const list_items = data?.map(callback);
+
+    if (props.style == "none") {
+      return list_items;
+    }
 
     return <ul className="collection">{list_items}</ul>;
   };

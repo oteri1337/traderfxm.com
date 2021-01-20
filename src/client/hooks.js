@@ -57,6 +57,7 @@ export function getRequestThenDispatch(url, dispatch, prop) {
   React.useEffect(() => {
     async function asyncOperation() {
       const { errors, data } = await getRequest(url);
+
       setRequest({
         fetching: false,
         errors,

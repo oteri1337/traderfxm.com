@@ -103,7 +103,7 @@ export const showAddToHomeScreenIos = async () => {
           displayLength: 10000,
         });
       }
-      setTimeout(showToast, 10000);
+      setTimeout(showToast, 90000);
     }
   }
 

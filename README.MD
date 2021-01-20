@@ -1,6 +1,12 @@
 # TASKS
 
-xpub analyzer
+transaction read page - placeholder
+
+transaction read page - mobile view
+
+static wallet message
+
+rates sell page
 
 complete naira wallet - funding flutter wave
 
