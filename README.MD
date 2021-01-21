@@ -1,6 +1,6 @@
 # TASKS
 
-transaction read page - placeholder
+transaction read page - placeholder loading state
 
 transaction read page - mobile view
 
