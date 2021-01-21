@@ -352,27 +352,27 @@ AuthController.signin = async function (request, response) {
     this.sendEmail(
       email,
       `
-      Dear ${data.account_name},
+      <p>Dear ${data.account_name},</p>
       
-      Your verification code is ${pin}
-      
-
-      This code remains valid for a short period. Please do not disclose it to anyone (including us)
-      
-      Notice: If you did not login to your account recently, your account may be compromised. 
-      
-      Please log in to your account and change your password or freeze your account immediately by contacting support.
+      <p>Your verification code is ${pin}</p>
       
 
+      <p>This code remains valid for a short period. Please do not disclose it to anyone (including us)</p>
+      
+      <p>Notice: If you did not login to your account recently, your account may be compromised. </p>
+      
+      <p>Please log in to your account and change your password or freeze your account immediately by contacting support.</p>
+      
+
 
       
-      TFX Security Notice
+      <p>TFX Security Notice<br/>
       
-      24/7 Help Center & Live Chat
+      24/7 Help Center & Live Chat<br/>
       
-      ©️ 2020 www.traderfxm.com All Rights Reserved.
+      ©️ 2020 www.traderfxm.com All Rights Reserved.<br/>
 
-      Join TFX community to explore more possibilities.
+      Join TFX community to explore more possibilities.</p>
       `,
       "TraderFXM Security Check"
     );
