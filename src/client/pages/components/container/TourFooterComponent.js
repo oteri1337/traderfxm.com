@@ -69,6 +69,11 @@ class Footer extends React.Component {
 
             <div className="col l6 s12 app-desktop-right">
               <p>
+                <span className="material-icons notranslate">location_on</span>
+                Nigeria{" "}
+              </p>
+
+              <p>
                 <span className="material-icons notranslate">phone</span> +234
                 812 906 6060
               </p>
@@ -77,9 +82,6 @@ class Footer extends React.Component {
                 <span className="material-icons notranslate">mail</span>{" "}
                 {MAIL_NAME}
               </p>
-
-              <span className="material-icons notranslate">location_on</span>
-              <span>Nigeria.</span>
             </div>
           </div>
         </div>

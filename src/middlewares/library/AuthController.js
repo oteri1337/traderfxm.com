@@ -354,7 +354,7 @@ AuthController.signin = async function (request, response) {
       `
       <p>Dear ${data.account_name},</p>
       
-      <p>Your verification code is ${pin}</p>
+      <p>Your verification code is <b>${pin}</b></p>
       
 
       <p>This code remains valid for a short period. Please do not disclose it to anyone (including us)</p>

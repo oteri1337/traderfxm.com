@@ -4,6 +4,8 @@ import { sendRequestThenDispatch } from "hooks";
 import SpinnerComponent from "components/SpinnerComponent";
 
 function OrderPayComponent({ rawData }) {
+  console.log(PUBLIC_KEY);
+
   const { request, callBack } = sendRequestThenDispatch();
 
   const confirmPayment = async (body) => {

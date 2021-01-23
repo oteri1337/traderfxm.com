@@ -17,8 +17,7 @@ function TourServicesComponent() {
               <div className="app-flex-1">
                 <i
                   className="flaticon-people alt-color"
-                  style={{ fontSize: "48px" }}
-                ></i>
+                  style={{ fontSize: "48px" }}></i>
               </div>
               <div className="app-flex-3">
                 <a className="alt-color app-bold">Support 24/7</a>
@@ -34,8 +33,7 @@ function TourServicesComponent() {
               <div className="app-flex-1">
                 <i
                   className="flaticon-bitcoin alt-color"
-                  style={{ fontSize: "48px" }}
-                ></i>
+                  style={{ fontSize: "48px" }}></i>
               </div>
               <div className="app-flex-3">
                 <a className="alt-color app-bold">Live Exchange Rates</a>
@@ -51,8 +49,7 @@ function TourServicesComponent() {
               <div className="app-flex-1">
                 <i
                   className="flaticon-credit-card alt-color"
-                  style={{ fontSize: "48px" }}
-                ></i>
+                  style={{ fontSize: "48px" }}></i>
               </div>
               <div className="app-flex-3">
                 <a className="alt-color app-bold">Payment Methods</a>
@@ -69,8 +66,7 @@ function TourServicesComponent() {
               <div className="app-flex-1">
                 <i
                   className="flaticon-secure-shield alt-color"
-                  style={{ fontSize: "48px" }}
-                ></i>
+                  style={{ fontSize: "48px" }}></i>
               </div>
               <div className="app-flex-3">
                 <a className="alt-color app-bold">Secured Wallet</a>
@@ -86,8 +82,7 @@ function TourServicesComponent() {
               <div className="app-flex-1">
                 <i
                   className="flaticon-bitcoin-1 alt-color"
-                  style={{ fontSize: "48px" }}
-                ></i>
+                  style={{ fontSize: "48px" }}></i>
               </div>
               <div className="app-flex-3">
                 <a className="alt-color app-bold">Data Protection</a>
@@ -103,15 +98,11 @@ function TourServicesComponent() {
               <div className="app-flex-1">
                 <i
                   className="flaticon-money-2 alt-color"
-                  style={{ fontSize: "48px" }}
-                ></i>
+                  style={{ fontSize: "48px" }}></i>
               </div>
               <div className="app-flex-3">
                 <a className="alt-color app-bold">Registered Company</a>
-                <p>
-                  We are registered with the Nigerian Corporate Affairs
-                  Commision
-                </p>
+                <p>We are a registered company with RC Number: 3126939</p>
               </div>
             </div>
           </div>
