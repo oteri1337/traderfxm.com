@@ -1,7 +1,7 @@
 import React from "react";
 import ContainerComponent from "components/container/TourContainerComponent";
 
-function ServicesPage() {
+function TermsPage() {
   const nav = [
     {
       label: "Home",
@@ -231,4 +231,4 @@ function ServicesPage() {
   );
 }
 
-export default ServicesPage;
+export default TermsPage;

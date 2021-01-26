@@ -51,14 +51,11 @@ class Footer extends React.Component {
               <div>
                 <ul>
                   <b>TraderFXM</b>
-                  {/* <li>
-                    <Link to="/signup.html">Create Account</Link>
-                  </li> */}
                   <li>
-                    <Link to="/shop/products.html">TraderFXM Shop</Link>
+                    <Link to="/about.html">About Us</Link>
                   </li>
                   <li>
-                    <Link to="/signin.html">TraderFXM Login</Link>
+                    <Link to="/shop/products.html">TraderFXM Shop</Link>
                   </li>
                   <li>
                     <Link to="/terms.html">Terms of Service</Link>

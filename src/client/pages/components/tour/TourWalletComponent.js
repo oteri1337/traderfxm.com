@@ -10,7 +10,7 @@ function TourWalletComponent() {
         </h2>
         <p className="wow fadeInUp slow">
           Buy, Sell, Send, and Recieve Bitcoin, Ethereum and Tether (USDT) with
-          your Traderfx Wallet.
+          your TraderFXM Wallet.
         </p>
         <br />
         <br />
