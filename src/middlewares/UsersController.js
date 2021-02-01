@@ -84,13 +84,13 @@ Controller.createBody = function (body) {
 
   this.sendEmail(
     body.email,
-    `Welcome to TraderFX
+    `<p>Welcome to TraderFXM</p>
     
-    Thank you for choosing us. We look forward to the opportunity to prove you have made the best decision for your trading activities. You now join the ranks of over thousand traders worldwide who use our services to make their trades more flexible and efficient. 
+    <p>Thank you for choosing us. We look forward to the opportunity to prove you have made the best decision for your trading activities. You now join the ranks of over thousand traders worldwide who use our services to make their trades more flexible and efficient.</p>
     
-    As a new member, we hope you'll use and invite to earn with close friends and acquaintances - sharing your recommendations, and moments of inspiration.
+    <p>As a new member, we hope you'll use and invite to earn with close friends and acquaintances - sharing your recommendations, and moments of inspiration.</p>
   `,
-    "Welcome to TraderFX"
+    "Welcome to TraderFXM"
   );
 
   return {
