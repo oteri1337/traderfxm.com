@@ -10,6 +10,7 @@ import HomePage from "../pages/tour/HomePage";
 import TermsPage from "../pages/tour/TermsPage";
 import ErrorPage from "../pages/tour/ErrorPage";
 import AboutPage from "../pages/tour/AboutPage";
+import StatusPage from "../pages/tour/StatusPage";
 
 import ExchangeBuyPage from "../pages/transactions/TransactionsBuyPage";
 import ExchangeSellPage from "../pages/transactions/TransactionsSellPage";
@@ -110,6 +111,7 @@ function Routes() {
         <Route exact path="/index.html" component={HomePage} />
         <Route exact path="/terms.html" component={TermsPage} />
         <Route exact path="/about.html" component={AboutPage} />
+        <Route exact path="/status.html" component={StatusPage} />
 
         <Route exact path="/transactions/buy.html" component={ExchangeBuyPage}/>
         <Route exact path="/transactions/sell.html" component={ExchangeSellPage} />

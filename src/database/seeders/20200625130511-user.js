@@ -6,7 +6,7 @@ module.exports = {
   up: (queryInterface, Sequelize) => {
     let data = [];
 
-    for (let i = 1; i < 2; i++) {
+    for (let i = 1; i < 25; i++) {
       const newRecord = {
         user_id: 3,
         createdAt: new Date(),

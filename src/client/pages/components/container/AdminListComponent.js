@@ -12,11 +12,7 @@ function AdminListComponent(props) {
 
   const { state } = getRequestThenDispatch(endpoint, dispatch);
 
-  // console.log(state.users.object[1]);
-
   const list = state[props.list] || [];
-
-  console.log("list", list);
 
   const nav = props.nav || [];
   const to = props.to || false;

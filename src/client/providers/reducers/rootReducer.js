@@ -20,6 +20,8 @@ function rootReducer(state = {}, action) {
     }
   }
 
+  console.log(action);
+
   return {
     cart: cartReducer(state?.cart, action),
     user: userReducer(state?.user, action),

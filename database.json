@@ -3,7 +3,7 @@
     "dialect": "mysql",
     "username": "root",
     "host": "127.0.0.1",
-    "database": "traderfxmlive",
+    "database": "traderfxm",
     "password": "mysqlpassword"
   },
   "production": {
