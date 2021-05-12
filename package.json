@@ -33,7 +33,7 @@
     "materialize-stepper": "^3.0.1",
     "moment": "^2.27.0",
     "mysql2": "^2.1.0",
-    "nodemailer": "^6.4.6",
+    "nodemailer": "^6.4.16",
     "pg": "7.4.3",
     "pg-hstore": "^2.3.3",
     "react": "^16.8.6",
